@@ -6,7 +6,8 @@ test("login renderiza y se captura", async ({ page }) => {
   await page.screenshot({ path: "e2e/__screenshots__/login.png", fullPage: true });
 });
 
-test("ruta protegida redirige a login sin sesión", async ({ page }) => {
+test("home pública renderiza sin redirigir a login", async ({ page }) => {
   await page.goto("/");
-  await expect(page).toHaveURL(/\/login/);
+  await expect(page).toHaveURL("/");
+  await expect(page.getByRole("heading", { level: 1 }).first()).toBeVisible();
 });

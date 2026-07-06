@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
-import { Search, Clock, ArrowUpRight } from "lucide-react";
+import { Search, Clock, ArrowUpRight, Plus } from "lucide-react";
 import type { TemaGroup } from "@/lib/campus-kb";
 
 export function KbBrowser({ temas }: { temas: TemaGroup[] }) {
@@ -30,9 +30,18 @@ export function KbBrowser({ temas }: { temas: TemaGroup[] }) {
     <div className="mx-auto max-w-5xl px-5 pb-24 pt-12 sm:px-8 sm:pt-16">
       {/* Encabezado */}
       <header className="kb-fade">
-        <p className="text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-accent">
-          Campus ORVE
-        </p>
+        <div className="flex items-start justify-between gap-4">
+          <p className="text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-accent">
+            Campus ORVE
+          </p>
+          <Link
+            href="/campus/agregar"
+            className="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-accent px-3.5 py-1.5 text-[0.82rem] font-semibold text-primary-foreground transition-[background-color,transform] hover:bg-accent-soft active:translate-y-px"
+          >
+            <Plus className="size-3.5" />
+            Agregar video
+          </Link>
+        </div>
         <h1 className="mt-2.5 font-serif text-[2.4rem] leading-[1.05] tracking-tight text-ink sm:text-[3rem]">
           Base de conocimientos
         </h1>

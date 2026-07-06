@@ -14,6 +14,9 @@ const schema = z.object({
   // Gate de la base de conocimientos privada /campus. Opcional: sin valor, /campus
   // no deja entrar a nadie (el proxy redirige siempre a /campus/acceso).
   KB_PASSWORD: z.string().optional(),
+  // Token de GitHub para commitear fichas nuevas de /campus al repo. Opcional en
+  // build: solo se usa en runtime dentro del handler de guardar.
+  GITHUB_TOKEN: z.string().optional(),
 });
 
 let cached: z.infer<typeof schema> | undefined;

@@ -19,43 +19,43 @@ interface MosaicPhoto {
 // como chip para leerse como "hay opciones en distintas zonas".
 const PHOTOS: MosaicPhoto[] = [
   {
-    src: "/hero/merida-plaza-grande.webp",
-    alt: "Vista aérea del centro histórico de Mérida, Yucatán",
+    src: "/hero/ccm-foodtrucks.webp",
+    alt: "Zona comercial de un desarrollo en el norte de Mérida",
     label: "Mérida",
-    restClassName: "top-[7%] left-[3%] w-[26vw] min-w-[220px] aspect-[4/3]",
-    from: { x: -340, y: 90 },
-    enter: [0.15, 0.45],
-    rotateFrom: -9,
-    rotateTo: -4,
-  },
-  {
-    src: "/hero/cenote.webp",
-    alt: "Cenote en la selva de Yucatán",
-    label: "Cenotes",
-    restClassName: "bottom-[9%] left-[10%] w-[19vw] min-w-[160px] aspect-[4/5]",
-    from: { x: -160, y: 260 },
-    enter: [0.25, 0.55],
-    rotateFrom: 7,
-    rotateTo: 3,
+    restClassName: "top-[8%] left-[4%] w-[24vw] min-w-[200px] aspect-[4/3]",
+    from: { x: -300, y: 60 },
+    enter: [0.08, 0.32],
+    rotateFrom: -6,
+    rotateTo: -3,
   },
   {
     src: "/hero/xook-spa-xenotikal.webp",
     alt: "Casa club de un desarrollo residencial en la selva de Yucatán",
     label: "Selva",
-    restClassName: "top-[10%] right-[5%] w-[23vw] min-w-[200px] aspect-[16/11]",
-    from: { x: 320, y: -80 },
-    enter: [0.35, 0.65],
-    rotateFrom: 8,
-    rotateTo: 5,
+    restClassName: "bottom-[10%] left-[8%] w-[19vw] min-w-[160px] aspect-[4/5]",
+    from: { x: -160, y: 220 },
+    enter: [0.16, 0.4],
+    rotateFrom: 5,
+    rotateTo: 2,
   },
   {
-    src: "/hero/familia-playa.webp",
-    alt: "Playa en la costa de Yucatán",
+    src: "/hero/progreso-aereo.webp",
+    alt: "Vista aérea de la costa de Progreso, Yucatán",
     label: "Costa",
-    restClassName: "bottom-[12%] right-[7%] w-[17vw] min-w-[150px] aspect-[3/4]",
-    from: { x: 220, y: 240 },
-    enter: [0.45, 0.75],
-    rotateFrom: -6,
+    restClassName: "top-[11%] right-[5%] w-[23vw] min-w-[190px] aspect-[16/10]",
+    from: { x: 300, y: -60 },
+    enter: [0.24, 0.48],
+    rotateFrom: 6,
+    rotateTo: 3,
+  },
+  {
+    src: "/hero/ukana-pdc-gym.webp",
+    alt: "Amenidad de un desarrollo de departamentos en el Caribe",
+    label: "Caribe",
+    restClassName: "bottom-[13%] right-[7%] w-[18vw] min-w-[150px] aspect-[3/4]",
+    from: { x: 220, y: 200 },
+    enter: [0.32, 0.56],
+    rotateFrom: -5,
     rotateTo: -2,
   },
 ];
@@ -75,10 +75,13 @@ function MosaicPhotoItem({
   photo: MosaicPhoto;
   scrollYProgress: import("motion/react").MotionValue<number>;
 }) {
-  const x = useTransform(scrollYProgress, photo.enter, [photo.from.x, 0]);
-  const y = useTransform(scrollYProgress, photo.enter, [photo.from.y, 0]);
-  const opacity = useTransform(scrollYProgress, [photo.enter[0], photo.enter[0] + 0.12], [0, 1]);
-  const rotate = useTransform(scrollYProgress, photo.enter, [photo.rotateFrom, photo.rotateTo]);
+  // clamp: sin él, useTransform extrapola fuera del rango y las fotos se pasan de su
+  // posición de reposo (se veían "desordenadas / aparecen y desaparecen"). Con clamp
+  // entran una vez y se quedan en la composición.
+  const x = useTransform(scrollYProgress, photo.enter, [photo.from.x, 0], { clamp: true });
+  const y = useTransform(scrollYProgress, photo.enter, [photo.from.y, 0], { clamp: true });
+  const opacity = useTransform(scrollYProgress, [photo.enter[0], photo.enter[0] + 0.12], [0, 1], { clamp: true });
+  const rotate = useTransform(scrollYProgress, photo.enter, [photo.rotateFrom, photo.rotateTo], { clamp: true });
 
   return (
     <motion.div
@@ -98,8 +101,8 @@ export function Mosaic({ heroSrc, heroAlt }: { heroSrc: string; heroAlt: string 
   const reduceMotion = useReducedMotion();
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end end"] });
 
-  const heroScale = useTransform(scrollYProgress, [0, 0.35], [1, 0.56]);
-  const heroRadius = useTransform(scrollYProgress, [0, 0.35], [0, 20]);
+  const heroScale = useTransform(scrollYProgress, [0, 0.3], [1, 0.58], { clamp: true });
+  const heroRadius = useTransform(scrollYProgress, [0, 0.3], [0, 20], { clamp: true });
 
   if (reduceMotion) {
     return (
@@ -120,7 +123,7 @@ export function Mosaic({ heroSrc, heroAlt }: { heroSrc: string; heroAlt: string 
   }
 
   return (
-    <section ref={ref} className="relative h-[280vh] bg-canvas">
+    <section ref={ref} className="relative h-[220vh] bg-canvas">
       <div className="sticky top-0 h-[100dvh] overflow-hidden">
         <motion.div
           style={{ scale: heroScale, borderRadius: heroRadius }}

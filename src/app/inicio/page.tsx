@@ -18,8 +18,8 @@ const VALUE_PROPS = [
   },
   {
     icon: FileCheck2,
-    title: "Papeles en regla",
-    body: "Cada desarrollo del catálogo cuenta con permisos municipales y estatales y propiedad legal de los terrenos, documentación que revisas antes de firmar.",
+    title: "Certeza legal",
+    body: "Cada desarrollo del catálogo cuenta con permisos municipales y estatales y propiedad legal de los terrenos, documentación disponible para revisión antes de firmar.",
   },
   {
     icon: Droplets,
@@ -91,8 +91,8 @@ export default function ChukumHome() {
                   Tu casa, terreno o departamento en la península de Yucatán
                 </h1>
                 <p className="mt-4 max-w-xl text-base leading-relaxed text-crema/85">
-                  Hay muchos desarrollos y es fácil perderse. Contesta unas preguntas y ves las que
-                  van contigo.
+                  Hay muchos desarrollos en Yucatán y Quintana Roo. El cuestionario muestra los que
+                  corresponden a lo que buscas.
                 </p>
               </div>
               <div className="flex shrink-0 flex-col gap-3 sm:flex-row md:pb-1">
@@ -124,15 +124,15 @@ export default function ChukumHome() {
           </p>
         </div>
       </section>
-      <Mosaic heroSrc="/hero/familia-playa-wide.webp" heroAlt="Playa en la costa de Yucatán" />
+      <Mosaic heroSrc="/hero/pareja-terraza.webp" heroAlt="Pareja joven en la terraza de su hogar al atardecer en Yucatán" />
 
       {/* 3 — Quiz (núcleo del funnel) */}
       <section id="quiz" className="scroll-mt-20 bg-canvas px-5 py-20 md:px-10 md:py-28">
         <div className="mx-auto max-w-[1400px]">
-          <SectionHead index="03" eyebrow="El test" title="Contesta unas preguntas y ves las que van contigo" />
+          <SectionHead index="03" eyebrow="Cuestionario" title="Encuentra el desarrollo que corresponde a tu perfil" />
           <p className="mt-4 max-w-xl text-ink-2">
-            Son cuatro preguntas: zona, tipo de propiedad y en qué etapa está. Si algo te interesa,
-            me dejas tus datos y seguimos por WhatsApp.
+            Cuatro preguntas sobre zona, tipo de propiedad y etapa. Al final se pueden dejar los datos
+            para recibir disponibilidad y precios.
           </p>
           <div className="mt-10 rounded-3xl border border-hairline bg-surface p-6 md:p-10">
             <Quiz />
@@ -143,7 +143,7 @@ export default function ChukumHome() {
       {/* 3 — Desarrollos (grid asimétrico: Xo'ok destacado + 4) */}
       <section id="desarrollos" className="scroll-mt-20 bg-canvas px-5 pb-20 md:px-10 md:pb-28">
         <Reveal>
-          <SectionHead index="04" eyebrow="Catálogo" title="Los desarrollos que manejo" />
+          <SectionHead index="04" eyebrow="Catálogo" title="Desarrollos disponibles" />
         </Reveal>
 
         <div className="mt-10 flex flex-col gap-5">
@@ -159,7 +159,7 @@ export default function ChukumHome() {
       <section id="por-que" className="chukum-grain scroll-mt-20 bg-espresso px-5 py-24 text-crema md:px-10 md:py-32">
         <div className="mx-auto max-w-[1400px]">
           <Reveal>
-            <SectionHead index="05" eyebrow="Por qué aquí" title="Seguridad, papeles en regla y agua" dark />
+            <SectionHead index="05" eyebrow="Por qué aquí" title="Seguridad, certeza legal y riqueza hídrica" dark />
           </Reveal>
           <div className="mt-14 grid gap-10 md:grid-cols-3 md:gap-8">
             {VALUE_PROPS.map((v) => {
@@ -184,11 +184,11 @@ export default function ChukumHome() {
       <section className="bg-canvas px-5 py-24 md:px-10 md:py-28">
         <div className="mx-auto max-w-[1400px]">
           <Reveal>
-            <SectionHead index="06" eyebrow="Respaldo" title="Esto ya está entregado y funcionando" />
+            <SectionHead index="06" eyebrow="Respaldo" title="Comunidades entregadas y en operación" />
             <p className="mt-4 max-w-2xl leading-relaxed text-ink-2">
-              Los desarrollos que te muestro son de una constructora que ya tiene comunidades enteras
-              entregadas y en operación en Yucatán y Quintana Roo. Estos números son de proyectos que
-              ya funcionan.
+              Los desarrollos del catálogo pertenecen a una constructora con comunidades planeadas ya
+              entregadas y en operación en Yucatán y Quintana Roo. Las cifras corresponden a proyectos
+              en funcionamiento.
             </p>
           </Reveal>
           <div className="mt-12 grid grid-cols-1 gap-px overflow-hidden rounded-3xl border border-hairline bg-hairline sm:grid-cols-3">
@@ -204,10 +204,10 @@ export default function ChukumHome() {
         <div className="mx-auto grid max-w-[1400px] gap-12 md:grid-cols-2 md:gap-20">
           <Reveal>
             <div>
-              <SectionHead index="07" eyebrow="Contacto" title="Cuéntame qué buscas y te ayudo" />
+              <SectionHead index="07" eyebrow="Contacto" title="Disponibilidad y precios" />
               <p className="mt-4 max-w-md leading-relaxed text-ink-2">
-                Déjame tus datos o escríbeme por WhatsApp. Te paso disponibilidad y precios directo de
-                quien lo construye.
+                Deja tus datos o escribe por WhatsApp para recibir disponibilidad y precios directo del
+                desarrollador.
               </p>
               <a
                 href={waLink(WA_HERO)}
@@ -215,7 +215,7 @@ export default function ChukumHome() {
                 rel="noopener noreferrer"
                 className="mt-6 inline-flex items-center gap-2 rounded-full bg-cenote px-6 py-3 text-sm font-medium text-canvas transition hover:bg-cenote-deep"
               >
-                <MessageCircle className="h-4 w-4" /> Escríbeme por WhatsApp
+                <MessageCircle className="h-4 w-4" /> Escribir por WhatsApp
               </a>
             </div>
           </Reveal>
@@ -230,8 +230,8 @@ export default function ChukumHome() {
             <div>
               <p className="text-sm font-bold tracking-[0.3em] text-crema">CHUKUM</p>
               <p className="mt-3 max-w-sm text-sm leading-relaxed">
-                Casas, terrenos y departamentos en Yucatán y Quintana Roo. Te ayudo a encontrar el que va
-                contigo.
+                Casas, terrenos y departamentos en venta en Yucatán y Quintana Roo, con acompañamiento
+                en todo el proceso de compra.
               </p>
             </div>
             <nav className="flex flex-wrap gap-x-8 gap-y-2 text-sm">

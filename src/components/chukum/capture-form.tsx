@@ -14,7 +14,7 @@ type Props = {
 
 // Captura → POST /api/leads (el endpoint ya existe: Zod + rate-limit + dedupe + Resend).
 // Estilada con tokens .chukum (acento cenote). Estados: idle / sending / sent / error.
-export function CaptureForm({ context, developmentSlug, prefillMessage, cta = "Quiero que me contactes" }: Props) {
+export function CaptureForm({ context, developmentSlug, prefillMessage, cta = "Solicitar informes" }: Props) {
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -53,9 +53,9 @@ export function CaptureForm({ context, developmentSlug, prefillMessage, cta = "Q
         <span className="flex h-11 w-11 items-center justify-center rounded-full bg-cenote/12 text-cenote">
           <Check className="h-5 w-5" />
         </span>
-        <p className="font-display text-2xl tracking-[-0.02em]">Listo, te contacto pronto</p>
+        <p className="font-display text-2xl tracking-[-0.02em]">Solicitud recibida</p>
         <p className="text-ink-2">
-          Te escribo con disponibilidad y precios{context ? ` de ${context}` : ""}.
+          Un asesor te contactará con disponibilidad y precios{context ? ` de ${context}` : ""}.
         </p>
       </div>
     );
@@ -122,12 +122,12 @@ export function CaptureForm({ context, developmentSlug, prefillMessage, cta = "Q
 
       {status === "error" && (
         <p className="mt-3 text-center text-sm text-cenote-deep">
-          No se pudo enviar. Escríbeme por WhatsApp y lo vemos.
+          No se pudo enviar. Escribe por WhatsApp e inténtalo de nuevo.
         </p>
       )}
 
       <p className="mt-3 text-center text-xs text-ink-2">
-        Solo uso tus datos para contactarte.
+        Los datos solo se usan para contactarte.
       </p>
     </form>
   );

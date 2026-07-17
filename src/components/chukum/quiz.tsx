@@ -37,7 +37,7 @@ type Question = { key: keyof QuizAnswers; title: string; options: Option[] };
 const QUESTIONS: Question[] = [
   {
     key: "uso",
-    title: "¿Qué buscas?",
+    title: "¿Cuál es el objetivo?",
     options: [
       { value: "invertir", label: "Invertir", hint: "Plusvalía y renta", icon: TrendingUp },
       { value: "vivir", label: "Vivir aquí", hint: "Tu casa en la península", icon: Home },
@@ -64,7 +64,7 @@ const QUESTIONS: Question[] = [
   },
   {
     key: "etapa",
-    title: "¿En qué etapa te interesa?",
+    title: "¿En qué etapa?",
     options: [
       { value: "preventa", label: "Preventa", icon: Sprout },
       { value: "en_construccion", label: "En construcción", icon: Hammer },
@@ -182,7 +182,7 @@ function Result({ answers, onRestart }: { answers: QuizAnswers; onRestart: () =>
     <div>
       <p className="text-sm text-ink-2">Según lo que buscas: {resumen}.</p>
       <h3 className="mt-1 font-display text-3xl leading-[1.05] tracking-[-0.02em] md:text-4xl">
-        Esto va contigo
+        Desarrollos que corresponden a tu perfil
       </h3>
 
       <div className="mt-6 grid gap-4 sm:grid-cols-2">
@@ -193,13 +193,13 @@ function Result({ answers, onRestart }: { answers: QuizAnswers; onRestart: () =>
 
       <div className="mt-8">
         <p className="font-display text-xl tracking-[-0.01em]">
-          ¿Te interesa alguno? Déjame tus datos
+          Solicita disponibilidad y precios
         </p>
         <p className="mt-1 text-sm text-ink-2">
-          Te paso disponibilidad y precios por WhatsApp, sin compromiso.
+          Disponibilidad y precios directo del desarrollador, sin compromiso.
         </p>
         <div className="mt-4">
-          <CaptureForm context={matches[0]?.heading} developmentSlug={matches[0]?.slug} prefillMessage={prefill} cta="Quiero que me contactes" />
+          <CaptureForm context={matches[0]?.heading} developmentSlug={matches[0]?.slug} prefillMessage={prefill} cta="Solicitar informes" />
         </div>
       </div>
 
@@ -224,7 +224,7 @@ function ResultCard({ d, primary }: { d: Development; primary: boolean }) {
         <Image src={d.image} alt={d.alt} fill className="object-cover" sizes="(max-width:640px) 100vw, 50vw" />
         {primary && (
           <span className="absolute left-3 top-3 rounded-full bg-cenote px-3 py-1 text-xs font-medium text-canvas">
-            La que más va contigo
+            Mayor coincidencia
           </span>
         )}
       </div>

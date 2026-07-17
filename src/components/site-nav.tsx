@@ -43,7 +43,7 @@ export function SiteNav() {
       </nav>
 
       <Link href="#top" className="md:absolute md:left-1/2 md:-translate-x-1/2">
-        <span className="text-sm font-bold tracking-[0.3em]">ORVE</span>
+        <span className="text-sm font-bold tracking-[0.3em]">CHUKUM</span>
       </Link>
 
       <Link

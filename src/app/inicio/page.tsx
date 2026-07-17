@@ -115,7 +115,7 @@ export default function ChukumHome() {
       </section>
 
       {/* 2 — Abanico de opciones (animación de scroll) */}
-      <section className="bg-canvas px-5 pt-20 md:px-10 md:pt-28">
+      <section className="bg-canvas px-5 pt-20 pb-14 md:px-10 md:pt-28 md:pb-20">
         <div className="mx-auto max-w-[1400px]">
           <SectionHead index="02" eyebrow="Opciones" title="Terrenos, casas y departamentos en distintas zonas" />
           <p className="mt-4 max-w-xl text-ink-2">

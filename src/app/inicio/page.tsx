@@ -77,7 +77,7 @@ export default function ChukumHome() {
           <div className="max-w-3xl">
             <p className="text-sm uppercase tracking-[0.24em] text-crema/80">Yucatán · Quintana Roo</p>
             <h1 className="mt-4 font-display text-[12vw] leading-[0.98] tracking-[-0.02em] text-crema md:text-[5.5vw]">
-              Tu casa, terreno o departamento en Yucatán y el Caribe
+              Tu casa, terreno o departamento en la península de Yucatán
             </h1>
             <p className="mt-5 max-w-xl text-lg leading-relaxed text-crema/85">
               Hay muchos desarrollos y es fácil perderse. Contesta unas preguntas y ves las que van

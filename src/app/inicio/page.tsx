@@ -71,19 +71,26 @@ export default function ChukumHome() {
           <source src="/hero/hero.webm" type="video/webm" />
           <source src="/hero/hero.mp4" type="video/mp4" />
         </video>
-        <div className="absolute inset-x-0 top-0 h-44 bg-gradient-to-b from-espresso/60 to-transparent" />
-        <div className="absolute inset-x-0 bottom-0 h-3/4 bg-gradient-to-t from-espresso/90 via-espresso/45 to-transparent" />
-        <div className="relative z-10 w-full px-5 pb-20 md:px-10 md:pb-24">
-          <div className="max-w-3xl">
-            <p className="text-sm uppercase tracking-[0.24em] text-crema/80">Yucatán · Quintana Roo</p>
-            <h1 className="mt-4 font-display text-[12vw] leading-[0.98] tracking-[-0.02em] text-crema md:text-[5.5vw]">
+        {/* Solo un gradiente suave arriba para el nav: el video se queda brillante. */}
+        <div className="absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-espresso/45 to-transparent" />
+
+        {/* Panel de vidrio esmerilado (glass) bottom-left: legibilidad sin oscurecer
+            la imagen, look moderno. El kicker con índice es el hilo editorial. */}
+        <div className="relative z-10 flex h-full w-full items-end p-4 md:p-6">
+          <div className="w-full max-w-xl rounded-[28px] border border-crema/15 bg-espresso/40 p-6 shadow-[0_20px_60px_-20px_rgba(20,16,14,0.6)] backdrop-blur-xl md:p-9">
+            <div className="flex items-center gap-3 text-crema/85">
+              <span className="font-display text-base leading-none">01</span>
+              <span className="h-px w-10 bg-crema/40" />
+              <span className="text-xs uppercase tracking-[0.24em]">Península de Yucatán</span>
+            </div>
+            <h1 className="mt-5 font-display text-4xl leading-[1.0] tracking-[-0.02em] text-crema md:text-6xl">
               Tu casa, terreno o departamento en la península de Yucatán
             </h1>
-            <p className="mt-5 max-w-xl text-lg leading-relaxed text-crema/85">
+            <p className="mt-5 text-base leading-relaxed text-crema/85 md:text-lg">
               Hay muchos desarrollos y es fácil perderse. Contesta unas preguntas y ves las que van
               contigo.
             </p>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <div className="mt-7 flex flex-col gap-3 sm:flex-row">
               <a
                 href="#quiz"
                 className="inline-flex items-center justify-center gap-2 rounded-full bg-cenote px-7 py-3.5 text-sm font-medium text-canvas transition hover:bg-cenote-deep"
@@ -102,13 +109,10 @@ export default function ChukumHome() {
       </section>
 
       {/* 2 — Abanico de opciones (animación de scroll) */}
-      <section className="bg-canvas px-5 pt-20 text-center md:px-10 md:pt-28">
-        <div className="mx-auto max-w-2xl">
-          <p className="text-sm uppercase tracking-[0.2em] text-cenote">Opciones</p>
-          <h2 className="mt-3 font-display text-4xl leading-[1.05] tracking-[-0.02em] md:text-5xl">
-            Terrenos, casas y departamentos en distintas zonas
-          </h2>
-          <p className="mt-4 text-ink-2">
+      <section className="bg-canvas px-5 pt-20 md:px-10 md:pt-28">
+        <div className="mx-auto max-w-[1400px]">
+          <SectionHead index="02" eyebrow="Opciones" title="Terrenos, casas y departamentos en distintas zonas" />
+          <p className="mt-4 max-w-xl text-ink-2">
             Desde la selva y el norte de Mérida hasta la costa y el Caribe, en distintos presupuestos
             y etapas.
           </p>
@@ -118,28 +122,22 @@ export default function ChukumHome() {
 
       {/* 3 — Quiz (núcleo del funnel) */}
       <section id="quiz" className="scroll-mt-20 bg-canvas px-5 py-20 md:px-10 md:py-28">
-        <div className="mx-auto max-w-2xl text-center">
-          <p className="text-sm uppercase tracking-[0.2em] text-cenote">Test rápido</p>
-          <h2 className="mt-3 font-display text-4xl leading-[1.05] tracking-[-0.02em] md:text-5xl">
-            Contesta unas preguntas y ves las que van contigo
-          </h2>
-          <p className="mt-4 text-ink-2">
+        <div className="mx-auto max-w-[1400px]">
+          <SectionHead index="03" eyebrow="El test" title="Contesta unas preguntas y ves las que van contigo" />
+          <p className="mt-4 max-w-xl text-ink-2">
             Son cuatro preguntas: zona, tipo de propiedad y en qué etapa está. Si algo te interesa,
             me dejas tus datos y seguimos por WhatsApp.
           </p>
-        </div>
-        <div className="mt-10 rounded-3xl border border-hairline bg-surface p-6 md:p-10">
-          <Quiz />
+          <div className="mt-10 rounded-3xl border border-hairline bg-surface p-6 md:p-10">
+            <Quiz />
+          </div>
         </div>
       </section>
 
       {/* 3 — Desarrollos (grid asimétrico: Xo'ok destacado + 4) */}
       <section id="desarrollos" className="scroll-mt-20 bg-canvas px-5 pb-20 md:px-10 md:pb-28">
         <Reveal>
-          <p className="text-sm uppercase tracking-[0.2em] text-cenote">Lo que hay</p>
-          <h2 className="mt-3 max-w-2xl font-display text-4xl leading-[1.05] tracking-[-0.02em] md:text-5xl">
-            Los desarrollos que manejo
-          </h2>
+          <SectionHead index="04" eyebrow="Catálogo" title="Los desarrollos que manejo" />
         </Reveal>
 
         <div className="mt-10 flex flex-col gap-5">
@@ -155,10 +153,7 @@ export default function ChukumHome() {
       <section id="por-que" className="chukum-grain scroll-mt-20 bg-espresso px-5 py-24 text-crema md:px-10 md:py-32">
         <div className="mx-auto max-w-[1400px]">
           <Reveal>
-            <p className="text-sm uppercase tracking-[0.2em] text-crema/60">Por qué aquí</p>
-            <h2 className="mt-3 max-w-2xl font-display text-4xl leading-[1.05] tracking-[-0.02em] md:text-5xl">
-              Seguridad, papeles en regla y agua
-            </h2>
+            <SectionHead index="05" eyebrow="Por qué aquí" title="Seguridad, papeles en regla y agua" dark />
           </Reveal>
           <div className="mt-14 grid gap-10 md:grid-cols-3 md:gap-8">
             {VALUE_PROPS.map((v) => {
@@ -183,10 +178,7 @@ export default function ChukumHome() {
       <section className="bg-canvas px-5 py-24 md:px-10 md:py-28">
         <div className="mx-auto max-w-[1400px]">
           <Reveal>
-            <p className="text-sm uppercase tracking-[0.2em] text-cenote">Respaldo</p>
-            <h2 className="mt-3 max-w-2xl font-display text-4xl leading-[1.05] tracking-[-0.02em] md:text-5xl">
-              Esto ya está entregado y funcionando
-            </h2>
+            <SectionHead index="06" eyebrow="Respaldo" title="Esto ya está entregado y funcionando" />
             <p className="mt-4 max-w-2xl leading-relaxed text-ink-2">
               Los desarrollos que te muestro son de una constructora que ya tiene comunidades enteras
               entregadas y en operación en Yucatán y Quintana Roo. Estos números son de proyectos que
@@ -206,10 +198,7 @@ export default function ChukumHome() {
         <div className="mx-auto grid max-w-[1400px] gap-12 md:grid-cols-2 md:gap-20">
           <Reveal>
             <div>
-              <p className="text-sm uppercase tracking-[0.2em] text-cenote">Contacto</p>
-              <h2 className="mt-3 font-display text-4xl leading-[1.05] tracking-[-0.02em] md:text-5xl">
-                Cuéntame qué buscas y te ayudo
-              </h2>
+              <SectionHead index="07" eyebrow="Contacto" title="Cuéntame qué buscas y te ayudo" />
               <p className="mt-4 max-w-md leading-relaxed text-ink-2">
                 Déjame tus datos o escríbeme por WhatsApp. Te paso disponibilidad y precios directo de
                 quien lo construye.
@@ -253,6 +242,41 @@ export default function ChukumHome() {
         </div>
       </footer>
     </main>
+  );
+}
+
+// Encabezado editorial consistente: índice (hilo 01/02/03…) + hairline + eyebrow + título.
+// El mismo lenguaje del hero, repetido en cada sección para que el sitio se sienta uno.
+function SectionHead({
+  index,
+  eyebrow,
+  title,
+  dark = false,
+}: {
+  index: string;
+  eyebrow: string;
+  title: string;
+  dark?: boolean;
+}) {
+  return (
+    <div>
+      <div className="flex items-center gap-3">
+        <span className={`font-display text-base leading-none ${dark ? "text-crema/70" : "text-ink-2"}`}>
+          {index}
+        </span>
+        <span className={`h-px w-10 ${dark ? "bg-crema/30" : "bg-hairline"}`} />
+        <span className={`text-xs uppercase tracking-[0.24em] ${dark ? "text-crema/70" : "text-cenote"}`}>
+          {eyebrow}
+        </span>
+      </div>
+      <h2
+        className={`mt-4 max-w-2xl font-display text-4xl leading-[1.05] tracking-[-0.02em] md:text-5xl ${
+          dark ? "text-crema" : ""
+        }`}
+      >
+        {title}
+      </h2>
+    </div>
   );
 }
 

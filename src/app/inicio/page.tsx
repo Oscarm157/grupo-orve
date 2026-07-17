@@ -7,7 +7,7 @@ import { CaptureForm } from "@/components/chukum/capture-form";
 import { DEVELOPMENTS, TIPO_LABEL } from "@/lib/developments";
 import { BRAND, waLink, STATUS_LABEL } from "@/lib/site";
 
-const WA_HERO = "Hola, vengo del sitio de Chukum y quiero información de sus desarrollos.";
+const WA_HERO = "Hola, vi el sitio de Chukum y quiero que me pases info de casas, terrenos o departamentos.";
 
 const VALUE_PROPS = [
   {
@@ -17,7 +17,7 @@ const VALUE_PROPS = [
   },
   {
     icon: FileCheck2,
-    title: "Certeza legal",
+    title: "Papeles en regla",
     body: "Cada desarrollo del catálogo cuenta con permisos municipales y estatales y propiedad legal de los terrenos, documentación que revisas antes de firmar.",
   },
   {
@@ -79,11 +79,11 @@ export default function ChukumHome() {
           <div className="max-w-3xl">
             <p className="text-sm uppercase tracking-[0.24em] text-crema/80">Yucatán · Quintana Roo</p>
             <h1 className="mt-4 font-display text-[12vw] leading-[0.98] tracking-[-0.02em] text-crema md:text-[5.5vw]">
-              Invierte en desarrollos de Yucatán y el Caribe
+              Tu casa, terreno o departamento en Yucatán y el Caribe
             </h1>
             <p className="mt-5 max-w-xl text-lg leading-relaxed text-crema/85">
-              Terrenos, casas y departamentos que comercializo en la península. Responde 4 preguntas y te
-              digo cuál encaja contigo.
+              Hay muchos desarrollos y es fácil perderse. Contesta unas preguntas y te digo cuáles van
+              contigo.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <a
@@ -106,12 +106,13 @@ export default function ChukumHome() {
       {/* 2 — Quiz (núcleo del funnel) */}
       <section id="quiz" className="scroll-mt-20 bg-canvas px-5 py-20 md:px-10 md:py-28">
         <div className="mx-auto max-w-2xl text-center">
-          <p className="text-sm uppercase tracking-[0.2em] text-cenote">Encuentra tu desarrollo</p>
+          <p className="text-sm uppercase tracking-[0.2em] text-cenote">Test rápido</p>
           <h2 className="mt-3 font-display text-4xl leading-[1.05] tracking-[-0.02em] md:text-5xl">
-            Cuatro preguntas y te digo cuál encaja
+            Contesta unas preguntas y te digo cuáles van contigo
           </h2>
           <p className="mt-4 text-ink-2">
-            Sin registro para empezar. Al final dejas tus datos solo si quieres disponibilidad y precios.
+            Son cuatro preguntas: zona, tipo de propiedad y en qué etapa está. Si algo te interesa,
+            me dejas tus datos y seguimos por WhatsApp.
           </p>
         </div>
         <div className="mt-10 rounded-3xl border border-hairline bg-surface p-6 md:p-10">
@@ -122,9 +123,9 @@ export default function ChukumHome() {
       {/* 3 — Desarrollos (grid asimétrico: Xo'ok destacado + 4) */}
       <section id="desarrollos" className="scroll-mt-20 bg-canvas px-5 pb-20 md:px-10 md:pb-28">
         <Reveal>
-          <p className="text-sm uppercase tracking-[0.2em] text-cenote">Catálogo</p>
+          <p className="text-sm uppercase tracking-[0.2em] text-cenote">Lo que hay</p>
           <h2 className="mt-3 max-w-2xl font-display text-4xl leading-[1.05] tracking-[-0.02em] md:text-5xl">
-            Desarrollos que comercializo
+            Los desarrollos que manejo
           </h2>
         </Reveal>
 
@@ -222,9 +223,9 @@ export default function ChukumHome() {
       <section id="por-que" className="chukum-grain scroll-mt-20 bg-espresso px-5 py-24 text-crema md:px-10 md:py-32">
         <div className="mx-auto max-w-[1400px]">
           <Reveal>
-            <p className="text-sm uppercase tracking-[0.2em] text-crema/60">Por qué invertir</p>
+            <p className="text-sm uppercase tracking-[0.2em] text-crema/60">Por qué aquí</p>
             <h2 className="mt-3 max-w-2xl font-display text-4xl leading-[1.05] tracking-[-0.02em] md:text-5xl">
-              Seguridad, certeza legal y agua
+              Seguridad, papeles en regla y agua
             </h2>
           </Reveal>
           <div className="mt-14 grid gap-10 md:grid-cols-3 md:gap-8">
@@ -252,11 +253,12 @@ export default function ChukumHome() {
           <Reveal>
             <p className="text-sm uppercase tracking-[0.2em] text-cenote">Respaldo</p>
             <h2 className="mt-3 max-w-2xl font-display text-4xl leading-[1.05] tracking-[-0.02em] md:text-5xl">
-              Comunidades entregadas, no promesas
+              Esto ya está entregado y funcionando
             </h2>
             <p className="mt-4 max-w-2xl leading-relaxed text-ink-2">
-              Comercializo desarrollos de una desarrolladora con comunidades planeadas ya entregadas en
-              Yucatán y Quintana Roo. Los números son de proyectos reales en operación.
+              Los desarrollos que te muestro son de una constructora que ya tiene comunidades enteras
+              entregadas y en operación en Yucatán y Quintana Roo. Estos números son de proyectos que
+              ya funcionan.
             </p>
           </Reveal>
           <div className="mt-12 grid grid-cols-1 gap-px overflow-hidden rounded-3xl border border-hairline bg-hairline sm:grid-cols-3">
@@ -274,11 +276,11 @@ export default function ChukumHome() {
             <div>
               <p className="text-sm uppercase tracking-[0.2em] text-cenote">Contacto</p>
               <h2 className="mt-3 font-display text-4xl leading-[1.05] tracking-[-0.02em] md:text-5xl">
-                Te digo qué hay disponible y a qué precio
+                Cuéntame qué buscas y te ayudo
               </h2>
               <p className="mt-4 max-w-md leading-relaxed text-ink-2">
-                Déjame tus datos o escríbeme por WhatsApp. Te paso la disponibilidad y los precios directo
-                del desarrollador.
+                Déjame tus datos o escríbeme por WhatsApp. Te paso disponibilidad y precios directo de
+                quien lo construye.
               </p>
               <a
                 href={waLink(WA_HERO)}
@@ -301,8 +303,8 @@ export default function ChukumHome() {
             <div>
               <p className="text-sm font-bold tracking-[0.3em] text-crema">CHUKUM</p>
               <p className="mt-3 max-w-sm text-sm leading-relaxed">
-                Comercialización de desarrollos inmobiliarios en la península de Yucatán: terrenos, casas y
-                departamentos.
+                Casas, terrenos y departamentos en Yucatán y Quintana Roo. Te ayudo a encontrar el que va
+                contigo.
               </p>
             </div>
             <nav className="flex flex-wrap gap-x-8 gap-y-2 text-sm">
@@ -313,8 +315,8 @@ export default function ChukumHome() {
             </nav>
           </div>
           <p className="mt-8 text-xs leading-relaxed text-crema/50">
-            Chukum comercializa desarrollos de terceros. Los desarrollos se nombran por su nombre propio;
-            precios y disponibilidad se confirman directo con el desarrollador.
+            Chukum te conecta con desarrollos de terceros. Cada desarrollo se nombra por su nombre;
+            precios y disponibilidad los confirmas directo con quien lo construye.
           </p>
         </div>
       </footer>

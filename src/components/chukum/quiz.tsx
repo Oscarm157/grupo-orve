@@ -181,9 +181,9 @@ function Result({ answers, onRestart }: { answers: QuizAnswers; onRestart: () =>
 
   return (
     <div>
-      <p className="text-sm text-ink-2">Según tus respuestas: {resumen}.</p>
+      <p className="text-sm text-ink-2">Según lo que buscas: {resumen}.</p>
       <h3 className="mt-1 font-display text-3xl leading-[1.05] tracking-[-0.02em] md:text-4xl">
-        Esto encaja contigo
+        Esto va contigo
       </h3>
 
       <div className="mt-6 grid gap-4 sm:grid-cols-2">
@@ -194,13 +194,13 @@ function Result({ answers, onRestart }: { answers: QuizAnswers; onRestart: () =>
 
       <div className="mt-8">
         <p className="font-display text-xl tracking-[-0.01em]">
-          Deja tus datos y te mandamos disponibilidad y precios
+          ¿Te interesa alguno? Déjame tus datos
         </p>
         <p className="mt-1 text-sm text-ink-2">
-          Los precios van bajo solicitud: te los pasa directo el desarrollador.
+          Te paso disponibilidad y precios por WhatsApp, sin compromiso.
         </p>
         <div className="mt-4">
-          <CaptureForm context={matches[0]?.name} developmentSlug={matches[0]?.slug} prefillMessage={prefill} />
+          <CaptureForm context={matches[0]?.name} developmentSlug={matches[0]?.slug} prefillMessage={prefill} cta="Quiero que me contactes" />
         </div>
       </div>
 
@@ -225,7 +225,7 @@ function ResultCard({ d, primary }: { d: Development; primary: boolean }) {
         <Image src={d.image} alt={d.alt} fill className="object-cover" sizes="(max-width:640px) 100vw, 50vw" />
         {primary && (
           <span className="absolute left-3 top-3 rounded-full bg-cenote px-3 py-1 text-xs font-medium text-canvas">
-            Mejor opción para ti
+            La que más va contigo
           </span>
         )}
       </div>

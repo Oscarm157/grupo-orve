@@ -20,13 +20,13 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   metadataBase: new URL(BRAND.url),
-  title: "Chukum | Invierte en desarrollos de Yucatán y el Caribe",
+  title: "Chukum | Casas, terrenos y departamentos en Yucatán y el Caribe",
   description:
-    "Encuentra tu desarrollo en Yucatán y Quintana Roo: terrenos, casas y departamentos. Responde 4 preguntas y te decimos cuál encaja contigo.",
+    "Casas, terrenos y departamentos en venta en Yucatán y Quintana Roo. Contesta unas preguntas rápidas y te digo cuáles te laten.",
   openGraph: {
-    title: "Chukum | Invierte en desarrollos de Yucatán y el Caribe",
+    title: "Chukum | Casas, terrenos y departamentos en Yucatán y el Caribe",
     description:
-      "Terrenos, casas y departamentos en la península de Yucatán. Responde 4 preguntas y encuentra tu desarrollo.",
+      "Casas, terrenos y departamentos en venta en Yucatán y Quintana Roo. Contesta el test y te digo cuáles van contigo.",
     url: BRAND.url,
     siteName: BRAND.name,
     locale: "es_MX",

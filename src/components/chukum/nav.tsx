@@ -11,7 +11,7 @@ const LINKS = [
   { href: "#contacto", label: "Contacto" },
 ];
 
-const WA_MSG = "Hola, vengo del sitio de Chukum y quiero información de sus desarrollos.";
+const WA_MSG = "Hola, vi el sitio de Chukum y quiero info de casas, terrenos o departamentos.";
 
 // Header fijo + menú mobile (sheet propio) + barra de acción inferior en mobile. Resuelve
 // la navegación móvil que antes no existía: en pantallas chicas hay hamburguesa arriba y

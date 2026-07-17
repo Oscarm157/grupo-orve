@@ -70,7 +70,7 @@ async function runQuiz(page) {
     const qf = page.locator("#quiz");
     await qf.getByPlaceholder("Tu nombre…").fill("Oscar Prueba");
     await qf.getByPlaceholder("999 000 0000…").fill("9990001122");
-    await qf.getByRole("button", { name: /Solicitar disponibilidad/ }).click();
+    await qf.getByRole("button", { name: /Quiero que me contactes/ }).click();
     await wait(700);
     await page.screenshot({ path: `${OUT}/d5-quiz-sent.png` });
     console.log("shot: d5-quiz-sent, sentVisible=" + (await page.getByText("recibimos tus datos").isVisible()));

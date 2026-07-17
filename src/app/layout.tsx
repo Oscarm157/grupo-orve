@@ -17,8 +17,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Grupo-Orve",
-  description: "Terrenos, casas y departamentos de Grupo Orve.",
+  title: "Chukum",
+  description: "Comercialización de desarrollos inmobiliarios en la península de Yucatán.",
 };
 
 export default function RootLayout({

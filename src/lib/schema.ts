@@ -15,7 +15,7 @@ export const users = pgTable("users", {
 
 export type User = typeof users.$inferSelect;
 
-// ===== Dominio: catálogo de propiedades Grupo Orve (capa 3, bespoke) =====
+// ===== Dominio: catálogo de propiedades que comercializa Chukum (capa 3, bespoke) =====
 // `developments` = el proyecto/desarrollo (ej. Xo'ok). `units` = unidad individual
 // vendible (terreno/casa/depa) con precio y m2 reales — se llena con el Excel/PDF
 // real de Oscar, NO con el scraping de marketing en content/grupoorve-raw/.
@@ -28,7 +28,7 @@ export type ImageKind = "hero" | "gallery" | "floorplan" | "logo";
 
 // ===== Capa SEO: zonas/colonias de Yucatán (páginas programáticas) =====
 // Cada zona alimenta /zonas/[slug]. Gate anti thin-content: solo se publica
-// (`publicada`) si tiene data real (precio/plusvalía) o un desarrollo Orve colgado.
+// (`publicada`) si tiene data real (precio/plusvalía) o un desarrollo colgado.
 export const zonas = pgTable("zonas", {
   id: uuid("id").primaryKey().defaultRandom(),
   slug: text("slug").notNull().unique(),
@@ -115,8 +115,8 @@ export const units = pgTable("units", {
 export type Unit = typeof units.$inferSelect;
 
 // ===== Captura de leads (form público + WhatsApp) =====
-// El lead lo queda Oscar primero; el status `enviado_orve` marca el hand-off manual
-// al CRM de Grupo Orve. UTM + atribución por zona/desarrollo para medir qué página convierte.
+// El lead lo queda Oscar primero; el status `enviado_orve` marca el hand-off manual al CRM
+// del desarrollador. UTM + atribución por zona/desarrollo para medir qué página convierte.
 export type LeadSource = "form" | "whatsapp" | "manual";
 export type LeadStatus = "nuevo" | "contactado" | "enviado_orve" | "cerrado";
 

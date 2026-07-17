@@ -11,8 +11,8 @@ if (!TOKEN) {
 }
 
 const MODEL = "kwaivgi/kling-v3-video";
-const OUT = path.resolve("public/hero/hero.mp4");
-const START_IMAGE = path.resolve("public/hero/club-playa-progreso.webp");
+const OUT = path.resolve("public/hero/hero-src.mp4");
+const START_IMAGE = path.resolve("public/hero/hero-poster.webp");
 
 const imgBuf = await fs.readFile(START_IMAGE);
 const dataUri = `data:image/webp;base64,${imgBuf.toString("base64")}`;
@@ -22,9 +22,9 @@ const input = {
   mode: "pro",
   generate_audio: false,
   prompt:
-    "Cinematic real estate establishing shot: slow smooth forward camera push over a modern beachfront villa with palm trees and an infinity pool, gentle drift, soft breeze moving the palm leaves and cabana curtains, sunlight glinting subtly on the pool water surface, clear blue sky with slow-moving clouds. Premium architectural film look, shallow depth of field, fine grain, photorealistic. The villa, pool and cabanas stay perfectly solid and rigid.",
+    "Cinematic tropical beach sunset timelapse: slow drifting clouds across a warm orange and golden sky, the sun's reflection shimmering on gentle calm sea water, palm fronds swaying softly in the breeze, very slow subtle forward camera push. Photorealistic, warm golden-hour light, fine film grain. Palm trees, horizon and shoreline stay solid, stable and rigid.",
   negative_prompt:
-    "deforming building, morphing architecture, warping, melting, rubbery shapes, fog, smoke, haze, white-out, glitch, cartoon, low quality, text, watermark, people appearing or disappearing",
+    "morphing, warping, melting, rubbery shapes, deforming trees, fog, smoke, haze, white-out, glitch, cartoon, low quality, text, watermark, people appearing or disappearing",
   duration: 5,
 };
 

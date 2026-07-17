@@ -3,8 +3,9 @@ import { MessageCircle, ArrowRight, ShieldCheck, FileCheck2, Droplets } from "lu
 import { Reveal } from "@/components/reveal";
 import { ChukumNav } from "@/components/chukum/nav";
 import { Quiz } from "@/components/chukum/quiz";
+import { Mosaic } from "@/components/chukum/mosaic";
 import { CaptureForm } from "@/components/chukum/capture-form";
-import { DEVELOPMENTS, TIPO_LABEL } from "@/lib/developments";
+import { DEVELOPMENTS, tiposLabel, type Development } from "@/lib/developments";
 import { BRAND, waLink, STATUS_LABEL } from "@/lib/site";
 
 const WA_HERO = "Hola, vi el sitio de Chukum y quiero que me pases info de casas, terrenos o departamentos.";
@@ -39,12 +40,12 @@ function jsonLd() {
       },
       {
         "@type": "ItemList",
-        name: "Desarrollos que comercializa Chukum",
+        name: "Propiedades disponibles en la península de Yucatán",
         itemListElement: DEVELOPMENTS.map((d, i) => ({
           "@type": "ListItem",
           position: i + 1,
-          name: d.name,
-          description: `${d.blurb} Ubicación: ${d.place}.`,
+          name: `${tiposLabel(d.tipos)}, ${d.heading.toLowerCase()}`,
+          description: d.blurb,
         })),
       },
     ],
@@ -52,9 +53,6 @@ function jsonLd() {
 }
 
 export default function ChukumHome() {
-  const featured = DEVELOPMENTS[0];
-  const rest = DEVELOPMENTS.slice(1);
-
   return (
     <main id="top">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd()) }} />
@@ -67,14 +65,14 @@ export default function ChukumHome() {
           muted
           loop
           playsInline
-          poster="/hero/club-playa-progreso.webp"
+          poster="/hero/hero-poster.webp"
           className="absolute inset-0 h-full w-full object-cover"
         >
           <source src="/hero/hero.webm" type="video/webm" />
           <source src="/hero/hero.mp4" type="video/mp4" />
         </video>
-        <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-espresso/50 to-transparent" />
-        <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-espresso/85 via-espresso/35 to-transparent" />
+        <div className="absolute inset-x-0 top-0 h-44 bg-gradient-to-b from-espresso/60 to-transparent" />
+        <div className="absolute inset-x-0 bottom-0 h-3/4 bg-gradient-to-t from-espresso/90 via-espresso/45 to-transparent" />
         <div className="relative z-10 w-full px-5 pb-20 md:px-10 md:pb-24">
           <div className="max-w-3xl">
             <p className="text-sm uppercase tracking-[0.24em] text-crema/80">Yucatán · Quintana Roo</p>
@@ -82,7 +80,7 @@ export default function ChukumHome() {
               Tu casa, terreno o departamento en Yucatán y el Caribe
             </h1>
             <p className="mt-5 max-w-xl text-lg leading-relaxed text-crema/85">
-              Hay muchos desarrollos y es fácil perderse. Contesta unas preguntas y te digo cuáles van
+              Hay muchos desarrollos y es fácil perderse. Contesta unas preguntas y ves las que van
               contigo.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
@@ -103,12 +101,27 @@ export default function ChukumHome() {
         </div>
       </section>
 
-      {/* 2 — Quiz (núcleo del funnel) */}
+      {/* 2 — Abanico de opciones (animación de scroll) */}
+      <section className="bg-canvas px-5 pt-20 text-center md:px-10 md:pt-28">
+        <div className="mx-auto max-w-2xl">
+          <p className="text-sm uppercase tracking-[0.2em] text-cenote">Opciones</p>
+          <h2 className="mt-3 font-display text-4xl leading-[1.05] tracking-[-0.02em] md:text-5xl">
+            Terrenos, casas y departamentos en distintas zonas
+          </h2>
+          <p className="mt-4 text-ink-2">
+            Desde la selva y el norte de Mérida hasta la costa y el Caribe, en distintos presupuestos
+            y etapas.
+          </p>
+        </div>
+      </section>
+      <Mosaic heroSrc="/hero/familia-playa-wide.webp" heroAlt="Playa en la costa de Yucatán" />
+
+      {/* 3 — Quiz (núcleo del funnel) */}
       <section id="quiz" className="scroll-mt-20 bg-canvas px-5 py-20 md:px-10 md:py-28">
         <div className="mx-auto max-w-2xl text-center">
           <p className="text-sm uppercase tracking-[0.2em] text-cenote">Test rápido</p>
           <h2 className="mt-3 font-display text-4xl leading-[1.05] tracking-[-0.02em] md:text-5xl">
-            Contesta unas preguntas y te digo cuáles van contigo
+            Contesta unas preguntas y ves las que van contigo
           </h2>
           <p className="mt-4 text-ink-2">
             Son cuatro preguntas: zona, tipo de propiedad y en qué etapa está. Si algo te interesa,
@@ -129,91 +142,10 @@ export default function ChukumHome() {
           </h2>
         </Reveal>
 
-        <div className="mt-10 grid grid-cols-1 gap-4 md:grid-cols-2">
-          {/* Destacado */}
-          <Reveal>
-            <article className="chukum-grain group flex h-full flex-col overflow-hidden rounded-3xl border border-hairline bg-surface md:col-span-2 md:flex-row">
-              <div className="relative h-60 md:h-auto md:w-1/2">
-                <Image
-                  src={featured.image}
-                  alt={featured.alt}
-                  fill
-                  className="object-cover"
-                  sizes="(max-width:768px) 100vw, 50vw"
-                  priority
-                />
-              </div>
-              <div className="flex flex-col justify-center p-7 md:w-1/2 md:p-10">
-                <p className="text-xs uppercase tracking-[0.16em] text-ink-2">{featured.place}</p>
-                <h3 className="mt-1 font-display text-3xl tracking-[-0.02em] md:text-4xl">{featured.name}</h3>
-                <p className="mt-3 max-w-md leading-relaxed text-ink-2">{featured.blurb}</p>
-                {featured.specs && (
-                  <dl className="mt-5 flex flex-wrap gap-x-8 gap-y-3">
-                    {featured.specs.map((s) => (
-                      <div key={s.label}>
-                        <dt className="text-xs uppercase tracking-[0.14em] text-ink-2">{s.label}</dt>
-                        <dd className="font-display text-xl tracking-[-0.01em]">{s.value}</dd>
-                      </div>
-                    ))}
-                  </dl>
-                )}
-                <div className="mt-6 flex flex-wrap gap-3">
-                  <a
-                    href="#contacto"
-                    className="inline-flex items-center gap-2 rounded-full bg-cenote px-5 py-2.5 text-sm font-medium text-canvas transition hover:bg-cenote-deep"
-                  >
-                    Solicitar informes <ArrowRight className="h-4 w-4" />
-                  </a>
-                  <a
-                    href={waLink(`Hola, me interesa ${featured.name}. ¿Me pasas disponibilidad y precios?`)}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 rounded-full border border-ink/20 px-5 py-2.5 text-sm text-ink transition hover:border-cenote hover:text-cenote"
-                  >
-                    <MessageCircle className="h-4 w-4" /> WhatsApp
-                  </a>
-                </div>
-              </div>
-            </article>
-          </Reveal>
-
-          {/* Resto */}
-          {rest.map((d) => (
+        <div className="mt-10 flex flex-col gap-5">
+          {DEVELOPMENTS.map((d, i) => (
             <Reveal key={d.slug}>
-              <article className="flex h-full flex-col overflow-hidden rounded-3xl border border-hairline bg-surface">
-                <div className="relative h-52">
-                  <Image src={d.image} alt={d.alt} fill className="object-cover" sizes="(max-width:768px) 100vw, 50vw" />
-                  <span className="absolute left-3 top-3 rounded-full bg-canvas/90 px-3 py-1 text-xs text-ink">
-                    {STATUS_LABEL[d.etapa]}
-                  </span>
-                </div>
-                <div className="flex flex-1 flex-col p-6">
-                  <p className="text-xs uppercase tracking-[0.16em] text-ink-2">{d.place}</p>
-                  <h3 className="mt-1 font-display text-2xl tracking-[-0.02em]">{d.name}</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-ink-2">{d.blurb}</p>
-                  <div className="mt-3 flex flex-wrap gap-1.5">
-                    {d.tipos.map((t) => (
-                      <span key={t} className="rounded-full border border-hairline bg-canvas px-2.5 py-1 text-xs text-ink-2">
-                        {TIPO_LABEL[t]}
-                      </span>
-                    ))}
-                  </div>
-                  <div className="mt-5 flex gap-3 pt-1">
-                    <a href="#contacto" className="inline-flex items-center gap-1.5 text-sm font-medium text-cenote transition hover:text-cenote-deep">
-                      Solicitar informes <ArrowRight className="h-4 w-4" />
-                    </a>
-                    <a
-                      href={waLink(`Hola, me interesa ${d.name}. ¿Me pasas disponibilidad y precios?`)}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="ml-auto text-ink-2 transition hover:text-cenote"
-                      aria-label={`WhatsApp sobre ${d.name}`}
-                    >
-                      <MessageCircle className="h-5 w-5" />
-                    </a>
-                  </div>
-                </div>
-              </article>
+              <DevCard d={d} flip={i % 2 === 1} />
             </Reveal>
           ))}
         </div>
@@ -262,8 +194,8 @@ export default function ChukumHome() {
             </p>
           </Reveal>
           <div className="mt-12 grid grid-cols-1 gap-px overflow-hidden rounded-3xl border border-hairline bg-hairline sm:grid-cols-3">
-            <Stat value="6,000+" label="Unidades en Ciudad Central Mérida, 9 etapas" />
-            <Stat value="3,800+" label="Unidades en Ciudad Central Progreso, 6 etapas" />
+            <Stat value="6,000+" label="Unidades entregadas en una comunidad del norte de Mérida" />
+            <Stat value="3,800+" label="Unidades en una comunidad frente al mar en Progreso" />
             <Stat value="2 estados" label="Desarrollos entregados en Yucatán y Quintana Roo" />
           </div>
         </div>
@@ -315,12 +247,59 @@ export default function ChukumHome() {
             </nav>
           </div>
           <p className="mt-8 text-xs leading-relaxed text-crema/50">
-            Chukum te conecta con desarrollos de terceros. Cada desarrollo se nombra por su nombre;
-            precios y disponibilidad los confirmas directo con quien lo construye.
+            Chukum te conecta con desarrollos de terceros. Te paso los detalles, disponibilidad y
+            precios directo por WhatsApp o correo.
           </p>
         </div>
       </footer>
     </main>
+  );
+}
+
+// Card de desarrollo, formato image-led uniforme, SIN nombre de proyecto: foto + tipo +
+// etapa + ubicación (heading). Alterna el lado de la imagen por índice.
+function DevCard({ d, flip }: { d: Development; flip: boolean }) {
+  const waMsg = `Hola, me interesa una propiedad ${d.heading.toLowerCase()}. ¿Me pasas disponibilidad y precios?`;
+  return (
+    <article className="chukum-grain flex flex-col overflow-hidden rounded-3xl border border-hairline bg-surface md:min-h-[340px] md:flex-row">
+      <div className={`relative h-60 md:h-auto md:w-1/2 ${flip ? "md:order-2" : ""}`}>
+        <Image src={d.image} alt={d.alt} fill className="object-cover" sizes="(max-width:768px) 100vw, 50vw" />
+        <span className="absolute left-3 top-3 rounded-full bg-canvas/90 px-3 py-1 text-xs text-ink">
+          {STATUS_LABEL[d.etapa]}
+        </span>
+      </div>
+      <div className="flex flex-col justify-center p-7 md:w-1/2 md:p-10">
+        <p className="text-xs uppercase tracking-[0.16em] text-cenote">{tiposLabel(d.tipos)}</p>
+        <h3 className="mt-1 font-display text-3xl tracking-[-0.02em] md:text-4xl">{d.heading}</h3>
+        <p className="mt-3 max-w-md leading-relaxed text-ink-2">{d.blurb}</p>
+        {d.specs && (
+          <dl className="mt-5 flex flex-wrap gap-x-8 gap-y-3">
+            {d.specs.map((s) => (
+              <div key={s.label}>
+                <dt className="text-xs uppercase tracking-[0.14em] text-ink-2">{s.label}</dt>
+                <dd className="font-display text-xl tracking-[-0.01em]">{s.value}</dd>
+              </div>
+            ))}
+          </dl>
+        )}
+        <div className="mt-6 flex flex-wrap gap-3">
+          <a
+            href="#contacto"
+            className="inline-flex items-center gap-2 rounded-full bg-cenote px-5 py-2.5 text-sm font-medium text-canvas transition hover:bg-cenote-deep"
+          >
+            Solicitar informes <ArrowRight className="h-4 w-4" />
+          </a>
+          <a
+            href={waLink(waMsg)}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 rounded-full border border-ink/20 px-5 py-2.5 text-sm text-ink transition hover:border-cenote hover:text-cenote"
+          >
+            <MessageCircle className="h-4 w-4" /> WhatsApp
+          </a>
+        </div>
+      </div>
+    </article>
   );
 }
 

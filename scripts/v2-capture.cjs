@@ -64,7 +64,7 @@ async function runQuiz(page) {
     await page.locator("#quiz").scrollIntoViewIfNeeded();
     await wait(400);
     await page.screenshot({ path: `${OUT}/d4-quiz-result.png` });
-    console.log("shot: d4-quiz-result, matchVisible=" + (await page.getByText("Esto encaja contigo").isVisible()));
+    console.log("shot: d4-quiz-result, matchVisible=" + (await page.getByText("Esto va contigo").isVisible()));
 
     // Enviar captura → estado enviado
     const qf = page.locator("#quiz");
@@ -73,7 +73,7 @@ async function runQuiz(page) {
     await qf.getByRole("button", { name: /Quiero que me contactes/ }).click();
     await wait(700);
     await page.screenshot({ path: `${OUT}/d5-quiz-sent.png` });
-    console.log("shot: d5-quiz-sent, sentVisible=" + (await page.getByText("recibimos tus datos").isVisible()));
+    console.log("shot: d5-quiz-sent, sentVisible=" + (await page.getByText("te contacto pronto").isVisible()));
     await ctx.close();
 
     // ---------- MOBILE ----------

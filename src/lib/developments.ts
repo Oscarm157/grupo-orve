@@ -12,8 +12,10 @@ export type Etapa = "preventa" | "en_construccion" | "entrega_inmediata";
 
 export type Development = {
   slug: string;
-  name: string;
-  place: string; // ubicación legible para la card
+  // No se permite nombrar el proyecto en publicidad, así que el nombre real NO vive aquí
+  // (ni siquiera en el bundle). El slug es el único id interno; las cards usan heading+tipo+etapa.
+  heading: string; // encabezado de card por ubicación, sin nombre de proyecto
+  place: string; // ubicación legible (uso interno / alt)
   zona: Zona;
   tipos: Tipo[];
   usos: Uso[];
@@ -41,16 +43,16 @@ export const TIPO_LABEL: Record<Tipo, string> = {
 export const DEVELOPMENTS: Development[] = [
   {
     slug: "xook",
-    name: "Xo'ok",
+    heading: "En la selva de Yucatán",
     place: "Yucatán, selva maya",
     zona: "selva",
     tipos: ["terreno", "casa"],
     usos: ["invertir", "vivir"],
     etapa: "preventa",
     image: "/hero/xook-spa-xenotikal.webp",
-    alt: "Casa club Xenotikal en el desarrollo Xo'ok, Yucatán",
+    alt: "Casa club y alberca de un desarrollo residencial en la selva de Yucatán",
     blurb:
-      "Desarrollo residencial en la selva de Yucatán, 7 etapas, con casa club Xenotikal inspirada en los cenotes.",
+      "Desarrollo residencial en la selva, con siete etapas, casa club y amenidades entre cenotes y naturaleza.",
     specs: [
       { label: "Aparta con", value: "$10,000 MXN" },
       { label: "Enganche", value: "25%" },
@@ -59,57 +61,62 @@ export const DEVELOPMENTS: Development[] = [
   },
   {
     slug: "ciudad-central-merida",
-    name: "Ciudad Central Mérida",
+    heading: "En el norte de Mérida",
     place: "Mérida, Yucatán",
     zona: "merida",
     tipos: ["terreno", "casa"],
     usos: ["invertir", "vivir"],
     etapa: "entrega_inmediata",
     image: "/hero/ccm-casa-club.webp",
-    alt: "Casa club y alberca de Ciudad Central Mérida",
+    alt: "Casa club y alberca de una comunidad planeada en Mérida",
     blurb:
-      "Comunidad planeada en Mérida con más de 6,000 unidades comercializadas en 9 etapas, casa club y zona comercial.",
+      "Comunidad planeada en Mérida con casa club, áreas verdes y zona comercial. Miles de unidades ya entregadas.",
   },
   {
     slug: "ciudad-central-progreso",
-    name: "Ciudad Central Progreso",
+    heading: "Frente al mar en Progreso",
     place: "Progreso, Yucatán, frente al mar",
     zona: "costa",
     tipos: ["terreno"],
     usos: ["invertir", "vivir"],
     etapa: "en_construccion",
-    image: "/hero/ccp-pabellon.webp",
-    alt: "Pabellón de Ciudad Central Progreso, frente al mar",
+    image: "/hero/club-playa-progreso.webp",
+    alt: "Club de playa de una comunidad planeada frente al mar en Progreso",
     blurb:
-      "Comunidad planeada frente al mar en Progreso, más de 3,800 unidades en 6 etapas, con club de playa.",
+      "Comunidad planeada frente al mar en la costa de Yucatán, con club de playa y amplias áreas comunes.",
   },
   {
     slug: "ukana-playa-del-carmen",
-    name: "Ukana Playa del Carmen",
+    heading: "Frente al mar en Playa del Carmen",
     place: "Playa del Carmen, Quintana Roo",
     zona: "caribe",
     tipos: ["departamento"],
     usos: ["invertir", "vivir"],
     etapa: "entrega_inmediata",
     image: "/hero/ukana-pdc-alberca.webp",
-    alt: "Alberca entregada de Ukana Playa del Carmen",
+    alt: "Alberca de un desarrollo de departamentos entregado en Playa del Carmen",
     blurb:
-      "Desarrollo vertical de departamentos en Playa del Carmen, entregado, con alberca y gimnasio.",
+      "Departamentos en un desarrollo vertical ya entregado, con alberca y gimnasio, cerca de la playa.",
   },
   {
     slug: "tulum-ha",
-    name: "Tulum Ha",
+    heading: "En Tulum, entre selva y playa",
     place: "Tulum, Quintana Roo",
     zona: "caribe",
     tipos: ["departamento"],
     usos: ["invertir"],
     etapa: "en_construccion",
     image: "/hero/tulum-ha-avance.webp",
-    alt: "Avance de obra del desarrollo Tulum Ha",
+    alt: "Avance de obra de un desarrollo de departamentos en Tulum",
     blurb:
-      "Desarrollo vertical de departamentos en Tulum, en construcción, con avance de obra en curso.",
+      "Departamentos en un desarrollo vertical en construcción, entre selva y playa.",
   },
 ];
+
+// Etiqueta de tipos para la card (ej. "Terreno y casa"). Sin nombre de proyecto.
+export function tiposLabel(tipos: Tipo[]): string {
+  return tipos.map((t) => TIPO_LABEL[t]).join(" y ");
+}
 
 export type QuizAnswers = {
   uso: Uso;

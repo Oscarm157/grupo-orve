@@ -18,12 +18,11 @@ import {
   CircleDashed,
   ArrowLeft,
   RotateCcw,
-  MapPin,
   type LucideIcon,
 } from "lucide-react";
 import {
-  DEVELOPMENTS,
   matchDevelopments,
+  tiposLabel,
   ZONA_LABEL,
   TIPO_LABEL,
   type QuizAnswers,
@@ -177,7 +176,7 @@ export function Quiz() {
 function Result({ answers, onRestart }: { answers: QuizAnswers; onRestart: () => void }) {
   const matches = matchDevelopments(answers);
   const resumen = `${answers.uso === "invertir" ? "Invertir" : "Vivir"} · ${ZONA_LABEL[answers.zona]} · ${TIPO_LABEL[answers.tipo]}`;
-  const prefill = `Quiz: ${resumen}. Interés: ${matches.map((m) => m.name).join(", ")}.`;
+  const prefill = `Quiz: ${resumen}. Interés: ${matches.map((m) => m.heading).join(", ")}.`;
 
   return (
     <div>
@@ -200,7 +199,7 @@ function Result({ answers, onRestart }: { answers: QuizAnswers; onRestart: () =>
           Te paso disponibilidad y precios por WhatsApp, sin compromiso.
         </p>
         <div className="mt-4">
-          <CaptureForm context={matches[0]?.name} developmentSlug={matches[0]?.slug} prefillMessage={prefill} cta="Quiero que me contactes" />
+          <CaptureForm context={matches[0]?.heading} developmentSlug={matches[0]?.slug} prefillMessage={prefill} cta="Quiero que me contactes" />
         </div>
       </div>
 
@@ -230,16 +229,11 @@ function ResultCard({ d, primary }: { d: Development; primary: boolean }) {
         )}
       </div>
       <div className="p-5">
-        <p className="flex items-center gap-1.5 text-xs uppercase tracking-[0.14em] text-ink-2">
-          <MapPin className="h-3.5 w-3.5" /> {d.place}
-        </p>
-        <h4 className="mt-1 font-display text-2xl tracking-[-0.02em]">{d.name}</h4>
+        <p className="text-xs uppercase tracking-[0.14em] text-cenote">{tiposLabel(d.tipos)}</p>
+        <h4 className="mt-1 font-display text-2xl tracking-[-0.02em]">{d.heading}</h4>
         <p className="mt-2 text-sm leading-relaxed text-ink-2">{d.blurb}</p>
-        <div className="mt-3 flex flex-wrap gap-1.5">
+        <div className="mt-3">
           <Badge>{STATUS_LABEL[d.etapa]}</Badge>
-          {d.tipos.map((t) => (
-            <Badge key={t}>{TIPO_LABEL[t]}</Badge>
-          ))}
         </div>
       </div>
     </div>

@@ -1,60 +1,63 @@
 "use client";
 
 import Image from "next/image";
-import { motion, useReducedMotion } from "motion/react";
+import { useRef } from "react";
+import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
 
 interface MosaicPhoto {
   src: string;
   alt: string;
   label: string; // chip de zona
-  restClassName: string; // posición de reposo (desktop)
-  from: { x: number; y: number }; // de dónde entra
-  rotate: number; // rotación en reposo
-  delay: number; // stagger
+  restClassName: string;
+  from: { x: number; y: number };
+  enter: [number, number];
+  rotateFrom: number;
+  rotateTo: number;
 }
 
-// Fotos de desarrollos por zona (sin nombrar proyectos), alrededor de la imagen de
-// estilo de vida. Comunican "hay opciones en distintas zonas".
+// Fotos de desarrollos por zona (sin nombrar proyectos), alrededor de la imagen central.
 const PHOTOS: MosaicPhoto[] = [
   {
     src: "/hero/ccm-foodtrucks.webp",
     alt: "Zona comercial de un desarrollo en el norte de Mérida",
     label: "Mérida",
-    restClassName: "top-[6%] left-[3%] w-[25vw] min-w-[210px] aspect-[4/3]",
+    restClassName: "top-[2%] left-[1%] w-[23vw] min-w-[200px] aspect-[4/3]",
     from: { x: -320, y: 70 },
-    rotate: -3,
-    delay: 0.05,
+    enter: [0.12, 0.34],
+    rotateFrom: -6,
+    rotateTo: -3,
   },
   {
     src: "/hero/xook-spa-xenotikal.webp",
     alt: "Casa club de un desarrollo en la selva de Yucatán",
     label: "Selva",
-    restClassName: "bottom-[8%] left-[7%] w-[20vw] min-w-[170px] aspect-[4/5]",
+    restClassName: "bottom-[3%] left-[3%] w-[18vw] min-w-[160px] aspect-[4/5]",
     from: { x: -180, y: 240 },
-    rotate: 2,
-    delay: 0.16,
+    enter: [0.2, 0.42],
+    rotateFrom: 5,
+    rotateTo: 2,
   },
   {
     src: "/hero/progreso-aereo.webp",
     alt: "Vista aérea de la costa de Progreso, Yucatán",
     label: "Costa",
-    restClassName: "top-[9%] right-[4%] w-[24vw] min-w-[200px] aspect-[16/10]",
+    restClassName: "top-[4%] right-[1%] w-[22vw] min-w-[190px] aspect-[16/10]",
     from: { x: 320, y: -70 },
-    rotate: 3,
-    delay: 0.27,
+    enter: [0.28, 0.5],
+    rotateFrom: 6,
+    rotateTo: 3,
   },
   {
     src: "/hero/ukana-pdc-gym.webp",
     alt: "Amenidad de un desarrollo de departamentos en el Caribe",
     label: "Caribe",
-    restClassName: "bottom-[11%] right-[6%] w-[19vw] min-w-[160px] aspect-[3/4]",
+    restClassName: "bottom-[5%] right-[3%] w-[17vw] min-w-[150px] aspect-[3/4]",
     from: { x: 240, y: 210 },
-    rotate: -2,
-    delay: 0.38,
+    enter: [0.36, 0.56],
+    rotateFrom: -5,
+    rotateTo: -2,
   },
 ];
-
-const EASE = [0.16, 1, 0.3, 1] as const;
 
 function Chip({ label }: { label: string }) {
   return (
@@ -64,45 +67,47 @@ function Chip({ label }: { label: string }) {
   );
 }
 
-// Abanico de opciones: la imagen de estilo de vida al centro y 4 fotos de zona que ENTRAN
-// volando desde fuera hacia su lugar (una sola vez, al entrar en viewport) y SE QUEDAN.
-// No es una sección pineada, así que no desaparece al seguir haciendo scroll.
-export function Mosaic({ heroSrc, heroAlt }: { heroSrc: string; heroAlt: string }) {
-  const reduce = useReducedMotion();
+function MosaicPhotoItem({
+  photo,
+  scrollYProgress,
+}: {
+  photo: MosaicPhoto;
+  scrollYProgress: import("motion/react").MotionValue<number>;
+}) {
+  // clamp: sin él useTransform extrapola y las fotos se pasan de su lugar; con clamp
+  // entran una vez y se quedan puestas.
+  const x = useTransform(scrollYProgress, photo.enter, [photo.from.x, 0], { clamp: true });
+  const y = useTransform(scrollYProgress, photo.enter, [photo.from.y, 0], { clamp: true });
+  const opacity = useTransform(scrollYProgress, [photo.enter[0], photo.enter[0] + 0.1], [0, 1], { clamp: true });
+  const rotate = useTransform(scrollYProgress, photo.enter, [photo.rotateFrom, photo.rotateTo], { clamp: true });
 
   return (
-    <section className="bg-canvas px-5 py-16 md:px-10 md:py-20">
-      <div className="mx-auto max-w-[1400px]">
-        {/* Desktop: composición en abanico con entrada animada */}
-        <div className="relative hidden h-[80vh] min-h-[560px] md:block">
-          <motion.div
-            initial={reduce ? false : { opacity: 0, scale: 1.05 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true, margin: "-15% 0px" }}
-            transition={{ duration: 0.7, ease: EASE }}
-            className="absolute left-1/2 top-1/2 h-[64%] w-[46%] -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-3xl"
-          >
-            <Image src={heroSrc} alt={heroAlt} fill className="object-cover" sizes="46vw" priority={false} />
-          </motion.div>
+    <motion.div
+      style={{ x, y, opacity, rotate }}
+      className={`absolute overflow-hidden rounded-2xl shadow-[0_20px_50px_-24px_rgba(20,16,14,0.4)] ${photo.restClassName}`}
+    >
+      <Image src={photo.src} alt={photo.alt} fill className="object-cover" sizes="25vw" />
+      <Chip label={photo.label} />
+    </motion.div>
+  );
+}
 
-          {PHOTOS.map((p) => (
-            <motion.div
-              key={p.src}
-              initial={reduce ? false : { opacity: 0, x: p.from.x, y: p.from.y, rotate: p.rotate * 3 }}
-              whileInView={{ opacity: 1, x: 0, y: 0, rotate: p.rotate }}
-              viewport={{ once: true, margin: "-15% 0px" }}
-              transition={{ duration: 0.7, delay: p.delay, ease: EASE }}
-              className={`absolute overflow-hidden rounded-2xl shadow-[0_20px_50px_-24px_rgba(20,16,14,0.4)] ${p.restClassName}`}
-            >
-              <Image src={p.src} alt={p.alt} fill className="object-cover" sizes="25vw" />
-              <Chip label={p.label} />
-            </motion.div>
-          ))}
-        </div>
+// Abanico: la imagen de estilo de vida arranca GRANDE (pantalla completa) y se ENCOGE con
+// el scroll a un card central, mientras las 4 fotos de zona entran alrededor. Una vez
+// formada, la composición se sostiene (hold largo) antes de salir. clamp evita el drift.
+export function Mosaic({ heroSrc, heroAlt }: { heroSrc: string; heroAlt: string }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const reduce = useReducedMotion();
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end end"] });
 
-        {/* Mobile: grid estático (mismo material) */}
-        <div className="grid grid-cols-2 gap-3 md:hidden">
-          <div className="relative col-span-2 aspect-[16/10] overflow-hidden rounded-3xl">
+  const heroScale = useTransform(scrollYProgress, [0, 0.4], [1, 0.55], { clamp: true });
+  const heroRadius = useTransform(scrollYProgress, [0, 0.4], [0, 24], { clamp: true });
+
+  if (reduce) {
+    return (
+      <section className="bg-canvas px-5 py-16 md:px-10 md:py-20">
+        <div className="mx-auto grid max-w-[1400px] grid-cols-2 gap-3 md:gap-4">
+          <div className="relative col-span-2 aspect-[16/9] overflow-hidden rounded-3xl">
             <Image src={heroSrc} alt={heroAlt} fill className="object-cover" sizes="100vw" />
           </div>
           {PHOTOS.map((p) => (
@@ -112,6 +117,22 @@ export function Mosaic({ heroSrc, heroAlt }: { heroSrc: string; heroAlt: string 
             </div>
           ))}
         </div>
+      </section>
+    );
+  }
+
+  return (
+    <section ref={ref} className="relative h-[250vh] bg-canvas">
+      <div className="sticky top-0 h-[100dvh] overflow-hidden">
+        <motion.div
+          style={{ scale: heroScale, borderRadius: heroRadius }}
+          className="absolute inset-0 origin-center overflow-hidden"
+        >
+          <Image src={heroSrc} alt={heroAlt} fill className="object-cover" sizes="100vw" priority={false} />
+        </motion.div>
+        {PHOTOS.map((p) => (
+          <MosaicPhotoItem key={p.src} photo={p} scrollYProgress={scrollYProgress} />
+        ))}
       </div>
     </section>
   );

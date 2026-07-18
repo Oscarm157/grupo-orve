@@ -7,7 +7,8 @@ import { Quiz } from "@/components/chukum/quiz";
 import { QuizProcess } from "@/components/chukum/quiz-process";
 import { Mosaic } from "@/components/chukum/mosaic";
 import { CaptureForm } from "@/components/chukum/capture-form";
-import { DEVELOPMENTS, tiposLabel } from "@/lib/developments";
+import { tiposLabel, type Development } from "@/lib/developments";
+import { getDevelopmentsForHome } from "@/lib/queries";
 import { BRAND, waLink } from "@/lib/site";
 
 const WA_HERO = "Hola, vi el sitio de Chukum y quiero que me pases info de casas, terrenos o departamentos.";
@@ -30,7 +31,7 @@ const VALUE_PROPS = [
   },
 ];
 
-function jsonLd() {
+function jsonLd(developments: Development[]) {
   return {
     "@context": "https://schema.org",
     "@graph": [
@@ -43,7 +44,7 @@ function jsonLd() {
       {
         "@type": "ItemList",
         name: "Propiedades disponibles en la península de Yucatán",
-        itemListElement: DEVELOPMENTS.map((d, i) => ({
+        itemListElement: developments.map((d, i) => ({
           "@type": "ListItem",
           position: i + 1,
           name: `${tiposLabel(d.tipos)}, ${d.heading.toLowerCase()}`,
@@ -54,10 +55,11 @@ function jsonLd() {
   };
 }
 
-export default function ChukumHome() {
+export default async function ChukumHome() {
+  const developments = await getDevelopmentsForHome();
   return (
     <main id="top">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd()) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd(developments)) }} />
       <ChukumNav />
 
       {/* 1 — Hero full-bleed (video real) */}
@@ -142,7 +144,7 @@ export default function ChukumHome() {
             </div>
           </div>
           <div className="rounded-3xl border border-hairline bg-surface p-6 md:p-10">
-            <Quiz />
+            <Quiz developments={developments} />
           </div>
         </div>
       </section>
@@ -150,7 +152,7 @@ export default function ChukumHome() {
       {/* 3 — Desarrollos (grid asimétrico: Xo'ok destacado + 4) */}
       <section id="desarrollos" className="scroll-mt-20 bg-canvas px-5 pb-20 md:px-10 md:pb-28">
         <div className="mx-auto max-w-[1400px]">
-          <Catalogo />
+          <Catalogo developments={developments} />
         </div>
       </section>
 

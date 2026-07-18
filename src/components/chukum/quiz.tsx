@@ -74,7 +74,7 @@ const QUESTIONS: Question[] = [
   },
 ];
 
-export function Quiz() {
+export function Quiz({ developments }: { developments: Development[] }) {
   const reduce = useReducedMotion();
   const [step, setStep] = useState(0);
   const [answers, setAnswers] = useState<Partial<QuizAnswers>>({});
@@ -165,7 +165,7 @@ export function Quiz() {
           </motion.div>
         ) : (
           <motion.div key="result" {...anim} transition={{ duration: reduce ? 0 : 0.35 }} className="mt-8">
-            <Result answers={answers as QuizAnswers} onRestart={restart} />
+            <Result answers={answers as QuizAnswers} onRestart={restart} developments={developments} />
           </motion.div>
         )}
       </AnimatePresence>
@@ -173,8 +173,16 @@ export function Quiz() {
   );
 }
 
-function Result({ answers, onRestart }: { answers: QuizAnswers; onRestart: () => void }) {
-  const matches = matchDevelopments(answers);
+function Result({
+  answers,
+  onRestart,
+  developments,
+}: {
+  answers: QuizAnswers;
+  onRestart: () => void;
+  developments: Development[];
+}) {
+  const matches = matchDevelopments(developments, answers);
   const resumen = `${answers.uso === "invertir" ? "Invertir" : "Vivir"} · ${ZONA_LABEL[answers.zona]} · ${TIPO_LABEL[answers.tipo]}`;
   const prefill = `Quiz: ${resumen}. Interés: ${matches.map((m) => m.heading).join(", ")}.`;
 

@@ -121,6 +121,7 @@ export async function createDesarrollo(formData: FormData) {
     throw e;
   }
   revalidatePath("/admin/desarrollos");
+  revalidatePath("/inicio");
   redirect(`/admin/desarrollos/${newId}`);
 }
 
@@ -136,6 +137,7 @@ export async function updateDesarrollo(id: string, formData: FormData) {
     throw e;
   }
   revalidatePath("/admin/desarrollos");
+  revalidatePath("/inicio");
   revalidatePath(`/admin/desarrollos/${id}`);
   redirect("/admin/desarrollos");
 }
@@ -156,6 +158,7 @@ export async function deleteDesarrollo(id: string) {
   }
   await db.delete(developments).where(eq(developments.id, id));
   revalidatePath("/admin/desarrollos");
+  revalidatePath("/inicio");
   redirect("/admin/desarrollos");
 }
 
@@ -182,6 +185,7 @@ export async function addModelo(devId: string, formData: FormData) {
   await guard();
   await db.insert(units).values({ developmentId: devId, ...modeloValues(formData) });
   revalidatePath(`/admin/desarrollos/${devId}`);
+  revalidatePath("/inicio");
 }
 
 export async function updateModelo(devId: string, unitId: string, formData: FormData) {
@@ -191,12 +195,14 @@ export async function updateModelo(devId: string, unitId: string, formData: Form
     .set({ ...modeloValues(formData), updatedAt: new Date() })
     .where(and(eq(units.id, unitId), eq(units.developmentId, devId)));
   revalidatePath(`/admin/desarrollos/${devId}`);
+  revalidatePath("/inicio");
 }
 
 export async function deleteModelo(devId: string, unitId: string) {
   await guard();
   await db.delete(units).where(and(eq(units.id, unitId), eq(units.developmentId, devId)));
   revalidatePath(`/admin/desarrollos/${devId}`);
+  revalidatePath("/inicio");
 }
 
 // ===================== Imágenes (galería) =====================
@@ -224,6 +230,7 @@ export async function uploadDesarrolloImage(
     sortOrder: existing.length,
   });
   revalidatePath(`/admin/desarrollos/${devId}`);
+  revalidatePath("/inicio");
   return { ok: true };
 }
 
@@ -240,6 +247,7 @@ export async function deleteDesarrolloImage(devId: string, imageId: string) {
   }
   await db.delete(developmentImages).where(scope);
   revalidatePath(`/admin/desarrollos/${devId}`);
+  revalidatePath("/inicio");
 }
 
 export async function setHeroImage(devId: string, imageId: string) {
@@ -256,6 +264,7 @@ export async function setHeroImage(devId: string, imageId: string) {
       .where(eq(developmentImages.id, img.id));
   }
   revalidatePath(`/admin/desarrollos/${devId}`);
+  revalidatePath("/inicio");
 }
 
 export async function reorderImages(devId: string, orderedIds: string[]) {
@@ -266,4 +275,5 @@ export async function reorderImages(devId: string, orderedIds: string[]) {
     )
   );
   revalidatePath(`/admin/desarrollos/${devId}`);
+  revalidatePath("/inicio");
 }

@@ -5,14 +5,15 @@ import Image from "next/image";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { MessageCircle, ArrowRight, X } from "lucide-react";
 import { SectionHead } from "@/components/chukum/section-head";
-import { DEVELOPMENTS, CIUDADES, tiposLabel, type Development } from "@/lib/developments";
+import { ciudadesDe, tiposLabel, type Development } from "@/lib/developments";
 import { waLink, STATUS_LABEL } from "@/lib/site";
 
 // Catálogo con filtro por ciudad. Los pills seleccionan 1 o varias ciudades; sin selección
 // se muestran todos. El pill "Borrar" limpia la selección completa.
-export function Catalogo() {
+export function Catalogo({ developments }: { developments: Development[] }) {
   const reduceMotion = useReducedMotion();
   const [selected, setSelected] = useState<Set<string>>(new Set());
+  const ciudades = ciudadesDe(developments);
 
   const toggle = (ciudad: string) =>
     setSelected((prev) => {
@@ -23,7 +24,7 @@ export function Catalogo() {
     });
 
   const visibles =
-    selected.size === 0 ? DEVELOPMENTS : DEVELOPMENTS.filter((d) => selected.has(d.ciudad));
+    selected.size === 0 ? developments : developments.filter((d) => selected.has(d.ciudad));
 
   return (
     <>
@@ -31,7 +32,7 @@ export function Catalogo() {
 
       {/* Pills de ciudad + borrar */}
       <div className="mt-6 flex flex-wrap items-center gap-2.5">
-        {CIUDADES.map((ciudad) => {
+        {ciudades.map((ciudad) => {
           const active = selected.has(ciudad);
           return (
             <button

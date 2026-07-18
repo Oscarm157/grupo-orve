@@ -124,9 +124,11 @@ export function tiposLabel(tipos: Tipo[]): string {
   return tipos.map((t) => TIPO_LABEL[t]).join(" y ");
 }
 
-// Ciudades del catálogo para los pills de filtro, en el orden en que aparecen los
-// desarrollos y sin repetir.
-export const CIUDADES: string[] = [...new Set(DEVELOPMENTS.map((d) => d.ciudad))];
+// Ciudades únicas de una lista de desarrollos (para los pills de filtro), en orden
+// de aparición y sin repetir.
+export function ciudadesDe(devs: Development[]): string[] {
+  return [...new Set(devs.map((d) => d.ciudad))];
+}
 
 export type QuizAnswers = {
   uso: Uso;
@@ -138,8 +140,8 @@ export type QuizAnswers = {
 // Empareja las respuestas del quiz con los desarrollos reales. Ponderado: la zona pesa
 // más, luego el tipo de propiedad, luego uso y etapa. Devuelve los 2 mejores (siempre
 // devuelve algo: si nada calza fuerte, el mejor esfuerzo + el segundo).
-export function matchDevelopments(a: QuizAnswers): Development[] {
-  const scored = DEVELOPMENTS.map((d) => {
+export function matchDevelopments(devs: Development[], a: QuizAnswers): Development[] {
+  const scored = devs.map((d) => {
     let score = 0;
     if (d.zona === a.zona) score += 3;
     if (d.tipos.includes(a.tipo)) score += 2;

@@ -704,3 +704,23 @@ html[data-crm-theme="light"] .crm-root .crm-badge-teal    { background: rgb(13 1
 .crm-logo-navy { display: none; }
 html[data-crm-theme="light"] .crm-logo-white { display: none; }
 html[data-crm-theme="light"] .crm-logo-navy { display: block; }
+
+/* Pines del directorio de "Vivir en Yucatán" (mapa MapLibre). Terracota sobre el mapa,
+   crecen y se oscurecen al hacer hover en la card o en el pin (interacción bidireccional). */
+.vivir-pin {
+  width: 16px;
+  height: 16px;
+  border-radius: 9999px;
+  background: #b5502e;
+  border: 2px solid #f7f1e7;
+  box-shadow: 0 1px 4px rgba(23, 18, 14, 0.35);
+  cursor: pointer;
+  padding: 0;
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+.vivir-pin:hover,
+.vivir-pin.is-active {
+  transform: scale(1.5);
+  background: #8f3d20;
+  z-index: 5;
+}

@@ -58,8 +58,7 @@ export function DesarrolloForm({
   action: (formData: FormData) => void;
   submitLabel: string;
 }) {
-  const v = dev;
-  const specs = v?.highlightSpecs ?? [];
+  const specs = dev?.highlightSpecs ?? [];
 
   return (
     <form action={action} className="flex flex-col gap-5">
@@ -68,28 +67,28 @@ export function DesarrolloForm({
         <div className="grid gap-4 sm:grid-cols-2">
           <div>
             <label className={label} htmlFor="name">Nombre del proyecto</label>
-            <input id="name" name="name" required defaultValue={v?.name ?? ""} className="crm-input" />
+            <input id="name" name="name" required defaultValue={dev?.name ?? ""} className="crm-input" />
             <p className={hint}>Uso interno y páginas de zona. No aparece en el home (restricción legal).</p>
           </div>
           <div>
             <label className={label} htmlFor="slug">Slug</label>
-            <input id="slug" name="slug" required defaultValue={v?.slug ?? ""} className="crm-input" placeholder="xook" />
+            <input id="slug" name="slug" required defaultValue={dev?.slug ?? ""} className="crm-input" placeholder="xook" />
             <p className={hint}>Minúsculas, números y guiones. Debe ser único.</p>
           </div>
           <div className="sm:col-span-2">
             <label className={label} htmlFor="heading">Encabezado del home</label>
-            <input id="heading" name="heading" defaultValue={v?.heading ?? ""} className="crm-input" placeholder="En la selva de Yucatán" />
+            <input id="heading" name="heading" defaultValue={dev?.heading ?? ""} className="crm-input" placeholder="En la selva de Yucatán" />
             <p className={hint}>Título de la card pública, SIN nombre de proyecto.</p>
           </div>
           <div>
             <label className={label} htmlFor="statusMarketing">Etapa</label>
-            <select id="statusMarketing" name="statusMarketing" defaultValue={v?.statusMarketing ?? "preventa"} className="crm-select">
+            <select id="statusMarketing" name="statusMarketing" defaultValue={dev?.statusMarketing ?? "preventa"} className="crm-select">
               {STATUSES.map(([val, l]) => <option key={val} value={val}>{l}</option>)}
             </select>
           </div>
           <div className="flex items-end">
             <label className="inline-flex cursor-pointer items-center gap-2 text-[13px] text-[var(--crm-ink-soft)]">
-              <input type="checkbox" name="verified" defaultChecked={v?.verified ?? false} className="accent-[var(--crm-accent)]" />
+              <input type="checkbox" name="verified" defaultChecked={dev?.verified ?? false} className="accent-[var(--crm-accent)]" />
               Datos verificados por Oscar
             </label>
           </div>
@@ -101,21 +100,21 @@ export function DesarrolloForm({
         <div className="grid gap-4 sm:grid-cols-2">
           <div>
             <label className={label} htmlFor="macroZona">Macro-zona (filtro del home)</label>
-            <select id="macroZona" name="macroZona" defaultValue={v?.macroZona ?? "merida"} className="crm-select">
+            <select id="macroZona" name="macroZona" defaultValue={dev?.macroZona ?? "merida"} className="crm-select">
               {MACRO_ZONAS.map(([val, l]) => <option key={val} value={val}>{l}</option>)}
             </select>
           </div>
           <div>
             <label className={label} htmlFor="city">Ciudad (pill del home)</label>
-            <input id="city" name="city" defaultValue={v?.city ?? ""} className="crm-input" placeholder="Mérida" />
+            <input id="city" name="city" defaultValue={dev?.city ?? ""} className="crm-input" placeholder="Mérida" />
           </div>
           <div>
             <label className={label} htmlFor="state">Estado</label>
-            <input id="state" name="state" defaultValue={v?.state ?? ""} className="crm-input" placeholder="Yucatán" />
+            <input id="state" name="state" defaultValue={dev?.state ?? ""} className="crm-input" placeholder="Yucatán" />
           </div>
           <div>
             <label className={label} htmlFor="zonaId">Zona SEO (opcional)</label>
-            <select id="zonaId" name="zonaId" defaultValue={v?.zonaId ?? ""} className="crm-select">
+            <select id="zonaId" name="zonaId" defaultValue={dev?.zonaId ?? ""} className="crm-select">
               <option value="">Sin enlazar</option>
               {zonaOptions.map((z) => <option key={z.id} value={z.id}>{z.nombre}</option>)}
             </select>
@@ -130,7 +129,7 @@ export function DesarrolloForm({
             <span className={label}>Tipos de propiedad</span>
             <div className="flex flex-wrap gap-2">
               {TIPOS.map(([val, l]) => (
-                <Check key={val} name="propertyTypes" value={val} checked={v?.propertyTypes?.includes(val) ?? false}>{l}</Check>
+                <Check key={val} name="propertyTypes" value={val} checked={dev?.propertyTypes?.includes(val) ?? false}>{l}</Check>
               ))}
             </div>
           </div>
@@ -138,7 +137,7 @@ export function DesarrolloForm({
             <span className={label}>Usos (quiz del home)</span>
             <div className="flex flex-wrap gap-2">
               {USOS.map(([val, l]) => (
-                <Check key={val} name="usos" value={val} checked={v?.usos?.includes(val) ?? false}>{l}</Check>
+                <Check key={val} name="usos" value={val} checked={dev?.usos?.includes(val) ?? false}>{l}</Check>
               ))}
             </div>
           </div>
@@ -150,15 +149,15 @@ export function DesarrolloForm({
         <div className="grid gap-4">
           <div>
             <label className={label} htmlFor="descriptionEs">Descripción (blurb del home)</label>
-            <textarea id="descriptionEs" name="descriptionEs" rows={3} defaultValue={v?.descriptionEs ?? ""} className="crm-textarea" />
+            <textarea id="descriptionEs" name="descriptionEs" rows={3} defaultValue={dev?.descriptionEs ?? ""} className="crm-textarea" />
           </div>
           <div>
             <label className={label} htmlFor="descriptionEn">Descripción en inglés (opcional)</label>
-            <textarea id="descriptionEn" name="descriptionEn" rows={2} defaultValue={v?.descriptionEn ?? ""} className="crm-textarea" />
+            <textarea id="descriptionEn" name="descriptionEn" rows={2} defaultValue={dev?.descriptionEn ?? ""} className="crm-textarea" />
           </div>
           <div>
             <label className={label} htmlFor="amenities">Amenidades (separadas por coma)</label>
-            <input id="amenities" name="amenities" defaultValue={(v?.amenities ?? []).join(", ")} className="crm-input" placeholder="Casa club, alberca, cenote" />
+            <input id="amenities" name="amenities" defaultValue={(dev?.amenities ?? []).join(", ")} className="crm-input" placeholder="Casa club, alberca, cenote" />
           </div>
         </div>
       </section>
@@ -181,11 +180,11 @@ export function DesarrolloForm({
         <div className="grid gap-4 sm:grid-cols-2">
           <div>
             <label className={label} htmlFor="sourceUrlEs">URL de origen (ES)</label>
-            <input id="sourceUrlEs" name="sourceUrlEs" defaultValue={v?.sourceUrlEs ?? ""} className="crm-input" placeholder="https://" />
+            <input id="sourceUrlEs" name="sourceUrlEs" defaultValue={dev?.sourceUrlEs ?? ""} className="crm-input" placeholder="https://" />
           </div>
           <div>
             <label className={label} htmlFor="sourceUrlEn">URL de origen (EN)</label>
-            <input id="sourceUrlEn" name="sourceUrlEn" defaultValue={v?.sourceUrlEn ?? ""} className="crm-input" placeholder="https://" />
+            <input id="sourceUrlEn" name="sourceUrlEn" defaultValue={dev?.sourceUrlEn ?? ""} className="crm-input" placeholder="https://" />
           </div>
         </div>
       </section>

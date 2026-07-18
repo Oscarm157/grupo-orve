@@ -14,6 +14,7 @@ export default async function PanelLayout({ children }: { children: React.ReactN
   const me = await getCurrentUser();
   if (!me) redirect("/login");
   if (me.mustChangePassword) redirect("/change-password");
+  if (me.role !== "admin") redirect("/");
 
   return (
     <SidebarProvider>

@@ -2,7 +2,7 @@
 
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
-import { asc, eq } from "drizzle-orm";
+import { and, eq } from "drizzle-orm";
 import { del } from "@vercel/blob";
 import { z } from "zod";
 import { db } from "@/lib/db";
@@ -52,6 +52,12 @@ const csv = (v: FormDataEntryValue | null): string[] =>
 
 async function guard() {
   await requireAdmin();
+}
+
+// Violación de unicidad de Postgres (slug duplicado) — código 23505.
+function isUniqueViolation(e: unknown): boolean {
+  const code = (e as { code?: string })?.code;
+  return code === "23505" || /duplicate key|unique/i.test(String((e as Error)?.message ?? ""));
 }
 
 // ===================== Desarrollos =====================
@@ -106,9 +112,16 @@ export async function createDesarrollo(formData: FormData) {
   const check = safeParseForm(desarrolloScalar, formData);
   if (!check.ok) redirect(`/admin/desarrollos/nuevo?error=${encodeURIComponent(check.error)}`);
   const v = desarrolloValues(formData);
-  const rows = await db.insert(developments).values(v).returning({ id: developments.id });
+  let newId: string;
+  try {
+    const rows = await db.insert(developments).values(v).returning({ id: developments.id });
+    newId = rows[0].id;
+  } catch (e) {
+    if (isUniqueViolation(e)) redirect(`/admin/desarrollos/nuevo?error=${encodeURIComponent("Ese slug ya existe, elige otro.")}`);
+    throw e;
+  }
   revalidatePath("/admin/desarrollos");
-  redirect(`/admin/desarrollos/${rows[0].id}`);
+  redirect(`/admin/desarrollos/${newId}`);
 }
 
 export async function updateDesarrollo(id: string, formData: FormData) {
@@ -116,7 +129,12 @@ export async function updateDesarrollo(id: string, formData: FormData) {
   const check = safeParseForm(desarrolloScalar, formData);
   if (!check.ok) redirect(`/admin/desarrollos/${id}?error=${encodeURIComponent(check.error)}`);
   const v = desarrolloValues(formData);
-  await db.update(developments).set({ ...v, updatedAt: new Date() }).where(eq(developments.id, id));
+  try {
+    await db.update(developments).set({ ...v, updatedAt: new Date() }).where(eq(developments.id, id));
+  } catch (e) {
+    if (isUniqueViolation(e)) redirect(`/admin/desarrollos/${id}?error=${encodeURIComponent("Ese slug ya existe, elige otro.")}`);
+    throw e;
+  }
   revalidatePath("/admin/desarrollos");
   revalidatePath(`/admin/desarrollos/${id}`);
   redirect("/admin/desarrollos");
@@ -171,13 +189,13 @@ export async function updateModelo(devId: string, unitId: string, formData: Form
   await db
     .update(units)
     .set({ ...modeloValues(formData), updatedAt: new Date() })
-    .where(eq(units.id, unitId));
+    .where(and(eq(units.id, unitId), eq(units.developmentId, devId)));
   revalidatePath(`/admin/desarrollos/${devId}`);
 }
 
 export async function deleteModelo(devId: string, unitId: string) {
   await guard();
-  await db.delete(units).where(eq(units.id, unitId));
+  await db.delete(units).where(and(eq(units.id, unitId), eq(units.developmentId, devId)));
   revalidatePath(`/admin/desarrollos/${devId}`);
 }
 
@@ -211,10 +229,8 @@ export async function uploadDesarrolloImage(
 
 export async function deleteDesarrolloImage(devId: string, imageId: string) {
   await guard();
-  const rows = await db
-    .select({ url: developmentImages.url })
-    .from(developmentImages)
-    .where(eq(developmentImages.id, imageId));
+  const scope = and(eq(developmentImages.id, imageId), eq(developmentImages.developmentId, devId));
+  const rows = await db.select({ url: developmentImages.url }).from(developmentImages).where(scope);
   if (rows[0]) {
     try {
       await del(rows[0].url);
@@ -222,7 +238,7 @@ export async function deleteDesarrolloImage(devId: string, imageId: string) {
       console.error("[desarrollos] fallo al borrar blob", rows[0].url, e);
     }
   }
-  await db.delete(developmentImages).where(eq(developmentImages.id, imageId));
+  await db.delete(developmentImages).where(scope);
   revalidatePath(`/admin/desarrollos/${devId}`);
 }
 

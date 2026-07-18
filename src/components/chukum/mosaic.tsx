@@ -8,13 +8,14 @@ interface MosaicPhoto {
   src: string;
   alt: string;
   label: string; // chip de zona
-  restClassName: string; // posición de reposo (desktop), alineada y derecha
+  restClassName: string; // posición de reposo (desktop), alineada
   from: { x: number; y: number }; // de dónde entra
+  rotate: number; // giro sutil hacia afuera en reposo
   delay: number; // stagger de entrada
 }
 
 // Fotos de desarrollos por zona (sin nombrar proyectos). Mismo tamaño, alineadas a las
-// esquinas: dos a la izquierda, dos a la derecha, derechas (sin rotación).
+// esquinas y giradas ~12° hacia afuera (izquierda a la izquierda, derecha a la derecha).
 const PHOTOS: MosaicPhoto[] = [
   {
     src: "/hero/ccm-foodtrucks.webp",
@@ -22,6 +23,7 @@ const PHOTOS: MosaicPhoto[] = [
     label: "Mérida",
     restClassName: "top-[5%] left-[2%] w-[22vw] min-w-[190px] aspect-[4/3]",
     from: { x: -300, y: 0 },
+    rotate: -12,
     delay: 0.05,
   },
   {
@@ -30,6 +32,7 @@ const PHOTOS: MosaicPhoto[] = [
     label: "Selva",
     restClassName: "bottom-[5%] left-[2%] w-[22vw] min-w-[190px] aspect-[4/3]",
     from: { x: -300, y: 0 },
+    rotate: -12,
     delay: 0.16,
   },
   {
@@ -38,6 +41,7 @@ const PHOTOS: MosaicPhoto[] = [
     label: "Costa",
     restClassName: "top-[5%] right-[2%] w-[22vw] min-w-[190px] aspect-[4/3]",
     from: { x: 300, y: 0 },
+    rotate: 12,
     delay: 0.27,
   },
   {
@@ -46,6 +50,7 @@ const PHOTOS: MosaicPhoto[] = [
     label: "Caribe",
     restClassName: "bottom-[5%] right-[2%] w-[22vw] min-w-[190px] aspect-[4/3]",
     from: { x: 300, y: 0 },
+    rotate: 12,
     delay: 0.38,
   },
 ];
@@ -70,7 +75,7 @@ export function Mosaic({ heroSrc, heroAlt }: { heroSrc: string; heroAlt: string 
   const heroScale = useTransform(scrollYProgress, [0.05, 0.5], [1.22, 0.84], { clamp: true });
 
   return (
-    <section ref={ref} className="bg-canvas px-5 py-16 md:px-10 md:py-20">
+    <section ref={ref} className="bg-canvas px-5 pt-2 pb-10 md:px-10 md:pt-4 md:pb-12">
       <div className="mx-auto max-w-[1400px]">
         {/* Desktop: composición en abanico, alineada */}
         <div className="relative hidden h-[82vh] min-h-[560px] md:block">
@@ -84,8 +89,8 @@ export function Mosaic({ heroSrc, heroAlt }: { heroSrc: string; heroAlt: string 
           {PHOTOS.map((p) => (
             <motion.div
               key={p.src}
-              initial={reduce ? false : { opacity: 0, x: p.from.x, y: p.from.y }}
-              whileInView={{ opacity: 1, x: 0, y: 0 }}
+              initial={reduce ? false : { opacity: 0, x: p.from.x, y: p.from.y, rotate: p.rotate }}
+              whileInView={{ opacity: 1, x: 0, y: 0, rotate: p.rotate }}
               viewport={{ once: true, margin: "-15% 0px" }}
               transition={{ duration: 0.7, delay: p.delay, ease: EASE }}
               className={`absolute overflow-hidden rounded-2xl shadow-[0_20px_50px_-24px_rgba(20,16,14,0.4)] ${p.restClassName}`}

@@ -43,10 +43,10 @@ export function ChukumNav() {
           scrolled ? "border-b border-hairline bg-canvas/90 backdrop-blur-md" : "bg-transparent"
         }`}
       >
-        <div className="mx-auto flex h-16 max-w-[1400px] items-center px-5 md:px-10">
+        <div className="mx-auto flex h-20 max-w-[1400px] items-center px-5 md:px-10">
           <a
             href="#top"
-            className={`text-sm font-bold tracking-[0.3em] transition-colors ${light ? "text-crema" : "text-ink"}`}
+            className={`text-xl font-bold tracking-[0.24em] transition-colors md:text-2xl ${light ? "text-crema" : "text-ink"}`}
           >
             CHUKUM
           </a>
@@ -56,7 +56,7 @@ export function ChukumNav() {
               <a
                 key={l.href}
                 href={l.href}
-                className={`text-sm transition-colors ${light ? "text-crema/85 hover:text-crema" : "text-ink-2 hover:text-ink"}`}
+                className={`text-[15px] transition-colors ${light ? "text-crema/85 hover:text-crema" : "text-ink-2 hover:text-ink"}`}
               >
                 {l.label}
               </a>

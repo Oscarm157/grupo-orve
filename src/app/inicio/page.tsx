@@ -3,6 +3,7 @@ import { MessageCircle, ArrowRight, ShieldCheck, FileCheck2, Droplets } from "lu
 import { Reveal } from "@/components/reveal";
 import { ChukumNav } from "@/components/chukum/nav";
 import { Quiz } from "@/components/chukum/quiz";
+import { QuizProcess } from "@/components/chukum/quiz-process";
 import { Mosaic } from "@/components/chukum/mosaic";
 import { CaptureForm } from "@/components/chukum/capture-form";
 import { DEVELOPMENTS, tiposLabel, type Development } from "@/lib/developments";
@@ -115,10 +116,10 @@ export default function ChukumHome() {
       </section>
 
       {/* 2 — Abanico de opciones (animación de scroll) */}
-      <section className="bg-canvas px-5 pt-20 pb-14 md:px-10 md:pt-28 md:pb-20">
-        <div className="mx-auto max-w-[1400px]">
+      <section className="bg-canvas px-5 py-12 md:px-10 md:py-16">
+        <div className="mx-auto grid max-w-[1400px] gap-6 md:grid-cols-2 md:items-end md:gap-16">
           <SectionHead index="02" eyebrow="Opciones" title="Terrenos, casas y departamentos en distintas zonas" />
-          <p className="mt-4 max-w-xl text-ink-2">
+          <p className="max-w-xl text-ink-2 md:pb-2">
             Desde la selva y el norte de Mérida hasta la costa y el Caribe, en distintos presupuestos
             y etapas.
           </p>
@@ -126,15 +127,20 @@ export default function ChukumHome() {
       </section>
       <Mosaic heroSrc="/hero/pareja-terraza.webp" heroAlt="Pareja joven en la terraza de su hogar al atardecer en Yucatán" />
 
-      {/* 3 — Quiz (núcleo del funnel) */}
+      {/* 3 — Quiz (núcleo del funnel), 2 columnas */}
       <section id="quiz" className="scroll-mt-20 bg-canvas px-5 py-20 md:px-10 md:py-28">
-        <div className="mx-auto max-w-[1400px]">
-          <SectionHead index="03" eyebrow="Cuestionario" title="Encuentra el desarrollo que corresponde a tu perfil" />
-          <p className="mt-4 max-w-xl text-ink-2">
-            Cuatro preguntas sobre zona, tipo de propiedad y etapa. Al final se pueden dejar los datos
-            para recibir disponibilidad y precios.
-          </p>
-          <div className="mt-10 rounded-3xl border border-hairline bg-surface p-6 md:p-10">
+        <div className="mx-auto grid max-w-[1400px] gap-10 md:grid-cols-2 md:gap-16">
+          <div>
+            <SectionHead index="03" eyebrow="Cuestionario" title="Encuentra el desarrollo que corresponde a tu perfil" />
+            <p className="mt-4 max-w-md text-ink-2">
+              Cuatro preguntas sobre zona, tipo de propiedad y etapa. Al final se pueden dejar los datos
+              para recibir disponibilidad y precios.
+            </p>
+            <div className="mt-8">
+              <QuizProcess />
+            </div>
+          </div>
+          <div className="rounded-3xl border border-hairline bg-surface p-6 md:p-10">
             <Quiz />
           </div>
         </div>
@@ -180,21 +186,21 @@ export default function ChukumHome() {
         </div>
       </section>
 
-      {/* 5 — Respaldo (cifras reales, sin nombrar al desarrollador) */}
+      {/* 5 — Vivir en Mérida (guía, numeralia real) */}
       <section className="bg-canvas px-5 py-24 md:px-10 md:py-28">
         <div className="mx-auto max-w-[1400px]">
           <Reveal>
-            <SectionHead index="06" eyebrow="Respaldo" title="Comunidades entregadas y en operación" />
+            <SectionHead index="06" eyebrow="Vivir en Mérida" title="Cómo es vivir en Yucatán" />
             <p className="mt-4 max-w-2xl leading-relaxed text-ink-2">
-              Los desarrollos del catálogo pertenecen a una constructora con comunidades planeadas ya
-              entregadas y en operación en Yucatán y Quintana Roo. Las cifras corresponden a proyectos
-              en funcionamiento.
+              Comprar aquí es también elegir dónde vivir. Yucatán combina clima cálido, una de las
+              ciudades más seguras del país y costa a media hora. Algunos datos para ubicarse.
             </p>
           </Reveal>
-          <div className="mt-12 grid grid-cols-1 gap-px overflow-hidden rounded-3xl border border-hairline bg-hairline sm:grid-cols-3">
-            <Stat value="6,000+" label="Unidades entregadas en una comunidad del norte de Mérida" />
-            <Stat value="3,800+" label="Unidades en una comunidad frente al mar en Progreso" />
-            <Stat value="2 estados" label="Desarrollos entregados en Yucatán y Quintana Roo" />
+          <div className="mt-12 grid grid-cols-2 gap-px overflow-hidden rounded-3xl border border-hairline bg-hairline sm:grid-cols-4">
+            <Stat value="~28°C" label="Temperatura media anual en Mérida" />
+            <Stat value="~1.2M" label="Habitantes en la zona metropolitana de Mérida" />
+            <Stat value="1er lugar" label="Estado más seguro de México" />
+            <Stat value="30 min" label="De Mérida a la playa de Progreso" />
           </div>
         </div>
       </section>

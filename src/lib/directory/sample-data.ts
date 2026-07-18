@@ -26,6 +26,7 @@ export type SamplePlace = {
   priceLevel: number; // 1..4
   editorialNote: string;
   perfiles: PerfilSlug[];
+  imageUrl?: string; // foto real (viene de Outscraper); sin ella se usa el panel tipográfico
 };
 
 // Polígono aproximado (rectángulo) alrededor de un centro, en grados. Marca zona, no colonia exacta.

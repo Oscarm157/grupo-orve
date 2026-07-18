@@ -8,31 +8,13 @@ import { db } from "@/lib/db";
 import { zonas } from "@/lib/schema";
 import { requireAdmin } from "@/lib/session";
 import { safeParseForm } from "@/lib/validate";
+import { str, int, csv, isUniqueViolation } from "@/lib/form-values";
 
-const str = (v: FormDataEntryValue | null): string | null => {
-  const t = String(v ?? "").trim();
-  return t || null;
-};
-const int = (v: FormDataEntryValue | null): number | null => {
-  const d = String(v ?? "").replace(/[^\d]/g, "");
-  if (d === "") return null;
-  const n = parseInt(d, 10);
-  return Number.isFinite(n) ? Math.min(n, 2_000_000_000) : null;
-};
+// lat/lng admiten negativos, así que num se deja local (difiere del de desarrollos).
 const num = (v: FormDataEntryValue | null): string | null => {
   const t = String(v ?? "").trim();
   return /^-?\d+(\.\d+)?$/.test(t) ? t : null;
 };
-const csv = (v: FormDataEntryValue | null): string[] =>
-  String(v ?? "")
-    .split(",")
-    .map((s) => s.trim())
-    .filter(Boolean);
-
-function isUniqueViolation(e: unknown): boolean {
-  const code = (e as { code?: string })?.code;
-  return code === "23505" || /duplicate key|unique/i.test(String((e as Error)?.message ?? ""));
-}
 
 const zonaScalar = z.object({
   nombre: z.string().trim().min(1, "El nombre es obligatorio."),

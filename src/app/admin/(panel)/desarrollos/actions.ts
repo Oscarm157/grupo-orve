@@ -20,6 +20,7 @@ import {
 import { uploadImage } from "@/lib/blob";
 import { requireAdmin } from "@/lib/session";
 import { safeParseForm } from "@/lib/validate";
+import { str, int, csv, isUniqueViolation } from "@/lib/form-values";
 
 const MACRO_ZONAS: MacroZona[] = ["merida", "costa", "caribe", "selva"];
 const USOS: Uso[] = ["invertir", "vivir"];
@@ -27,37 +28,16 @@ const UNIT_TYPES: UnitType[] = ["terreno", "casa", "departamento", "townhouse", 
 const UNIT_STATUSES: UnitStatus[] = ["disponible", "apartado", "vendido"];
 const DEV_STATUSES: DevelopmentStatus[] = ["preventa", "en_construccion", "entrega_inmediata", "vendido"];
 
-// --- helpers de parseo (arrays y numéricos que Zod-desde-FormData no cubre bien) ---
-const str = (v: FormDataEntryValue | null): string | null => {
-  const t = String(v ?? "").trim();
-  return t || null;
-};
-const int = (v: FormDataEntryValue | null): number | null => {
-  const d = String(v ?? "").replace(/[^\d]/g, "");
-  if (d === "") return null;
-  const n = parseInt(d, 10);
-  return Number.isFinite(n) ? Math.min(n, 2_000_000_000) : null;
-};
+// numeric() de drizzle recibe string; solo no-negativos (áreas/precios/porcentajes).
 const num = (v: FormDataEntryValue | null): string | null => {
   const t = String(v ?? "").trim();
-  return /^\d+(\.\d+)?$/.test(t) ? t : null; // numeric() de drizzle recibe string
+  return /^\d+(\.\d+)?$/.test(t) ? t : null;
 };
 const list = (arr: FormDataEntryValue[], allowed: readonly string[]) =>
   arr.map(String).filter((x) => allowed.includes(x));
-const csv = (v: FormDataEntryValue | null): string[] =>
-  String(v ?? "")
-    .split(",")
-    .map((s) => s.trim())
-    .filter(Boolean);
 
 async function guard() {
   await requireAdmin();
-}
-
-// Violación de unicidad de Postgres (slug duplicado) — código 23505.
-function isUniqueViolation(e: unknown): boolean {
-  const code = (e as { code?: string })?.code;
-  return code === "23505" || /duplicate key|unique/i.test(String((e as Error)?.message ?? ""));
 }
 
 // ===================== Desarrollos =====================

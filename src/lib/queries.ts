@@ -81,12 +81,15 @@ export async function getDevelopmentImages(devId: string): Promise<DevelopmentIm
 // <Quiz/> no cambien de contrato. Solo entran los desarrollos "curados para el home"
 // (con `heading`); los que llegan por scraping sin heading no salen.
 export async function getDevelopmentsForHome(): Promise<HomeDevelopment[]> {
-  const rows = await db
-    .select()
-    .from(developments)
-    .where(isNotNull(developments.heading))
-    .orderBy(asc(developments.createdAt));
+  // Solo desarrollos curados para el home (con heading) y que siguen en venta
+  // (los "vendido" no se anuncian). statusMarketing null cuenta como en venta.
+  const rows = (
+    await db.select().from(developments).where(isNotNull(developments.heading)).orderBy(asc(developments.createdAt))
+  ).filter((r) => r.statusMarketing !== "vendido");
   if (rows.length === 0) return [];
+
+  // El home solo sabe pintar estos 3 tipos; ignora townhouse/local_comercial.
+  const homeTipos: Tipo[] = ["terreno", "casa", "departamento"];
 
   const ids = rows.map((r) => r.id);
   const imgs = await db.select().from(developmentImages).where(inArray(developmentImages.developmentId, ids));
@@ -113,7 +116,7 @@ export async function getDevelopmentsForHome(): Promise<HomeDevelopment[]> {
       place: [r.city, r.state].filter(Boolean).join(", "),
       ciudad: r.city ?? "",
       zona: (r.macroZona ?? "merida") as MacroZona,
-      tipos: (r.propertyTypes ?? []) as Tipo[],
+      tipos: ((r.propertyTypes ?? []) as Tipo[]).filter((t) => homeTipos.includes(t)),
       usos: (r.usos ?? []) as Uso[],
       etapa: (r.statusMarketing ?? "preventa") as Etapa,
       image: hero?.url ?? "/hero/hero-poster.webp",

@@ -63,8 +63,15 @@ export function Catalogo({ developments }: { developments: Development[] }) {
       </div>
 
       {/* Cards filtradas */}
-      <div className="mt-10 flex flex-col gap-5">
-        <AnimatePresence mode="popLayout" initial={false}>
+      {visibles.length === 0 ? (
+        <p className="mt-10 text-ink-2">
+          {developments.length === 0
+            ? "Pronto publicaremos los desarrollos disponibles."
+            : "No hay desarrollos en las ciudades seleccionadas."}
+        </p>
+      ) : (
+        <div className="mt-10 flex flex-col gap-5">
+          <AnimatePresence mode="popLayout" initial={false}>
           {visibles.map((d, i) => (
             <motion.div
               key={d.slug}
@@ -77,8 +84,9 @@ export function Catalogo({ developments }: { developments: Development[] }) {
               <DevCard d={d} flip={i % 2 === 1} />
             </motion.div>
           ))}
-        </AnimatePresence>
-      </div>
+          </AnimatePresence>
+        </div>
+      )}
     </>
   );
 }

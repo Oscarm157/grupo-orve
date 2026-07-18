@@ -14,7 +14,7 @@ const row = {
   reviews: "2140",
   photos_count: 812,
   photo: "https://lh5.googleusercontent.com/marago.jpg",
-  working_hours: { Monday: "7AM-9PM", Sunday: "8AM-2PM" },
+  working_hours: { Monday: ["7AM-9PM"], Sunday: ["8AM-2PM"] },
   phone: "+52 999 123 4567",
   site: "https://maragocoffee.com",
   latitude: 20.99,
@@ -34,7 +34,7 @@ check("reviewsCount numérico", m.reviewsCount === 2140);
 check("priceLevel $$ -> 2", m.priceLevel === 2);
 check("website de `site`", m.website === "https://maragocoffee.com");
 check("photoUrls como array", Array.isArray(m.photoUrls) && m.photoUrls![0].includes("marago"));
-check("hours pasa directo", m.hours?.Monday === "7AM-9PM");
+check("hours pasa directo", m.hours?.Monday?.[0] === "7AM-9PM");
 check("dataSource outscraper", m.dataSource === "outscraper");
 check("placeIdGoogle preservado", m.placeIdGoogle === "ChIJd8BlQ2BZwokRAFUEcm_qX9c");
 

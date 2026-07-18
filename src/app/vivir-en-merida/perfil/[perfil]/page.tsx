@@ -4,7 +4,8 @@ import { SiteNav } from "@/components/vivir/site-nav";
 import { SiteFooter } from "@/components/vivir/footer";
 import { DirectoryExplorer } from "@/components/vivir/directory-explorer";
 import { PERFILES, getPerfil } from "@/lib/directory/perfiles";
-import { getRankedPlaces, SAMPLE_ZONAS } from "@/lib/directory/sample-data";
+import { getDirectoryPlaces } from "@/lib/directory/queries";
+import { SAMPLE_ZONAS } from "@/lib/directory/sample-data";
 
 export function generateStaticParams() {
   return PERFILES.map((p) => ({ perfil: p.slug }));
@@ -33,7 +34,7 @@ export default async function PerfilPage({
   const perfil = getPerfil(slug);
   if (!perfil) notFound();
 
-  const places = getRankedPlaces();
+  const places = await getDirectoryPlaces();
 
   return (
     <>

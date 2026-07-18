@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import { SiteNav } from "@/components/vivir/site-nav";
 import { SiteFooter } from "@/components/vivir/footer";
 import { DirectoryExplorer } from "@/components/vivir/directory-explorer";
-import { getRankedPlaces, SAMPLE_ZONAS } from "@/lib/directory/sample-data";
+import { getDirectoryPlaces } from "@/lib/directory/queries";
+import { SAMPLE_ZONAS } from "@/lib/directory/sample-data";
 
 export const metadata: Metadata = {
   title: "El directorio de Mérida",
@@ -10,8 +11,8 @@ export const metadata: Metadata = {
     "Los mejores cafés, restaurantes y cocina yucateca de Mérida, por zona, ordenados por un ranking que pondera las reseñas reales.",
 };
 
-export default function DirectorioPage() {
-  const places = getRankedPlaces();
+export default async function DirectorioPage() {
+  const places = await getDirectoryPlaces();
 
   return (
     <>

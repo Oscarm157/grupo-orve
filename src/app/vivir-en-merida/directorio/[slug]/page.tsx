@@ -6,12 +6,13 @@ import { SiteNav } from "@/components/vivir/site-nav";
 import { SiteFooter } from "@/components/vivir/footer";
 import { MiniMap } from "@/components/vivir/mini-map";
 import { CATEGORIES } from "@/lib/directory/filters";
-import { getRankedPlaces, getSamplePlaceBySlug, getSampleZona } from "@/lib/directory/sample-data";
+import { getDirectoryPlaces, getPlaceBySlug } from "@/lib/directory/queries";
+import { getSampleZona } from "@/lib/directory/sample-data";
 
 const DIAS = ["lunes", "martes", "miércoles", "jueves", "viernes", "sábado", "domingo"];
 
-export function generateStaticParams() {
-  return getRankedPlaces().map((p) => ({ slug: p.slug }));
+export async function generateStaticParams() {
+  return (await getDirectoryPlaces()).map((p) => ({ slug: p.slug }));
 }
 
 export async function generateMetadata({
@@ -20,7 +21,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const place = getSamplePlaceBySlug(slug);
+  const place = await getPlaceBySlug(slug);
   if (!place) return { title: "Lugar" };
   const label = CATEGORIES.find((c) => c.value === place.category)?.label ?? place.category;
   return { title: `${place.nombre}`, description: `${label} en Mérida, Yucatán. ${place.rating} en Google con ${place.reviewsCount.toLocaleString("es-MX")} reseñas.` };
@@ -28,7 +29,7 @@ export async function generateMetadata({
 
 export default async function PlacePage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const place = getSamplePlaceBySlug(slug);
+  const place = await getPlaceBySlug(slug);
   if (!place) notFound();
 
   const zona = getSampleZona(place.zonaSlug);

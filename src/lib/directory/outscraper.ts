@@ -19,8 +19,8 @@ export type OutscraperRow = {
   photos_count?: number | string | null;
   photo?: string | null;
   photos?: string[] | null;
-  working_hours?: Record<string, string> | null;
-  hours?: Record<string, string> | null;
+  working_hours?: Record<string, string[]> | null;
+  hours?: Record<string, string[]> | null;
   phone?: string | null;
   phone_1?: string | null;
   site?: string | null;
@@ -39,7 +39,7 @@ export type OutscraperRow = {
 
 export type ImportContext = {
   category: PlaceCategory;
-  zonaId?: string | null;
+  zonaSlug?: string | null;
 };
 
 function slugify(input: string): string {
@@ -92,7 +92,7 @@ export function mapOutscraperRow(row: OutscraperRow, ctx: ImportContext) {
     slug,
     nombre,
     category: ctx.category,
-    zonaId: ctx.zonaId ?? null,
+    zonaSlug: ctx.zonaSlug ?? null,
     placeIdGoogle: placeId,
     googleCid: firstStr(row.google_id, row.cid),
     address: firstStr(row.full_address, row.address),
@@ -158,7 +158,7 @@ export async function recomputeRankings(opts: RankOptions = {}): Promise<number>
     .select({
       id: places.id,
       category: places.category,
-      zonaId: places.zonaId,
+      zonaSlug: places.zonaSlug,
       rating: places.rating,
       reviewsCount: places.reviewsCount,
       hidden: places.hidden,
@@ -169,7 +169,7 @@ export async function recomputeRankings(opts: RankOptions = {}): Promise<number>
   const inputs: RankInput[] = visibles.map((p) => ({
     key: p.id,
     category: p.category,
-    zonaId: p.zonaId,
+    zonaId: p.zonaSlug,
     rating: p.rating !== null ? Number(p.rating) : null,
     reviewsCount: p.reviewsCount,
   }));

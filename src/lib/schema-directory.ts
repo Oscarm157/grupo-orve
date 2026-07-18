@@ -1,5 +1,4 @@
 import { pgTable, uuid, text, boolean, timestamp, jsonb, integer, numeric } from "drizzle-orm/pg-core";
-import { zonas } from "./schema";
 
 // ===== "Vivir en Yucatán": guía por perfil + guías editoriales + directorio curado =====
 // Vive aparte de schema.ts a propósito, para no chocar en el merge con el trabajo del CRM que
@@ -62,7 +61,7 @@ export const places = pgTable("places", {
   slug: text("slug").notNull().unique(),
   nombre: text("nombre").notNull(),
   category: text("category").$type<PlaceCategory>().notNull(),
-  zonaId: uuid("zona_id").references(() => zonas.id, { onDelete: "set null" }),
+  zonaSlug: text("zona_slug"), // zona aproximada del mapa (constante en front, no FK a la tabla zonas)
 
   // --- data de Outscraper / Google Maps ---
   // Llave natural del export: permanente y única. Permite upsert idempotente en cada refresh.
@@ -75,8 +74,9 @@ export const places = pgTable("places", {
   rating: numeric("rating"), // 0..5
   reviewsCount: integer("reviews_count"),
   priceLevel: integer("price_level"), // 1..4
-  photoUrls: jsonb("photo_urls").$type<string[]>(),
-  hours: jsonb("hours").$type<Record<string, string>>(),
+  imageUrl: text("image_url"), // foto de portada (Blob)
+  photoUrls: jsonb("photo_urls").$type<string[]>(), // galería (Blob)
+  hours: jsonb("hours").$type<Record<string, string[]>>(),
   phone: text("phone"),
   website: text("website"),
   reservationUrl: text("reservation_url"),

@@ -148,16 +148,18 @@ export default function ChukumHome() {
 
       {/* 3 — Desarrollos (grid asimétrico: Xo'ok destacado + 4) */}
       <section id="desarrollos" className="scroll-mt-20 bg-canvas px-5 pb-20 md:px-10 md:pb-28">
-        <Reveal>
-          <SectionHead index="04" eyebrow="Catálogo" title="Desarrollos disponibles" />
-        </Reveal>
+        <div className="mx-auto max-w-[1400px]">
+          <Reveal>
+            <SectionHead index="04" eyebrow="Catálogo" title="Desarrollos disponibles" />
+          </Reveal>
 
-        <div className="mt-10 flex flex-col gap-5">
-          {DEVELOPMENTS.map((d, i) => (
-            <Reveal key={d.slug}>
-              <DevCard d={d} flip={i % 2 === 1} />
-            </Reveal>
-          ))}
+          <div className="mt-10 flex flex-col gap-5">
+            {DEVELOPMENTS.map((d, i) => (
+              <Reveal key={d.slug}>
+                <DevCard d={d} flip={i % 2 === 1} />
+              </Reveal>
+            ))}
+          </div>
         </div>
       </section>
 

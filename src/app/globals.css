@@ -732,3 +732,51 @@ html[data-crm-theme="light"] .crm-logo-navy { display: block; }
   z-index: 5;
   box-shadow: 0 4px 12px rgba(23, 18, 14, 0.4);
 }
+
+/* Marquee tipo casino del quiz (/inicio): borde base tenue + una luz cenote que recorre el
+   perímetro. Sutil y elegante, no un glow constante: el arco de luz barre cada ~4.5s. */
+@property --qm-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+.quiz-marquee {
+  position: relative;
+  isolation: isolate;
+}
+.quiz-marquee::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 2px;
+  background:
+    conic-gradient(
+      from var(--qm-angle),
+      transparent 0deg,
+      transparent 296deg,
+      color-mix(in srgb, var(--cenote) 55%, transparent) 330deg,
+      var(--cenote) 344deg,
+      color-mix(in srgb, var(--cenote) 55%, transparent) 358deg,
+      transparent 360deg
+    ) border-box,
+    linear-gradient(var(--hairline), var(--hairline)) border-box;
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: qm-spin 4.5s linear infinite;
+  pointer-events: none;
+  z-index: -1;
+}
+@keyframes qm-spin {
+  to {
+    --qm-angle: 360deg;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .quiz-marquee::before {
+    animation: none;
+  }
+}

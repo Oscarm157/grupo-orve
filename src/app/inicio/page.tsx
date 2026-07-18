@@ -95,8 +95,8 @@ export default async function ChukumHome() {
                   Tu casa, terreno o departamento en la península de Yucatán
                 </h1>
                 <p className="mt-4 max-w-xl text-base leading-relaxed text-crema/85">
-                  Hay muchos desarrollos en Yucatán y Quintana Roo. El cuestionario muestra los que
-                  corresponden a lo que buscas.
+                  Vivir entre selva, cenotes y el mar del Caribe, en el estado más seguro de México.
+                  Contesta el cuestionario y ve los desarrollos que corresponden a lo que buscas.
                 </p>
               </div>
               <div className="flex shrink-0 flex-col gap-3 sm:flex-row md:pb-1">
@@ -143,7 +143,7 @@ export default async function ChukumHome() {
               <QuizProcess />
             </div>
           </div>
-          <div className="rounded-3xl border border-hairline bg-surface p-6 md:p-10">
+          <div className="quiz-marquee rounded-3xl bg-surface p-6 md:p-10">
             <Quiz developments={developments} />
           </div>
         </div>
@@ -256,7 +256,7 @@ function Stat({ value, label }: { value: string; label: string }) {
   return (
     <div className="bg-canvas px-7 py-10">
       <p className="font-display text-5xl tracking-[-0.03em] text-ink">{value}</p>
-      <p className="mt-3 text-sm leading-relaxed text-ink-2">{label}</p>
+      <p className="mt-3 text-sm leading-relaxed text-ink">{label}</p>
     </div>
   );
 }

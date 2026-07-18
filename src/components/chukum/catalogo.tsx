@@ -32,6 +32,7 @@ export function Catalogo({ developments }: { developments: Development[] }) {
 
       {/* Pills de ciudad + borrar */}
       <div className="mt-6 flex flex-wrap items-center gap-2.5">
+        <span className="mr-1 text-xs uppercase tracking-[0.16em] text-ink-2">Filtrar por ciudad</span>
         {ciudades.map((ciudad) => {
           const active = selected.has(ciudad);
           return (
@@ -40,10 +41,10 @@ export function Catalogo({ developments }: { developments: Development[] }) {
               type="button"
               aria-pressed={active}
               onClick={() => toggle(ciudad)}
-              className={`rounded-full px-4 py-2 text-sm transition ${
+              className={`rounded-full px-4 py-2 text-sm font-medium transition ${
                 active
-                  ? "bg-cenote text-canvas"
-                  : "border border-hairline text-ink-2 hover:border-cenote hover:text-cenote"
+                  ? "bg-cenote text-canvas shadow-sm"
+                  : "border-2 border-[var(--chukum)] text-ink hover:border-cenote hover:text-cenote"
               }`}
             >
               {ciudad}
@@ -96,7 +97,7 @@ export function Catalogo({ developments }: { developments: Development[] }) {
 function DevCard({ d, flip }: { d: Development; flip: boolean }) {
   const waMsg = `Hola, me interesa una propiedad ${d.heading.toLowerCase()}. ¿Me pasas disponibilidad y precios?`;
   return (
-    <article className="chukum-grain flex flex-col overflow-hidden rounded-3xl border border-hairline bg-surface md:min-h-[340px] md:flex-row">
+    <article className="chukum-grain flex flex-col overflow-hidden rounded-3xl border-2 border-[var(--chukum)] bg-surface md:min-h-[340px] md:flex-row">
       <div className={`relative h-60 md:h-auto md:w-1/2 ${flip ? "md:order-2" : ""}`}>
         <Image src={d.image} alt={d.alt} fill className="object-cover" sizes="(max-width:768px) 100vw, 50vw" />
         <span className="absolute left-3 top-3 rounded-full bg-canvas/90 px-3 py-1 text-xs text-ink">

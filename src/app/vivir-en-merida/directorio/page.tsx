@@ -15,7 +15,7 @@ export default function DirectorioPage() {
 
   return (
     <>
-      <SiteNav />
+      <SiteNav overHero={false} />
       <main className="bg-canvas text-ink">
         <section className="mx-auto max-w-[1440px] px-6 pb-8 pt-28 md:px-10 md:pt-32">
           <p className="text-xs uppercase tracking-[0.22em] text-terracota">Vivir en Yucatán</p>

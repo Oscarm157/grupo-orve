@@ -37,7 +37,7 @@ export default async function PerfilPage({
 
   return (
     <>
-      <SiteNav />
+      <SiteNav overHero={false} />
       <main className="bg-canvas text-ink">
         <section className="mx-auto max-w-[1440px] px-6 pb-10 pt-28 md:px-10 md:pt-32">
           <p className="text-xs uppercase tracking-[0.22em] text-terracota">Perfil</p>

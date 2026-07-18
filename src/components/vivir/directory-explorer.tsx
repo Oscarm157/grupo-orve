@@ -233,7 +233,7 @@ export function DirectoryExplorer({ places, zonas, soloCategorias }: Props) {
           </div>
           <p className="mt-3 font-mono text-[11px] uppercase tracking-[0.14em] text-ink-2">
             {filtradas.length} {filtradas.length === 1 ? "lugar" : "lugares"} · ranking por reseñas ·
-            ratings de muestra
+            datos de Google
           </p>
         </div>
 

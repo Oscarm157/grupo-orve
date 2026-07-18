@@ -51,6 +51,11 @@ export async function getPlaceBySlug(slug: string): Promise<RankedPlace | null> 
   return rows[0] ? toRanked(rows[0]) : null;
 }
 
+/** Todos los lugares (incluye no publicados/ocultos) para el admin de curación. */
+export async function getAllPlacesForAdmin() {
+  return db.select().from(places).orderBy(places.category, desc(places.rankScore));
+}
+
 /** Guías publicadas, opcionalmente filtradas por perfil. */
 export async function getPublishedGuides(perfil?: PerfilSlug) {
   const conds = [eq(guides.published, true)];

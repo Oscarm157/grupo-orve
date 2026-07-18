@@ -24,7 +24,7 @@ const row = {
   menu_link: "https://maragocoffee.com/menu",
 };
 
-const m = mapOutscraperRow(row, { category: "cafe", zonaId: "norte" });
+const m = mapOutscraperRow(row, { category: "cafe", zonaSlug: "norte" });
 
 check("nombre mapeado", m.nombre === "Marago Coffee");
 check("slug estable con sufijo de place_id", m.slug === "marago-coffee-cmqx9c");

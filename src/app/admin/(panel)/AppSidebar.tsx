@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Building2, MapPin, Inbox, MessageSquare, LogOut, Sun, Moon } from "lucide-react";
+import { Building2, MapPin, UtensilsCrossed, Inbox, MessageSquare, LogOut, Sun, Moon } from "lucide-react";
 import {
   Sidebar, SidebarHeader, SidebarContent, SidebarFooter, SidebarGroup,
   SidebarGroupLabel, SidebarGroupContent, SidebarMenu, SidebarMenuItem,
@@ -19,7 +19,13 @@ function isActive(pathname: string, href: string) {
 
 const GROUPS: Group[] = [
   { label: "Catálogo", items: [{ href: "/admin/desarrollos", label: "Desarrollos", icon: Building2 }] },
-  { label: "Contenido", items: [{ href: "/admin/zonas", label: "Zonas", icon: MapPin }] },
+  {
+    label: "Contenido",
+    items: [
+      { href: "/admin/zonas", label: "Zonas", icon: MapPin },
+      { href: "/admin/directorio", label: "Directorio", icon: UtensilsCrossed },
+    ],
+  },
   {
     label: "Comercial",
     items: [

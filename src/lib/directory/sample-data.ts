@@ -27,6 +27,11 @@ export type SamplePlace = {
   perfiles: PerfilSlug[];
   imageUrl?: string;
   gallery?: string[]; // galería (top 10) del endpoint de fotos de Outscraper
+  placeId?: string; // para el enlace "ver en Google Maps"
+  phone?: string;
+  website?: string;
+  address?: string;
+  hours?: Record<string, string[]>; // día -> rangos horarios
 };
 
 function box(lng: number, lat: number, dx: number, dy: number): [number, number][] {
@@ -58,6 +63,11 @@ export const SAMPLE_PLACES: SamplePlace[] = [
     priceLevel: 2,
     perfiles: ["me-mudo","vacaciones","retiro"],
     imageUrl: "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWlbHKzXYxGPURpxEv1QJHaC65IUJTeL6KqmjQF_5G3dJoIZKPgbPXcpm6N8N0K4qRBshBdsh1AXKrk4YW5KO-h_FvNyzQ3LD77K_lWbSYqcd2M-17D0_-tAk5LZKWpBmLXc3SrY=w800-h500-k-no",
+    placeId: "ChIJtzCcrGFxVo8RZLu9elke5cE",
+    phone: "+52 999 928 4780",
+    website: "http://www.lachayamaya.com/",
+    address: "C. 57 x 62, Parque Santa Lucia, Centro, 97000 Mérida, Yuc.",
+    hours: {"lunes":["7a.m.-11p.m."],"martes":["7a.m.-11p.m."],"miércoles":["7a.m.-11p.m."],"jueves":["7a.m.-11p.m."],"viernes":["7a.m.-11p.m."],"sábado":["7a.m.-11p.m."],"domingo":["7a.m.-11p.m."]},
   },
   {
     slug: "la-cochinita-de-la-60-ogcvee",
@@ -72,6 +82,11 @@ export const SAMPLE_PLACES: SamplePlace[] = [
     perfiles: ["me-mudo","vacaciones","retiro"],
     imageUrl: "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWkMA1rBfepFv3wEMZgGm2xAxGFBDFukPasKmk3nM9kKRsCVEkNIYFyaVzbbwIRgOGBKcgjdwF3C9DFozHX3Ye5Q2rfBoz4YiIdHpwx-sd6Zd76apgN83KBszL4dMM7Dr0thkJbSOJF4uHo=w800-h500-k-no",
     gallery: ["https://lh3.googleusercontent.com/gps-cs-s/AHRPTWn2snC3FXGHLwU6cKxSvLgk8eQKo_QTeNmtNE275LrBChUESz-F_FjAkCBmhwZ2PGcVXvee72K_9Wh50T9lP9dHgMUKSHroPaS9KR6CtZDacDX6d4laovhFr_b9OtbnWXU7yXnPnpLyj28=w2048-h2048-k-no","https://lh3.googleusercontent.com/gps-cs-s/AHRPTWlBs1vWR8AWKS9153Ar4IQAflK5o6l61Dz__mgkq8JGqaiP9loeJQiUQKgalXRwVtszdp88nEHGx5S-npNB5bJpVHGV8kY0QkECqJttHeOiLAWc21Tj94FyVgZ8B4SDIX_wfaXaBw=w2048-h2048-k-no","https://lh3.googleusercontent.com/gps-cs-s/AHRPTWmuzw8IxJiD1wKyJiDAb-O3iDOBQjY9zIpI9-OuLmG3fmOIKVj7X8YCV6zIFjkyt5ViYBvEyf01zMNjKUJ3eYwcEHOLRClmlvRT0w9Llu1VTTL0yNFYS-pBxZjISxY-wMKXu-nELA=w2048-h2048-k-no","https://lh3.googleusercontent.com/gps-cs-s/AHRPTWmg78HTlXzNB-iM5dt3vRsg25uAUcXaUcgTdcz1___CLPUgbqzWtEgHgpvQJav3SPFUol8v1mXDOQq5ZggVtgbFr5W7l53eXFpgD-Z8TPIIfpwrHfuibpAyCfaULhlyFegB7CvL7P-bbdII=w2048-h2048-k-no","https://lh3.googleusercontent.com/gps-cs-s/AHRPTWkAg2MGAVwGWE-CQ6z8-0kvJna4iDrrh11qEWAmKxpK097ZTwgUMtV_r3S_GjdxyQjamAmh19MZHf9nUmgngN3bisO7YgD48XERc7-KIPHJHxQ9zRJYg2TcQ0x3_ftRkFFWeXVfmnsJoUjp=w2048-h2048-k-no","https://lh3.googleusercontent.com/gps-cs-s/AHRPTWkslxtmgM0y4pO4U3CdDgIZi2uJ1VVndt19W4gwfB93XH2SEvNcyyvdPw2e9pwINqJxnzFtYhRZ6CZB_KiAeZgOtac1QMrwn5sTelbfYPZIoVnAVtsIk9X9NaT01yMArMTASQ3Wz5S9f5M-=w2048-h2048-k-no"],
+    placeId: "ChIJ-frOwHVxVo8R8HMyLoGcveE",
+    phone: "+52 990 190 1312",
+    website: "https://www.facebook.com/profile.php%3Fid%3D61565082445534%26mibextid%3DLQQJ4d",
+    address: "C. 60 326, Alcalá Martín, 97050 Mérida, Yuc.",
+    hours: {"lunes":["9a.m.-5p.m."],"martes":["9a.m.-5p.m."],"miércoles":["9a.m.-7p.m."],"jueves":["9a.m.-7p.m."],"viernes":["9a.m.-7p.m."],"sábado":["9a.m.-7p.m."],"domingo":["9a.m.-7p.m."]},
   },
   {
     slug: "luuch-cocina-yucateca-contemporanea-ykth3a",
@@ -85,6 +100,11 @@ export const SAMPLE_PLACES: SamplePlace[] = [
     priceLevel: 2,
     perfiles: ["me-mudo","vacaciones","retiro"],
     imageUrl: "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWl51GUg8jiCMNICryST2NjtSX76Xw9mQkUNV3vLDJD1TA0ZmpIcc5CTrtrqXrrtx_qBSNndGGcDRpGxLWDQGjV4_iE3XSOv-WwPpx32k-V1rt56SmE5kcTjz2P7AqcBKdzb4c49Ag=w800-h500-k-no",
+    placeId: "ChIJiVmaKvdxVo8R5s2gIYKTh3A",
+    phone: "+52 999 725 9713",
+    website: "https://www.facebook.com/luuchmerida",
+    address: "C. 56 496, Zona Paseo Montejo, Centro, 97000 Mérida, Yuc.",
+    hours: {"lunes":["7:30a.m.-7p.m."],"martes":["7:30a.m.-7p.m."],"miércoles":["7:30a.m.-7p.m."],"jueves":["7:30a.m.-10p.m."],"viernes":["7:30a.m.-10p.m."],"sábado":["7:30a.m.-10p.m."],"domingo":["7:30a.m.-10p.m."]},
   },
   {
     slug: "el-jardin-yucateco-aqvfja",
@@ -98,6 +118,11 @@ export const SAMPLE_PLACES: SamplePlace[] = [
     priceLevel: 2,
     perfiles: ["me-mudo","vacaciones","retiro"],
     imageUrl: "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWkllu7m9Ejcb0-ITYX8y4EjBmxyvMG7ziASJtua0v2tAA9T7i0LOn-DJ9OSvKJX4gIwXh6smXGAuhxdc1VLNF5j9OzPiIpvRIUBj22PbuGHXSLgPZU34bqOXwkPgQKsdgQKCWQ=w800-h500-k-no",
+    placeId: "ChIJrVqlWe5zVo8RZ_WcHAqVFjA",
+    phone: "+52 999 244 2885",
+    website: "https://facebook.com/profile.php%3Fid%3D100063614976838",
+    address: "C. 15 187, García Ginerés, 97070 Mérida, Yuc.",
+    hours: {"lunes":["Cerrado"],"martes":["Cerrado"],"miércoles":["Cerrado"],"jueves":["Cerrado"],"viernes":["6-11p.m."],"sábado":["6-11p.m."],"domingo":["6-11p.m."]},
   },
   {
     slug: "museo-de-la-gastronomia-yucateca-v59nbw",
@@ -111,6 +136,11 @@ export const SAMPLE_PLACES: SamplePlace[] = [
     priceLevel: 2,
     perfiles: ["me-mudo","vacaciones","retiro"],
     imageUrl: "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWkyGtrpYeqqW7ODdLsFvwbifC41lPegq8olqzm3j7E03dLp0hqzYo7Y0rgMs-YMXTEEUsBeMxfEVgEnTWFTSlyw2fMr1scSPJyBHRnTsLrkSHutYmHCRoZHu80wDeSkwseAI4oT=w800-h500-k-no",
+    placeId: "ChIJgVsYb2pxVo8RUE9eIV59NBw",
+    phone: "+52 999 518 1645",
+    website: "https://mugy.com.mx/",
+    address: "C. 62 466-x 55-y 57, Parque Santa Lucia, Centro, 97000 Mérida, Yuc.",
+    hours: {"lunes":["11a.m.-11p.m."],"martes":["11a.m.-11p.m."],"miércoles":["11a.m.-11p.m."],"jueves":["11a.m.-11p.m."],"viernes":["7:30a.m.-12a.m."],"sábado":["7:30a.m.-12a.m."],"domingo":["7:30a.m.-11p.m."]},
   },
   {
     slug: "teya-santa-lucia-restaurante-yucateco-tuanni",
@@ -124,6 +154,11 @@ export const SAMPLE_PLACES: SamplePlace[] = [
     priceLevel: 2,
     perfiles: ["me-mudo","vacaciones","retiro"],
     imageUrl: "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWkVzdC66KIC-Xpvy-8gHSVRZhjx3I-hIb0MdTz87EHgFmgvF40ci-vkDl78dKfmpuA0lTKywZCEHVP_f6YHaC8eF4AR3LmqX7XbUOrEypIvmAaP1OOLhtJaMa5AimbtvshOsK1sQIzAiX8=w800-h500-k-no",
+    placeId: "ChIJw87oCCBxVo8R_tcENtUANnI",
+    phone: "+52 999 368 2726",
+    website: "https://haciendateya.com/",
+    address: "C. 60 468, Parque Santa Lucia, Centro, 97000 Mérida, Yuc.",
+    hours: {"lunes":["8a.m.-12a.m."],"martes":["8a.m.-12a.m."],"miércoles":["8a.m.-12a.m."],"jueves":["8a.m.-12a.m."],"viernes":["8a.m.-12a.m."],"sábado":["8a.m.-12a.m."],"domingo":["8a.m.-12a.m."]},
   },
   {
     slug: "cheen-cocina-yucateca-cfv6py",
@@ -137,6 +172,11 @@ export const SAMPLE_PLACES: SamplePlace[] = [
     priceLevel: 2,
     perfiles: ["me-mudo","vacaciones","retiro"],
     imageUrl: "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWmHmyXo7OmXdVaT9j3Umdu6ugbfZPe3kaJwKyWPaiF333S6oIyLzjvepYw1VYuMziL9SalR9kd4Df14Uhjz-6mjQqvPer742_Kn5aTtHzCzJ9vqltBbBU5HIFCXgXxb8Hx6NnFH=w800-h500-k-no",
+    placeId: "ChIJddzuEUp3Vo8R00SLfCFv6pY",
+    phone: "+52 999 725 0197",
+    website: "https://www.facebook.com/cheencocina/",
+    address: "C. 61 x 34, Centro, 97000 Mérida, Yuc.",
+    hours: {"lunes":["8a.m.-5:30p.m."],"martes":["Cerrado"],"miércoles":["8a.m.-5:30p.m."],"jueves":["8a.m.-5:30p.m."],"viernes":["8a.m.-5:30p.m."],"sábado":["8a.m.-5:30p.m."],"domingo":["8a.m.-5p.m."]},
   },
   {
     slug: "casa-yucatan-restaurante-xsvccw",
@@ -150,6 +190,11 @@ export const SAMPLE_PLACES: SamplePlace[] = [
     priceLevel: 2,
     perfiles: ["me-mudo","vacaciones","retiro"],
     imageUrl: "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWm4vGmWyY1U0wXOKSOr4bnoupr8MnKUm-LQ3yN450KGcjgs6qv6rv_7Wce9PVC8_aVbXn1dtcMFrrxFM1oxe7juIJOw8Iy7goXj2p98g_CV3DDG4IbiRt6daLCS_EKFtdfR94pqTg=w800-h500-k-no",
+    placeId: "ChIJ5RE6Xa1xVo8RwuctlxsvCCw",
+    phone: "+52 999 802 3122",
+    website: "https://casayucatanrestaurante.com/",
+    address: "C. 60 445-por calles 49 y 51, Parque Santa Lucia, Centro, 97000 Mérida, Yuc.",
+    hours: {"lunes":["7:30a.m.-10:30p.m."],"martes":["7:30a.m.-10:30p.m."],"miércoles":["7:30a.m.-10:30p.m."],"jueves":["7:30a.m.-10:30p.m."],"viernes":["7:30a.m.-10:30p.m."],"sábado":["7:30a.m.-10:30p.m."],"domingo":["7:30a.m.-10:30p.m."]},
   },
   {
     slug: "habaneros-cocina-yucateca-y-mariscos-gadpla",
@@ -164,6 +209,11 @@ export const SAMPLE_PLACES: SamplePlace[] = [
     perfiles: ["me-mudo","vacaciones","retiro"],
     imageUrl: "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWkXobLSCqG2Gj1k4JuDrVE35zqFPxAAkV7LGFIM769zK4gRn0CgAtAEC0lQahKfn3tQ-3Z0hWgAkmgZlOSbvx0KI8CtoNiIWKkV2nZC05XhpggHDWi6HZwbdn9ArvmdfzbRxOmBJw=w800-h500-k-no",
     gallery: ["https://lh3.googleusercontent.com/gps-cs-s/AHRPTWlySvRJPWAmoR4MtupPBLOlJbn--IlwuvuxB5edybVdpKQS40EGiqf_qxzHhAYGM0Oi0_S3TPpObXOLQvjJvxtjC2ZNR3pCrHcIfTME_Yvnpq1T6m98Ivof2CCGpUGny1iAFRCH=w2048-h2048-k-no","https://lh3.googleusercontent.com/gps-cs-s/AHRPTWnhDyRw8dGI-MQyFwk29HF3arNJktYPdc2dd0AWmszGVDuXehYrBau8ocdY48P6tzwv4YIJxwjIv3nAD3RBS2PL8fsIqnkAQ6iGGL_ALuNFBDj_6d-4p--xSBtJV5UQ2a4Wue5FtxmfrhXe=w2048-h2048-k-no","https://lh3.googleusercontent.com/gps-cs-s/AHRPTWnJwhKEn6m8MALHQe2WIb5Qsyq2adVe3YZlOcBnaGfBdIHYDPyUu3rqFMYboTQQEHLDsNN8CslvtV952qk51Jqyx9OzqDfOH9bpeA3PXKSaNClD0PTCsNPd4gOQqAIirWTJbHr3Evwc_eI=w2048-h2048-k-no","https://lh3.googleusercontent.com/gps-cs-s/AHRPTWkp7PIGOnuMVSXvfaZbVcJ6WcTNnJ5A9tzI953WH3cFDwak7ST4HfeDQ0gQMiCpZgg_dQuSOXD_27uhWBCoidCH8uMCLvkl1Kvo3t1z5b3F_f46k0gQu_0v_ILApdStzdt2RIt_oz_XsgBg=w2048-h2048-k-no","https://lh3.googleusercontent.com/gps-cs-s/AHRPTWm6alnWlBZeBmFdxF_IfOR2hVUonDzVpBbt8ngUPKdafha9QzXEpV69A4xcEmda6jZ1hI5d_wA-HyO-YIjeXHu9AS4G5dIsgFYgVcYx2LYZeXJKX0EadAGh5NTOm7hukj9F_dSRO3YAn3M=w2048-h2048-k-no","https://lh3.googleusercontent.com/gps-cs-s/AHRPTWnhE6I7U0j48zf_284nNIdLE_uCPS3VWC-MXj_6qBnlnBYGkx9PmO_SLVPpDNBMCrvFy6-U_XJe3K_P-5ja5lhAotNksg1jsRWo8kly3gw0TRKiKfbgav5PC2hu0-U8vlnXI_yo6b07sBs8=w2048-h2048-k-no"],
+    placeId: "ChIJocLe0jp0Vo8RnhovwgaDPlA",
+    phone: "+52 999 195 6157",
+    website: "http://www.habaneros.com.mx/",
+    address: "Calle 20-A Num 302 X 5b Y 5c, Xcumpich, 97204 Mérida, Yuc.",
+    hours: {"lunes":["7a.m.-8p.m."],"martes":["7a.m.-8p.m."],"miércoles":["7a.m.-8p.m."],"jueves":["7a.m.-8p.m."],"viernes":["7a.m.-8p.m."],"sábado":["7a.m.-8p.m."],"domingo":["7a.m.-8p.m."]},
   },
   {
     slug: "la-chaya-maya-casona-wvfuj4",
@@ -177,6 +227,11 @@ export const SAMPLE_PLACES: SamplePlace[] = [
     priceLevel: 2,
     perfiles: ["me-mudo","vacaciones","retiro"],
     imageUrl: "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWnfMEm3_foI5XcX1fht7Onawzak42jwLLK5n1CenNkEFYXCIng-h2JqTBfON2SMydFMXY9OcGyOXlc01h5uZ0T_8tSXS7y-yWHdGb2Kn7uJmUoa5pRyE6NGkdL3jR5o50GI5_40=w800-h500-k-no",
+    placeId: "ChIJmVqQqmFxVo8RToCZHwVFUJ4",
+    phone: "+52 999 928 2295",
+    website: "http://www.lachayamaya.com/",
+    address: "C. 55 510, Parque Santa Lucia, Centro, 97000 Mérida, Yuc.",
+    hours: {"lunes":["7:30a.m.-11p.m."],"martes":["7:30a.m.-11p.m."],"miércoles":["7:30a.m.-11p.m."],"jueves":["7:30a.m.-11p.m."],"viernes":["7:30a.m.-11p.m."],"sábado":["7:30a.m.-11p.m."],"domingo":["7:30a.m.-11p.m."]},
   },
   {
     slug: "restaurante-regional-yucateco-a4bang",
@@ -190,6 +245,10 @@ export const SAMPLE_PLACES: SamplePlace[] = [
     priceLevel: 2,
     perfiles: ["me-mudo","vacaciones","retiro"],
     imageUrl: "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWlWMr50tK4nr2031WB-jCCvvaVA0Y8ZV9WSu1MgVXfiNmwZBAjqyGXr6CwUFt5QVQdI6VWaqa9FfopxYWtij7djiwF2ArhFbuTKxsXzD4IkbyNrGGYGbmEQzolbrLmyGJsN423j=w800-h500-k-no",
+    placeId: "ChIJM9R9l1BxVo8R3Xttaa4bang",
+    website: "https://www.fiestamericana.com/hoteles-y-resorts/fiesta-americana-merida/hotel-dining/los-almendros",
+    address: "Paseo Montejo. 451, esq, Av. Colón, Centro, 97000 Mérida, Yuc.",
+    hours: {"lunes":["1-10:30p.m."],"martes":["1-10:30p.m."],"miércoles":["1-10:30p.m."],"jueves":["1-10:30p.m."],"viernes":["1-10:30p.m."],"sábado":["1-10:30p.m."],"domingo":["Cerrado"]},
   },
   {
     slug: "teya-jyyjw4",
@@ -203,6 +262,11 @@ export const SAMPLE_PLACES: SamplePlace[] = [
     priceLevel: 2,
     perfiles: ["me-mudo","vacaciones","retiro"],
     imageUrl: "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWmD2ueVDv1uRsJLgBgXU80hBTbJ6tCHL_of3m0KKz4qeAUNCxNzjXwjk8VEoQ7yVHLjVWBQrmB1BpfUFOXgypd5RBaX2fchiKEPlkFOQexj5OrVxyjvqIWp1wwD9qfgTLF4-WgL=w800-h500-k-no",
+    placeId: "ChIJ265yBYJxVo8RgZivLjyyjW4",
+    phone: "+52 999 141 0248",
+    website: "http://www.haciendateya.com/",
+    address: "C. 60 346-interior Paseo 60, Zona Paseo Montejo, Centro, 97000 Mérida, Yuc.",
+    hours: {"lunes":["8a.m.-12a.m."],"martes":["12p.m.-12a.m."],"miércoles":["12p.m.-12a.m."],"jueves":["12p.m.-12a.m."],"viernes":["8a.m.-12a.m."],"sábado":["8a.m.-12a.m."],"domingo":["8a.m.-12a.m."]},
   },
   {
     slug: "los-almendros-e6xxlg",
@@ -216,6 +280,11 @@ export const SAMPLE_PLACES: SamplePlace[] = [
     priceLevel: 2,
     perfiles: ["me-mudo","vacaciones","retiro"],
     imageUrl: "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWn3JgvZLE-Ssp1greduoNcTqp6aSaxdun--N6ZUboUQbl2FdagK3rXWYy6ilsmB0Xbl2xgxBRex56pXEZz1ntsbTziXhC2fDtKBDVhkWBccLkdSPlbpPvRL6uQfiQ69m495ZvRI=w800-h500-k-no",
+    placeId: "ChIJOfiZDGZxVo8RfTaPKe6XxLg",
+    phone: "+52 999 928 5459",
+    website: "https://www.facebook.com/321852911017051",
+    address: "C. 50-A 493, entre 57 Y 59, Parque de la Mejorada, Centro, 97000 Mérida, Yuc.",
+    hours: {"lunes":["12-6p.m."],"martes":["Cerrado"],"miércoles":["12-6p.m."],"jueves":["12-6p.m."],"viernes":["12-6p.m."],"sábado":["12-6p.m."],"domingo":["12-6p.m."]},
   },
   {
     slug: "el-meson-yucateco-pc9ors",
@@ -229,6 +298,11 @@ export const SAMPLE_PLACES: SamplePlace[] = [
     priceLevel: 2,
     perfiles: ["me-mudo","vacaciones","retiro"],
     imageUrl: "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWmu2hCsqb6H14_1usphQ4obslQiaCEAY_Hzr4cAMjt6DfUNbXlrl1cWHpdbN2uSxu30Eg5pGIFBwQ7_0ett8Z38KP-4yz2E6LYVFw9yCfl-Cj81CAO8ci2BKxSlNCFtC31oMGMz=w800-h500-k-no",
+    placeId: "ChIJCY0DdpRwVo8R2dvoapC9oRs",
+    phone: "+52 999 291 6435",
+    website: "https://www.facebook.com/profile.php%3Fid%3D100057491347856",
+    address: "C. 22 300, Amalia Solorzano II, 97175 Kanasín, Yuc.",
+    hours: {"lunes":["12a.m.-7:30p.m."],"martes":["12a.m.-7:30p.m."],"miércoles":["12a.m.-7:30p.m."],"jueves":["12a.m.-7:30p.m."],"viernes":["12a.m.-7:30p.m."],"sábado":["12a.m.-7:30p.m."],"domingo":["12a.m.-7:30p.m."]},
   },
   {
     slug: "cafe-montejo-merida-ykuuzg",
@@ -242,6 +316,11 @@ export const SAMPLE_PLACES: SamplePlace[] = [
     priceLevel: 2,
     perfiles: ["me-mudo","inversion"],
     imageUrl: "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWkUZ7K_A5QY3rStN4BsuagEI5iFCfaAmSNXHoH98tLH2MjorASPbw69aFAcakqZdrKFApFkMuBtJrDbEOKYpxOt1j12MkxXT2ZnOU2h2nIC418xxN--n4wIqpLuRrk2isOR4ArdVQ=w800-h500-k-no",
+    placeId: "ChIJK-JJQdxzVo8R0COO1YkuUZg",
+    phone: "+52 999 923 1072",
+    website: "https://www.facebook.com/CafeMontejoMerida",
+    address: "C. 59 584, entre 72 y 74, Barrio de Santiago, Centro, 97000 Mérida, Yuc.",
+    hours: {"lunes":["8a.m.-11:30p.m."],"martes":["8a.m.-11:30p.m."],"miércoles":["8a.m.-11:30p.m."],"jueves":["8a.m.-11:30p.m."],"viernes":["8a.m.-11:30p.m."],"sábado":["8a.m.-11:30p.m."],"domingo":["Cerrado"]},
   },
   {
     slug: "el-hoyo-casa-de-te-pmxgya",
@@ -255,6 +334,11 @@ export const SAMPLE_PLACES: SamplePlace[] = [
     priceLevel: 2,
     perfiles: ["me-mudo","inversion"],
     imageUrl: "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWn_AFxR50WpF4-2rt8iatBT473qMulDZUkxy4RbgoP-1dGVdWyQZmqqvMaq4PXF98Zl0N3vBgVtBKXvMI0Oi6xJ6yZy1iDhnIEzXQrf_jxC7Xn7hGROeahcEqO-dE-WGdXNz5c=w800-h500-k-no",
+    placeId: "ChIJByTBsGFxVo8R4XZp_PMXGYA",
+    phone: "+52 999 924 6835",
+    website: "https://www.facebook.com/elhoyocasadete/",
+    address: "C. 62 468 x 55-y 57, Parque Santa Lucia, Centro, 97000 Mérida, Yuc.",
+    hours: {"lunes":["3-10p.m."],"martes":["3-10p.m."],"miércoles":["3-10p.m."],"jueves":["3-10p.m."],"viernes":["3-10p.m."],"sábado":["3-10p.m."],"domingo":["Cerrado"]},
   },
   {
     slug: "cafeteria-arista-barista-centro-coffee-shop-artesanal-con-cafe-de-especialidad-nashzs",
@@ -268,6 +352,11 @@ export const SAMPLE_PLACES: SamplePlace[] = [
     priceLevel: 2,
     perfiles: ["me-mudo","inversion"],
     imageUrl: "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWkqMYjvExmT545XN43hD1BRaIAomT9o_ltTKnXJl7UUm4oPEDwnl7urvbVOkExtymOebB5UXVTvgloAfQ6tvXfCC4YK-IPCStwpMAi5k2kc73mJdlpwad9I8vzJZrzzL6e8eqRs=w800-h500-k-no",
+    placeId: "ChIJn6RTHjtxVo8RxYzZ1NaShZs",
+    phone: "+52 56 3913 2911",
+    website: "https://www.instagram.com/aristabarista_mid/",
+    address: "Calle 54 & Calle 49, Centro, 97000 Mérida, Yuc.",
+    hours: {"lunes":["8a.m.-3p.m."],"martes":["8a.m.-3p.m."],"miércoles":["Cerrado"],"jueves":["8a.m.-3p.m."],"viernes":["8a.m.-3p.m."],"sábado":["8a.m.-3p.m."],"domingo":["8a.m.-3p.m."]},
   },
   {
     slug: "aliberada-cafe-desayunos-brunch-merida-yucatan-dfpzxg",
@@ -282,6 +371,10 @@ export const SAMPLE_PLACES: SamplePlace[] = [
     perfiles: ["me-mudo","inversion"],
     imageUrl: "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWni76Gn31ry9Qwfe6klir9rvYbUljZbZZaaeZHI_pkKzdPtOHP8-9v6WjDCpJRxuLvzvBeLkq6Xo0CIcjSzFhUpXY80LfYWCJfnvDBz4SHgv8BMogbhKg3FehCTjRZDzuEEOPJB=w800-h500-k-no",
     gallery: ["https://lh3.googleusercontent.com/gps-cs-s/AHRPTWlsOrx8N-RUEDUmuTUBNy9grWjChyXpcTqt2jNhSu_DV0ei3ehu8eQYtECWiQaNC71fY4zY179sxUDzrOTJLACxW7exD_lWtS7dkIOlaOXhu3ukrv4okNrioIQgfKRF8I87INFFgcox0fly=w2048-h2048-k-no","https://lh3.googleusercontent.com/gps-cs-s/AHRPTWnbMi8VNBSo7hfeS7dzsbvC0CZsu4lQb2Ah-hHbB06HLUuRB0zOA82iYGlRn9QJBg1qaeVxAZTj9IzhiniUIY8chtQ5iOXYkiph_nhbyWm4RWdca4IJYbLtACWRi2G7PpPlx56_6BuFdrQ=w2048-h2048-k-no","https://lh3.googleusercontent.com/gps-cs-s/AHRPTWnTolgNfkT5NkLLX1Th2DZDmeYtg7enjouuUpD6YdzhBTAT3PGGSgVsnGLSNeYQd90PAaTcTWkSIaP53vxnypAWdre5RWqrMHwK24E7EKQ_DE0-a5jjZImN7rS4BhkT0OhbkoU=w2048-h2048-k-no","https://lh3.googleusercontent.com/gps-cs-s/AHRPTWnwaZhYFtHLI2KPFHryU2B4s86Qb9FQW4GKdNsZjkw7bicVNxl3LJ5mSHQafirbovZiGouqtMmG8aMXGqJWLgw3GtbCZ-l7Rusy40fhZw9loYprT7R2A2OLF6WvGJdq0BWN6s9SOSX2XqEM=w2048-h2048-k-no","https://lh3.googleusercontent.com/gps-cs-s/AHRPTWkHYFb6Ekm32RcdWFB-XSUBLCgC1O029uUfZcQC0JMAumr4nAN89sOt0ZkhJBGCH5pA_dkD7t6S0NM_21CoG3h8pmA9S_I3dpQ9rRHKZlScJhLs06KTotDgiLW6LyNf9ePvrCU6=w2048-h2048-k-no","https://lh3.googleusercontent.com/gps-cs-s/AHRPTWkLT5_9exkr84rxlh029xLEz4BIIMhOVhL8vftyndD2lBoWA3VTHXj2zSRN23E5AGDv-R2zPAQ9B-78BM4DYTAObPmrKxJlOdAPdqQxfIo6E8FIL48yaQL52aTo4PpiJU7CrqTbugiYlNA=w2048-h2048-k-no"],
+    placeId: "ChIJuwmA6fF3Vo8Rw8JuvDFpzXg",
+    phone: "+52 999 243 6862",
+    address: "Calle 40 Esquina con Calle 79 Temozón Norte, 97302 Mérida, Yuc.",
+    hours: {"lunes":["Cerrado"],"martes":["8:30a.m.-3:30p.m."],"miércoles":["8:30a.m.-3:30p.m."],"jueves":["8:30a.m.-3:30p.m."],"viernes":["8:30a.m.-3:30p.m."],"sábado":["8:30a.m.-3:30p.m."],"domingo":["8:30a.m.-3p.m."]},
   },
   {
     slug: "sempere-libros-y-cafe-hdbkww",
@@ -296,6 +389,10 @@ export const SAMPLE_PLACES: SamplePlace[] = [
     perfiles: ["me-mudo","inversion"],
     imageUrl: "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWmuZoDzcmAEMWnMBYR3BQiX6uCa7p6RVn6Gs03-fKo0JY1dFrq8lkMVyWwKZc6rhmf_QHeq8QbuHTvlOA2IvrkeIjKExPmtO4YMObhNosYJs8rRPUKhLOcDDGvUSkom087VhK13XpBTa8Nh=w800-h500-k-no",
     gallery: ["https://lh3.googleusercontent.com/gps-cs-s/AHRPTWn1aQKB-IzGW-pIJXkVisyxvShksEE9ozm3xuhpImJjetmXVPm_7UqWmS0o7bqFJLfyvaOJ5NCpNs5BGgAOnGBEq3DUv6uj7EywICO4qtHOfU3Coxzk5o9HbrAjBzi6V1vf7mA=w2048-h2048-k-no","https://lh3.googleusercontent.com/gps-cs-s/AHRPTWkFZqYRETgMHfa-2MGnVG6K8OCsAKKZNQYC7c6L43kT_B5jSKZ4zmaKglnfJqUops2xlATYw34qOBkfMKlDP6MBLegMydwmx2opKqUMT1CaeDLj2TZYLtFgI6GfpPnzv-bC2ag=w2048-h2048-k-no","https://lh3.googleusercontent.com/gps-cs-s/AHRPTWkocuouXJgeublQxPX6qa5il5v_UVF2A9eFSBmw0g6lajxwAWBQujeBnBJkCV7NzZvCzH53tc9NGUR_G2Y1H95YdKkMNN5eI1kj6Tq9cmFXvCyz_2gu-dKL5c-Ik46uGFbpQS4xGLWYKj-v=w2048-h2048-k-no","https://lh3.googleusercontent.com/gps-cs-s/AHRPTWncaccUp0UL2XbGN-z-4yykyZpYUNC7itrKhZDVdqVqQL_E0X1WleMsLfV-JBRGNL8giKJRmUGJp_0lYRFt_Mwp9ZbM5m0O6krsCweZNwXfMkc8oNZKg_DaU4U-NwFRUiCsDuln=w2048-h2048-k-no","https://lh3.googleusercontent.com/gps-cs-s/AHRPTWko9t_asDNLnZnxl68ETOi97bZDO9ogRWL7m70xYWv--hazjQSNGwxBkxYLVY3jXAIuwjqja8lggSEwRkMLl09kGzEjvgw5zUSiMxBVyPbM0FMT3cC8dld49Le-LdwclD44jLu1wmQullYE=w2048-h2048-k-no","https://lh3.googleusercontent.com/gps-cs-s/AHRPTWmuZoDzcmAEMWnMBYR3BQiX6uCa7p6RVn6Gs03-fKo0JY1dFrq8lkMVyWwKZc6rhmf_QHeq8QbuHTvlOA2IvrkeIjKExPmtO4YMObhNosYJs8rRPUKhLOcDDGvUSkom087VhK13XpBTa8Nh=w2048-h2048-k-no"],
+    placeId: "ChIJx2AFEfBxVo8Ro3AiOHdbKww",
+    phone: "+52 999 142 1999",
+    address: "Calle 62. 479 x 55 y 57 Centro, Second floor, Santa Lucía, 97000 Mérida, Yuc.",
+    hours: {"lunes":["8a.m.-8p.m."],"martes":["Cerrado"],"miércoles":["8a.m.-8p.m."],"jueves":["8a.m.-8p.m."],"viernes":["8a.m.-8p.m."],"sábado":["8a.m.-8p.m."],"domingo":["8a.m.-8p.m."]},
   },
   {
     slug: "cafe-loco-coffee-lab-3uqkpe",
@@ -310,6 +407,10 @@ export const SAMPLE_PLACES: SamplePlace[] = [
     perfiles: ["me-mudo","inversion"],
     imageUrl: "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWn-vpzNIW_PgJ8YAuLC2D1sb_ZSgTvTs7vzgv0RC28zTe_6NA29C3PQUtyU60Isbg7JYxJujIlZo-fxngRhCyNjFMXdBFSbRc2uvFtEqWhDuDHHvTGdecB1rw7cegFUNNBs13r51rWeGQ1x=w800-h500-k-no",
     gallery: ["https://lh3.googleusercontent.com/gps-cs-s/AHRPTWkO2p8kwUdUGntVV8Dktx0foUmlEIIpPXcVlpeGfzYDvI7Abe4noJYOidFPAMf4mvuVIG5zkf7O9MDZQGCX_yeFB6MzLW1YMxkVs8xNR6w8DD6DNrClyTeLWnPYXj9haaG4kNCyz_8DBEXd=w2048-h2048-k-no","https://lh3.googleusercontent.com/gps-cs-s/AHRPTWlPCSoaxka-RVckWfAatG5bOcpwi27TRINCa9paArVRu2R3NiG-VTqIX14YXwQ7Z-ypfNKHnmwIBI6p5iDWxDAOZ2D-Najxynofr4fUC58q00O-PRrKj1gjFJAMhd5y0pYaoO7_S76_pTa5=w2048-h2048-k-no","https://lh3.googleusercontent.com/gps-cs-s/AHRPTWkQYNw9ydOdPhvqZ2AsnQ4T3b3unB48ti2rVdUfM-lnRQkoUl_6fzWMhK2Es5jRArPbd4NtrGNYDUAmWXQOhZFMuou1s2sNy6p6VMIhASuTV7tkyX8E-ZYWZiAbrKJYKD-GvRdJVy9Mm5eb=w2048-h2048-k-no","https://lh3.googleusercontent.com/gps-cs-s/AHRPTWkt-EJVtPodEWz4TUNBEiSWsdGxJ-PAM5DXN7_8b90RpFKtJMCLU_9m5bQ838EDikwz-OWfXyGzBxFBTSNd6FCdWhlJarMp-SAMOxTVFa-zGhGkIM4fTwwtdaSIDXSmUAHhfiiKmx-rPcs=w2048-h2048-k-no","https://lh3.googleusercontent.com/gps-cs-s/AHRPTWmqq6ja4-Hb02YY1550Fvr6kphDaJ4GYSPAlzhk3EeNOd_L5J_dY85DPo6M_9DwLNPk-2uBlaWmRddUtinFohT7dGbmh5MI-ZAcsSuUpzWupzq8KCHMOj-T2bsn_Gmw3RoEODteLtpnrrPi=w2048-h2048-k-no","https://lh3.googleusercontent.com/gps-cs-s/AHRPTWnexTsIre-D5SIltfIu9GiAeZ8gJSmEaFiNpr-HH2xU_F8ncHqlQc4WQRMlIbdQvuI1EfQaMVk4yw6ev_TaRB6W6VrOCirj7oS_nlFRi4_h3SJvAN2cpB92I-ih_G5sG8_5rWGy3UEwr1Ok=w2048-h2048-k-no"],
+    placeId: "ChIJ38weGWN3Vo8REtmE73UQkPE",
+    website: "https://linktr.ee/cafelococoffee",
+    address: "1H 192 14A Y 16, México Nte., 97125 Mérida, Yuc.",
+    hours: {"lunes":["9a.m.-8p.m."],"martes":["Cerrado"],"miércoles":["9a.m.-8p.m."],"jueves":["9a.m.-8p.m."],"viernes":["9a.m.-8p.m."],"sábado":["9a.m.-8p.m."],"domingo":["11a.m.-8p.m."]},
   },
   {
     slug: "manifesto-casa-tostadora-calabrese-xiryac",
@@ -323,6 +424,11 @@ export const SAMPLE_PLACES: SamplePlace[] = [
     priceLevel: 2,
     perfiles: ["me-mudo","inversion"],
     imageUrl: "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWk4LIutoXRlcS_ZgZtYXmvg94jfA7rBr_pQXkNItzfXU79ZYYhkD4u_U7WwCrtkz-2vuteJyEbjeuajZ3JvvhmfVr6w8YSHPl3ku2rV8dRx1orXZQ62h4ZnTp0K2VTNzS12wWZY=w800-h500-k-no",
+    placeId: "ChIJZUg8Id9zVo8Rxq9mXIr-Yac",
+    phone: "+52 999 445 3271",
+    website: "http://store.manifesto.mx/",
+    address: "Calle 59 #538 por 66 y 68, Centro, 97000 Mérida, Yuc.",
+    hours: {"lunes":["8a.m.-9p.m."],"martes":["8a.m.-9p.m."],"miércoles":["8a.m.-9p.m."],"jueves":["8a.m.-9p.m."],"viernes":["8a.m.-9p.m."],"sábado":["8a.m.-9p.m."],"domingo":["8a.m.-2p.m."]},
   },
   {
     slug: "pan-koffee-uxoxgg",
@@ -336,6 +442,11 @@ export const SAMPLE_PLACES: SamplePlace[] = [
     priceLevel: 2,
     perfiles: ["me-mudo","inversion"],
     imageUrl: "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWnn3plh_xoAOu9KpCK284WwAghMwvNe1rN3MTatx4WYX2AzKgg-HAQQPURFSlzUuXx7F4zxBgKhL7LqQNps_PeuLAzrs6-NigOtPSmFK5GHSlXutuWLvvJkIVOpZ_mp0KcrVcrneA=w800-h500-k-no",
+    placeId: "ChIJR_2LkKFxVo8RbHx0MUXOXgg",
+    phone: "+52 999 459 4034",
+    website: "https://panandkoffee.com/",
+    address: "Calle 43 x 58 y 60 #485, Santa Ana, 97000 Mérida, Yuc.",
+    hours: {"lunes":["8a.m.-1p.m."],"martes":["8a.m.-1p.m."],"miércoles":["8a.m.-1p.m."],"jueves":["8a.m.-1p.m."],"viernes":["8a.m.-1p.m."],"sábado":["8a.m.-2p.m."],"domingo":["8a.m.-2p.m."]},
   },
   {
     slug: "cafe-creme-veqqsm",
@@ -349,6 +460,10 @@ export const SAMPLE_PLACES: SamplePlace[] = [
     priceLevel: 2,
     perfiles: ["me-mudo","inversion"],
     imageUrl: "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWmUuZ1j2wUvG-v7NxPl-2DsMh2ZTez0njaxVoSMEkLFrkJED4HdO3Tn-6vhpzD8VywRIBeDdUwqYJMGYP_V3_nlCUs-kWbNe32_0PFcG9o17S_5m_S1-e6Gw_TM22ycFZMzeJea=w800-h500-k-no",
+    placeId: "ChIJrTnhpV5xVo8RsabN7vEQqsM",
+    phone: "+52 999 192 9565",
+    address: "Calle 41 386-B, Zona Paseo Montejo, Centro, 97000 Centro, Yuc.",
+    hours: {"lunes":["8:30a.m.-5p.m."],"martes":["8:30a.m.-5p.m."],"miércoles":["8:30a.m.-5p.m."],"jueves":["8:30a.m.-5p.m."],"viernes":["8:30a.m.-5p.m."],"sábado":["8:30a.m.-2p.m."],"domingo":["Cerrado"]},
   },
   {
     slug: "gato-gordo-cafe-rotnv4",
@@ -363,6 +478,10 @@ export const SAMPLE_PLACES: SamplePlace[] = [
     perfiles: ["me-mudo","inversion"],
     imageUrl: "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWkHdWlPFwzDPU_7LDcDJw6HARnKo5gOPhaucTalD9OxWP5O7xFL24-ydorgK0UPM73Wuqn10EY2g0iX6nAKts6gv1UT_taE9o_gr2Ps04V575UyDJUuIHYi1W9ge9GyMEXNSw=w800-h500-k-no",
     gallery: ["https://lh3.googleusercontent.com/gps-cs-s/AHRPTWnZxjk1gP1JwDgUUJbCZy-hZ28z7ldRFkoDkSjieFz25sWqFUldW9Q-vqoRB6Jtjh5xnPpzGIvuag2nbrPeLq_SMwt-22I7Q9p8cTb_plPLi2CjSxqvuVVxzL-xw3uf=w2048-h2048-k-no","https://lh3.googleusercontent.com/gps-cs-s/AHRPTWleTrC5CL9bHAL8GIOxG4Bjo8Srm4PVQH7WwN-1Afef-UyEzAO73WVb-VzaICo_1kOGWZ0muzoDyuatCwvwIJJeVVX9hSIef0VzR0r5J57Swt7metjunU4HlWLpEh-NbYQtnjMsvK9iq0-q=w2048-h2048-k-no","https://lh3.googleusercontent.com/gps-cs-s/AHRPTWlnRV1nCb30cPu1fXlh6tPG_EPkLP5jfvKAXvyzzZpIxezy1nclYPLRfDZCKHqM8Pj_ujooX7b7eLrCN2-SphN3zxpmkJUeL8s-5K2WLcywG_5u_DYsAevZnuoQaghBgebn-K_fNz6i6AyA=w2048-h2048-k-no","https://lh3.googleusercontent.com/gps-cs-s/AHRPTWkxEVaL3QUl-dZD8P15lXpLX8EiqIdMdH1QVyKqTl65sCxttPJp_F2zjSJqpnwPLJAHgmBm5K2iy7q464zol6ExayvTIj1NyPnRcyflVuHrnj4ysxx6VKeEtJHO9YaT6veVJai4=w2048-h2048-k-no","https://lh3.googleusercontent.com/gps-cs-s/AHRPTWlwCQEAhH5Rklynq8fo-WmkHFNnwBT1Mz-MmjjdJr5IjX6wszfiXQbhWR5gPfxI_06bj2OTdJXXmaUgrBwxiaSIs3Jm4RkggfOh9eZNMdUxVIR435OycrzkC1mCO01yskmDqP0JPA72Xes=w2048-h2048-k-no","https://lh3.googleusercontent.com/gps-cs-s/AHRPTWltSN1oP1Yiwi3kAYimSgJdeSjvrEg9L2EVqic9g9tIu8RN5VmcXv9yMfaYxYJEjjFg-XrCI21rTgF-9NtAIO2iO666q6nGKzCR5OnLSAy-zeSz-ZNmlGLpMeDmtFLsp6AE57F-7gZMNDp4=w2048-h2048-k-no"],
+    placeId: "ChIJRxPhTH5zVo8RSh1hyROtnV4",
+    phone: "+52 999 547 8688",
+    address: "C. 63 544-x 68, Parque Santiago, Centro, 97000 Mérida, Yuc.",
+    hours: {"lunes":["8a.m.-8p.m."],"martes":["8a.m.-8p.m."],"miércoles":["8a.m.-8p.m."],"jueves":["8a.m.-8p.m."],"viernes":["8a.m.-8p.m."],"sábado":["8a.m.-8p.m."],"domingo":["Cerrado"]},
   },
   {
     slug: "cafe-la-habana-jr1il8",
@@ -376,6 +495,11 @@ export const SAMPLE_PLACES: SamplePlace[] = [
     priceLevel: 2,
     perfiles: ["me-mudo","inversion"],
     imageUrl: "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWmnsYe0oVftx8JncercoOveVBHDr8sNoZpu0kI3c7HBSlDR1C3GAh6TT70mzd5WU0vqe2ktCvcKbEUUyAeVpvBRzk7FLcUKX7MsZtEsD-GUaqzLB-jkmp-Oigt5N81krwkU5Q_O=w800-h500-k-no",
+    placeId: "ChIJkSC98mFxVo8RIFvnEJR1Il8",
+    phone: "+52 999 928 6502",
+    website: "https://m.facebook.com/Caf%25C3%25A9-La-Habana-Merida-Yucatan-254787368047635/%3Flocale2%3Des_LA",
+    address: "C. 59 511A, Parque Santa Lucia, Centro, 97000 Mérida, Yuc.",
+    hours: {"lunes":["Abierto las 24 horas"],"martes":["Abierto las 24 horas"],"miércoles":["Abierto las 24 horas"],"jueves":["Abierto las 24 horas"],"viernes":["Abierto las 24 horas"],"sábado":["Abierto las 24 horas"],"domingo":["Abierto las 24 horas"]},
   },
   {
     slug: "clandestino-cafe-merida-montejo-specialty-coffee-all-day-breakfast-n99jba",
@@ -389,6 +513,10 @@ export const SAMPLE_PLACES: SamplePlace[] = [
     priceLevel: 2,
     perfiles: ["me-mudo","inversion"],
     imageUrl: "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWkOlsf0AxMRmBPBCH_NAhxh5aAIzA5eX-7jlKtIuc-uxkAC_bnvAe-zg5YTnKlTnK7YHdnbMIkkySybZgtCbYanc-gvKX36Us5dtWfO47jhFEUpkVXFI3MToW3bOjvaTh6CwLFApV2HfgNT=w800-h500-k-no",
+    placeId: "ChIJIQ24969xVo8R5b2hYN99JbA",
+    website: "https://clandestinocoffee.com/",
+    address: "P.º de Montejo 468, Zona Paseo Montejo, Centro, 97000 Mérida, Yuc.",
+    hours: {"lunes":["8a.m.-9p.m."],"martes":["8a.m.-9p.m."],"miércoles":["8a.m.-9p.m."],"jueves":["8a.m.-9p.m."],"viernes":["8a.m.-11p.m."],"sábado":["8a.m.-11p.m."],"domingo":["8a.m.-11p.m."]},
   },
   {
     slug: "maria-montejo-rituales-de-cafe-jfux5w",
@@ -402,6 +530,10 @@ export const SAMPLE_PLACES: SamplePlace[] = [
     priceLevel: 2,
     perfiles: ["me-mudo","inversion"],
     imageUrl: "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWl_los43oBarTem56oPIQiXPUQfA_447x_1JNBQUwJCFrXedMkbMoC4W6mg_E9RPrBlBtnIjMlFF9JWiqQHat7eJoS0ojJFYnSxB3NZx3UAtBFi_hp9wC9dSGB_17VeE5Sau1g=w800-h500-k-no",
+    placeId: "ChIJ_Zno1BJzVo8RMRRcDJFUx5w",
+    website: "https://www.instagram.com/mariaymontejo.cafe/",
+    address: "C. 58 393, entre calle 37 y calle 39, Zona Paseo Montejo, Centro, 97000 Mérida, Yuc.",
+    hours: {"lunes":["8a.m.-4p.m."],"martes":["8a.m.-4p.m."],"miércoles":["8a.m.-4p.m."],"jueves":["8a.m.-4p.m."],"viernes":["8a.m.-4p.m."],"sábado":["8a.m.-4p.m."],"domingo":["8a.m.-4p.m."]},
   },
   {
     slug: "justo-bread-studio-1bdjk0",
@@ -415,6 +547,11 @@ export const SAMPLE_PLACES: SamplePlace[] = [
     priceLevel: 2,
     perfiles: ["me-mudo","inversion"],
     imageUrl: "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWlskf2xdwZL-Dh0ZT6I8_psVYNPkPx5miBwydw5i5Gz8BUm7Dl0B49B9sFnu6e5-noM5mf0aRAOywUEBjunIQ4tGFfC5Ttaw6rY1_Jkk3NjomKlBecDg2mSqnQGlHyxFE8mrw7wog=w800-h500-k-no",
+    placeId: "ChIJz2EwQ95xVo8RsIKO31bDjk0",
+    phone: "+52 999 235 9053",
+    website: "https://www.instagram.com/justo.bread.studio/",
+    address: "P.º de Montejo 433, Zona Paseo Montejo, Centro, 97000 Mérida, Yuc.",
+    hours: {"lunes":["Cerrado"],"martes":["8:30a.m.-10p.m."],"miércoles":["8:30a.m.-10p.m."],"jueves":["8:30a.m.-10p.m."],"viernes":["8:30a.m.-10p.m."],"sábado":["8:30a.m.-10p.m."],"domingo":["8:30a.m.-10p.m."]},
   },
   {
     slug: "micaela-mar-lena-odceoy",
@@ -429,6 +566,11 @@ export const SAMPLE_PLACES: SamplePlace[] = [
     perfiles: ["vacaciones","inversion"],
     imageUrl: "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWm6H-eWT544R3G4nTNCKBhUdvnltBWs-VdT80P_2PR7EdfOxgOf-RJCiBO-y-G4i2RrS-IqySY13d5XUaWSACgMAUc9v5VevkxZJB-ZjGjrFZBR44s5LrZZFeOD_eRIgQuFgIYy=w800-h500-k-no",
     gallery: ["https://lh3.googleusercontent.com/gps-cs-s/AHRPTWm6H-eWT544R3G4nTNCKBhUdvnltBWs-VdT80P_2PR7EdfOxgOf-RJCiBO-y-G4i2RrS-IqySY13d5XUaWSACgMAUc9v5VevkxZJB-ZjGjrFZBR44s5LrZZFeOD_eRIgQuFgIYy=w2048-h2048-k-no","https://lh3.googleusercontent.com/gps-cs-s/AHRPTWlT7it0TNDTJoJxEUQU828wNX_RyQp7-5v42z620_Jv5hzdeN524Bm61M_NRWT_DVMAWT_U2aYyAuY-1yA0ZrlZRqPZaqQklGlHOZ7boebSJqu87glnU9l3qMEr0leM7lFqeNHC=w2048-h2048-k-no","https://lh3.googleusercontent.com/gps-cs-s/AHRPTWmc-EmVHtYkoEzAd3vAvwngJSt3HOHzY6ZYX59j1U3jgi70QL4B0sc9xKNQb1clTxRzUYatykAkrlb0QL-MTJ-qBjX4jeZoBEyHSRFixHhQryzG7P3crHndrsWYFNJeld8XDzSZvn_a7gsP=w2048-h2048-k-no","https://lh3.googleusercontent.com/gps-cs-s/AHRPTWkCQsrj5XKtg7zfebADx0Unvofr3q4nobTpqmaz_MkZb2Rl31OBr8nfnWhM8DC1yb0ufEIsrOAgDuhLiuaNgIeGdZ_Hk2we0L_9uSuerYlctF3PJ7qc80kO68NlXuqu4-vtjJpI=w2048-h2048-k-no","https://lh3.googleusercontent.com/gps-cs-s/AHRPTWlhkV8PUurwGkP3KmwuKefCHim7t7oj3J8X7RDOBlPbeN1KTlTEP9MBsEvHGeIepoOdklwgH0LJWScTvm_hMlVHjd4K_qzexuBmjIRAY5VE68IlcK-fRImdG2wxJYZyQUxpAX0K7aAsqIVq=w2048-h2048-k-no","https://lh3.googleusercontent.com/gps-cs-s/AHRPTWlEsbsiZbbXDBrEKuUt0dQvf0fuS7ivVRwBcbmzQxyzbfVv3XPcuSIjbDz1ZfNPDLKV96PlCKLRxagDskO21vgZQUGUGOTTgBi8tO6CazTY4gPxvC6wq-tO__wYROa5AQLf9Us1swZ0RG0e=w2048-h2048-k-no"],
+    placeId: "ChIJseySUF1xVo8RBmLvDoDCEOY",
+    phone: "+52 999 518 1702",
+    website: "http://www.restaurantemicaela.com/",
+    address: "Calle 47 458, Centro, 97000 Mérida, Yuc.",
+    hours: {"lunes":["1-10:30p.m."],"martes":["1-10:30p.m."],"miércoles":["1-10:30p.m."],"jueves":["1-11:30p.m."],"viernes":["1-11:30p.m."],"sábado":["1-11:30p.m."],"domingo":["1-10:30p.m."]},
   },
   {
     slug: "yerba-santa-merida-fo9j78",
@@ -442,6 +584,11 @@ export const SAMPLE_PLACES: SamplePlace[] = [
     priceLevel: 2,
     perfiles: ["vacaciones","inversion"],
     imageUrl: "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWkZFKHqywHt9IJbUjckR-rqmUyCyodrWUcsz0_AXtiQpRpzPALqw2N0q6Hn_dLQV7tbAjfbl5mfv740d-VrcR7rNHlmrF27rZElPWqvceGiKXt-GRgS1lItTqzfpXD7z9Pn6Rew=w800-h500-k-no",
+    placeId: "ChIJg-AOcnlxVo8Rq9z7KFO9J78",
+    phone: "+52 999 802 2908",
+    website: "https://yerbasantamerida.com/yerbasantameridamenu/",
+    address: "P.º de Montejo 473, Zona Paseo Montejo, Zona, 97000 Mérida, Yuc.",
+    hours: {"lunes":["2-10:30p.m."],"martes":["2-10:30p.m."],"miércoles":["2-10:30p.m."],"jueves":["2-11:30p.m."],"viernes":["2-11:30p.m."],"sábado":["2-11:30p.m."],"domingo":["2-10:30p.m."]},
   },
   {
     slug: "trattoria-la-pasta-montejo-npr96m",
@@ -456,6 +603,10 @@ export const SAMPLE_PLACES: SamplePlace[] = [
     perfiles: ["vacaciones","inversion"],
     imageUrl: "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWnO4gqm5yaLtYjN4SsWeyt_yMC6Y6MRkoSExN01XE4S9LTmDoU7_3oQ7By5rwOjsKXPsWspKgUAEtKUmgQ4hF2x2cLQX-9T1CENJ0k7j5WZDp05Rl3aX9GVu5066QEfYTKJWnxbUQ=w800-h500-k-no",
     gallery: ["https://lh3.googleusercontent.com/gps-cs-s/AHRPTWk5wLPnSg36j3s57ctueVHcTfTMQIWqEBXcVfVPGOqU33atdpAavFxPCK7I_5klWzhJcIz4SeDamIZa-VGR0T5MrDYYUd3Xi1yr-a9j8GXU24uBRkunRSbdnkmruV7g8fS-P1P7iA=w2048-h2048-k-no","https://lh3.googleusercontent.com/gps-cs-s/AHRPTWmMkeV1jOYOPrB_dvGrRfG5iSDnuYphu-ELv-aVBydHmwAlMUvlVMrYJ34y2441sZ9UM6WJSpDABvhag1QAsbJ6-0ZHBb_-lp3GCix5mMY84ZZC4Xbpq1pO5VrIMjaDOxNqtUsDJA=w2048-h2048-k-no","https://lh3.googleusercontent.com/gps-cs-s/AHRPTWnxVD9ayjSRq1cN8yaDAYk_NDZdS5Lg-bazG4sEVKqWW5OqLRD6KVUhq_zNPA2A7dDbRKYIzBz1qiavw04qLKkoO-TmqUGgPpA9h6x25e8yNgQvDxxQ-8fXSDQnC2wMl4ClBM-2p4Zrepw=w2048-h2048-k-no","https://lh3.googleusercontent.com/gps-cs-s/AHRPTWlwelsTdU4mPVTBMRwKn_JGnrhlldlIfl-VFnxHRNon-Vl7NEvuqLqVmxPC7ZM5bBsW3hiQ31HU9lb4Sa9RUEGGaPQZpYShAtesNA4Wb0Bsa7TY_E9bcZq3zBbtrcrfnBsV2n2kle5tiaSI=w2048-h2048-k-no","https://lh3.googleusercontent.com/gps-cs-s/AHRPTWmLKH8bFkUjdDYfYlBXOU9BcL-7nsv0Y00HmTrqyiv3aiApCkfCl2GI2xe_eV2Y48mWGQrK9yE7Jg7oONDhkpprBIys6CvwWofVEDaKEwNpLV5_3IBSR5yNI_3opVpbwib_DQusCB6yh64=w2048-h2048-k-no","https://lh3.googleusercontent.com/gps-cs-s/AHRPTWnvkW1wZjeQdxCxicOAVbmkl2-B_kXU-Gpt_fdC-5NPDOtUwHHF2DS8Qblx_6dok8R7wgMXHTJrQE9ql7aEjWptm-gpYt0XzA67g2T8fwU_h1Gu_guWEomV8Mq2EEY6v1qdd4Si9T5mM7IS=w2048-h2048-k-no"],
+    placeId: "ChIJR33LdlxxVo8RPf3JvNpr96M",
+    website: "http://www.trattorialapasta.com/",
+    address: "P.º de Montejo 481, Zona Paseo Montejo, Centro, 97000 Mérida, Yuc.",
+    hours: {"lunes":["1-11:30p.m."],"martes":["1-11:30p.m."],"miércoles":["1-11:30p.m."],"jueves":["1-11:30p.m."],"viernes":["1-11:30p.m."],"sábado":["1-11:30p.m."],"domingo":["1-11:30p.m."]},
   },
   {
     slug: "restaurante-emplumado-dtypwg",
@@ -469,6 +620,11 @@ export const SAMPLE_PLACES: SamplePlace[] = [
     priceLevel: 2,
     perfiles: ["vacaciones","inversion"],
     imageUrl: "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWm8Mvi-kHqjcrgtu7hIf9tdoo07fAPou55SUS68z0XM8etGBWhSCUcg5p2nqFM2U066Ty33apQnJ29ros6rxet3M60-Ltu8m19NWGhgaJbeCgvtEjJRy6LOqupnegJzE4jDiziK-Iyyp4A=w800-h500-k-no",
+    placeId: "ChIJz4z0otpxVo8RuCE1iDTypWg",
+    phone: "+52 999 393 8340",
+    website: "https://www.emplumado.com/",
+    address: "Av Carlos Torre Repetto 29, Zona Paseo Montejo, Centro, 97000 Mérida, Yuc.",
+    hours: {"lunes":["1p.m.-1a.m."],"martes":["1p.m.-1a.m."],"miércoles":["1p.m.-1a.m."],"jueves":["1p.m.-1a.m."],"viernes":["1p.m.-1a.m."],"sábado":["1p.m.-1a.m."],"domingo":["1p.m.-1a.m."]},
   },
   {
     slug: "ariadna-merida-s6nufm",
@@ -483,6 +639,11 @@ export const SAMPLE_PLACES: SamplePlace[] = [
     perfiles: ["vacaciones","inversion"],
     imageUrl: "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWlbtRXY4cWkN0zHXWYvKLE-xOZL7dY-ij8v_-N3tJJ9-xZlXh5dFtv1M3JemTlVYjYcykhxhKW8gwZ37peHCuGjuMjtdz31jB6z2O4ZxgH549YE05gasUri7xHrxuCYKtq7iKAojQ=w800-h500-k-no",
     gallery: ["https://lh3.googleusercontent.com/gps-cs-s/AHRPTWmh-c2F6NSRs7o7FBWACJxXgWy8AUJ1-BUJiG8TCIE5VOp2TWVu4qyu4i5J-yz3CiIfkd1sLBPTMuWsiUx_S8EO1uVjtawytIcbeCW6_Fl7-Bx0T1hNYJv9xoUT_pq55bouclZPRA=w2048-h2048-k-no","https://lh3.googleusercontent.com/gps-cs-s/AHRPTWmb5-PHBFlijIm_FUlL_7EFpsY6c04SJGmejYtQLSObHJfsgOezuEDrozjKQyA3WecUeiWDe5GD1mJacFenT_sDYVq0IMCyG38wYmuSoXmX6q03wybYl4VNOw2JOrXUdX5fepJqVe5zOELB=w2048-h2048-k-no","https://lh3.googleusercontent.com/gps-cs-s/AHRPTWm2IpHACG6ht7-1YZRtUdcHQBLLH_sMrCc67g6oJcjxdaCECWBvO1kHK1cJK6mwFCgW9kKR0AHN7EFvBskRD-7HLFNMtiEWTTJRql7NlZIphLHoeRxT34aCwA-OgV9y8n8kJOqeiEqV51U=w2048-h2048-k-no","https://lh3.googleusercontent.com/gps-cs-s/AHRPTWkPisi86lX7btBemZxfHgwSdC7dQWJZr2YvztZtMK7-1erKZEP733lx9HQ8PxImcg7kx3_f_0TFQe3-Nwkype5IlnqHMzUoCTcHJT6G1W3wJbRa4mrBRxjuSicmqT7IPX3wZ0mqAnEBoyI=w2048-h2048-k-no","https://lh3.googleusercontent.com/gps-cs-s/AHRPTWlVg8mLx0uMZ-RDVHU3vp-i4WpWxsYp6VdsqwISnRon28Bz7uGQ784g3upw0Rh0wtPxJ-HPbVeymRcqa3eiVwEoi5euPE8c2BFBNF6mORKktpW7sbeE82VDjdVVKPofR6VK1bENfCYVGoK6=w2048-h2048-k-no","https://lh3.googleusercontent.com/gps-cs-s/AHRPTWmJIsATy1XOxtj2HQ4myCZQNsqDX8QX_talLgHkzznH_3qovW10HEUFLRcAjqQQYDUsICF-3F04K1lubl41nMrp2XrXzexpM1T40El-suWXN1--CXjUH7D5GfCq7FWKqIKKwbUX_4u7e0vP=w2048-h2048-k-no"],
+    placeId: "ChIJWWS7KoBzVo8RFDQ4eS6nufM",
+    phone: "+52 999 900 8324",
+    website: "http://ariadna.mx/",
+    address: "Calle 52 450 C-x 47 y 45, Centro, 97100 Mérida, Yuc.",
+    hours: {"lunes":["1p.m.-12a.m."],"martes":["1p.m.-12a.m."],"miércoles":["1p.m.-12a.m."],"jueves":["1p.m.-1a.m."],"viernes":["1p.m.-2a.m."],"sábado":["1p.m.-2a.m."],"domingo":["1-11p.m."]},
   },
   {
     slug: "oliva-enoteca-yhfavy",
@@ -496,6 +657,11 @@ export const SAMPLE_PLACES: SamplePlace[] = [
     priceLevel: 2,
     perfiles: ["vacaciones","inversion"],
     imageUrl: "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWl6NOZPoDmxb2bzsqvB91yeimhVru41MhEwB4jB8KEVfZ-fb0Q4ZoanROOrZukiDP5lLCbAk_SXU87Eq2geU0iDsMtJTnWH441h00--2469PBAGtl1zu0ucyt3IpXU85aJPc5ba=w800-h500-k-no",
+    placeId: "ChIJKT-EZV1xVo8RXbGomYHfAVY",
+    phone: "+52 999 923 3081",
+    website: "https://www.olivamerida.com/",
+    address: "Calle 47 & Esquina con 54 S/N, Centro, 97000 Mérida, Yuc.",
+    hours: {"lunes":["1-11p.m."],"martes":["1-11p.m."],"miércoles":["1-11p.m."],"jueves":["1-11p.m."],"viernes":["1p.m.-12a.m."],"sábado":["1p.m.-12a.m."],"domingo":["1-10p.m."]},
   },
   {
     slug: "catrin-znzcfk",
@@ -509,6 +675,11 @@ export const SAMPLE_PLACES: SamplePlace[] = [
     priceLevel: 2,
     perfiles: ["vacaciones","inversion"],
     imageUrl: "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWmbxNQ70vyWeBf4jpMOkeh1Zf7KiXUQDROnABuZ0-y0Ix3jsgK98QC4Q8VZb5cxtbeV4NRkTcICurQctZAI0vWV8_SCbsV7vnM02bBMbI9h63PRGvMuouhDH5Ov8dNtVj8PkZDg=w800-h500-k-no",
+    placeId: "ChIJc0KdaF1xVo8RMxAN5ZnZcfk",
+    phone: "+52 999 518 1725",
+    website: "http://www.catrin47.com/",
+    address: "Calle 47 463B, Centro, 97000 Mérida, Yuc.",
+    hours: {"domingo":["1p.m.-12a.m."],"lunes":["1p.m.-12a.m."],"martes":["1p.m.-12a.m."],"miércoles":["1p.m.-12a.m."],"jueves":["1p.m.-2a.m."],"viernes":["1p.m.-3a.m."],"sábado":["1p.m.-3a.m."]},
   },
   {
     slug: "kuuk-e8eeqi",
@@ -522,6 +693,11 @@ export const SAMPLE_PLACES: SamplePlace[] = [
     priceLevel: 2,
     perfiles: ["vacaciones","inversion"],
     imageUrl: "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWk7UBRfdDFdUJTs5akJTKsdOUqbjIbNJmtQ9bwQL4IgHBEObnMcTBx3rl5T0eqGQ0SothIeVbJaubCOBXeHJY-k14CacUqLXPfUMPLNL4Qbfo_E7GuZ_cjdX1cGqCwQaImJWTGb=w800-h500-k-no",
+    placeId: "ChIJKTjWaet2Vo8RvvtHe8Ee-QI",
+    phone: "+52 999 944 3377",
+    website: "http://www.kuukrestaurant.com/",
+    address: "Av Rómulo Rozo 488-por 27, Itzimná, 97100 Mérida, Yuc.",
+    hours: {"lunes":["Cerrado"],"martes":["1:30-10p.m."],"miércoles":["1:30-10p.m."],"jueves":["1:30-10p.m."],"viernes":["1:30-10p.m."],"sábado":["1:30-10p.m."],"domingo":["1:30-4p.m."]},
   },
   {
     slug: "sanbravo-7lp8dy",
@@ -535,6 +711,11 @@ export const SAMPLE_PLACES: SamplePlace[] = [
     priceLevel: 2,
     perfiles: ["vacaciones","inversion"],
     imageUrl: "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWmMhoqQ5SP8IYh6WK4EwX0Ew_WjvL86uQ5KCzv2jGXpID45MCThpal9nlrNMJE5_nu_7dDiPI9GQoXNyMKMl7ZpFQZrg4sJjoOthQxZYBExtgEJfM9QmIVCD_0RMZr3cJ6-jm3MBA=w800-h500-k-no",
+    placeId: "ChIJPWU5EaJ2Vo8RExzEg7LP8dY",
+    phone: "+52 999 406 9274",
+    website: "https://restaurante.covermanager.com/sanbravo-restaurante/",
+    address: "Prol. Paseo Montejo 358, Benito Juárez Nte., 97119 Mérida, Yuc.",
+    hours: {"lunes":["1p.m.-12a.m."],"martes":["1p.m.-12a.m."],"miércoles":["1p.m.-12a.m."],"jueves":["1p.m.-2a.m."],"viernes":["1p.m.-2a.m."],"sábado":["1p.m.-2a.m."],"domingo":["12-11p.m."]},
   },
   {
     slug: "sonora-grill-merida-ei2kca",
@@ -548,6 +729,11 @@ export const SAMPLE_PLACES: SamplePlace[] = [
     priceLevel: 2,
     perfiles: ["vacaciones","inversion"],
     imageUrl: "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWklR-YNktuMcaZfSv9LMMRZRtoEjVn2Zgmc0EIYKQS2T0zPWr4F2dPnktFj5wqnbYgPY6dwuW8-RppEQ2JW-VH0qL5QhF8xTSaWdePWeSSM0D1Sbqcyp4uE0jeI9CHeEBXwFmINewqKyPCa=w800-h500-k-no",
+    placeId: "ChIJ3bBINS9xVo8RmKN_4EI2KCA",
+    phone: "+52 999 481 9451",
+    website: "https://sonoragrill.com.mx/sonora-grill-merida",
+    address: "C. 37 215, Monterreal, 97133 Mérida, Yuc.",
+    hours: {"lunes":["1-11p.m."],"martes":["1-11p.m."],"miércoles":["1-11p.m."],"jueves":["1p.m.-1a.m."],"viernes":["1p.m.-1a.m."],"sábado":["1p.m.-1a.m."],"domingo":["1-9p.m."]},
   },
   {
     slug: "eureka-cucina-italiana-eemvvk",
@@ -561,6 +747,11 @@ export const SAMPLE_PLACES: SamplePlace[] = [
     priceLevel: 2,
     perfiles: ["vacaciones","inversion"],
     imageUrl: "https://lh3.googleusercontent.com/gps-cs-s/AHRPTWkMKbYOhm2TsKfLpLJsNVN8x5noONJ6Py5fBhBHZxdghp7o8wJJnRQMHVxa7KZzD2-mSphMJcrVozjSu1_OWe3he6aRg30CQ0dq9QVyqsg0IF6n83mK1DhYn8G3aZddXNaZi8Wc=w800-h500-k-no",
+    placeId: "ChIJh-8zCE5xVo8RCnhGEeemVVk",
+    phone: "+52 999 926 2694",
+    website: "https://www.facebook.com/Eurekacucinaitaliana/",
+    address: "Av. Rotary Internacional 117 por 52, Itzimná, 97100 Mérida, Yuc.",
+    hours: {"lunes":["Cerrado"],"martes":["1:30-10:30p.m."],"miércoles":["1:30-10:30p.m."],"jueves":["1:30-10:30p.m."],"viernes":["1:30-10:30p.m."],"sábado":["1:30-10:30p.m."],"domingo":["1-4:30p.m."]},
   },
 ];
 
@@ -582,4 +773,8 @@ export function getRankedPlaces(): RankedPlace[] {
 
 export function getSampleZona(slug: string): SampleZona | undefined {
   return SAMPLE_ZONAS.find((z) => z.slug === slug);
+}
+
+export function getSamplePlaceBySlug(slug: string): RankedPlace | undefined {
+  return getRankedPlaces().find((p) => p.slug === slug);
 }

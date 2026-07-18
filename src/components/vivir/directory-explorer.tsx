@@ -2,6 +2,7 @@
 
 import "maplibre-gl/dist/maplibre-gl.css";
 import { useEffect, useMemo, useRef, useState } from "react";
+import Link from "next/link";
 import type { Map as MlMap, Marker } from "maplibre-gl";
 import { Star } from "lucide-react";
 import { CATEGORIES } from "@/lib/directory/filters";
@@ -417,7 +418,11 @@ function FeaturedEntry({
         )}
       </div>
       <div className="mt-5 flex flex-wrap items-baseline gap-x-3 gap-y-1">
-        <h3 className="font-display text-3xl tracking-[-0.02em] text-ink md:text-4xl">{place.nombre}</h3>
+        <h3 className="font-display text-3xl tracking-[-0.02em] text-ink md:text-4xl">
+          <Link href={`/vivir-en-merida/directorio/${place.slug}`} className="transition hover:text-terracota">
+            {place.nombre}
+          </Link>
+        </h3>
         <ZonaTag zona={zona} />
       </div>
       <p className="mt-3 max-w-xl text-base leading-relaxed text-ink-2">{place.editorialNote}</p>
@@ -459,7 +464,11 @@ function PlaceRow({
           <span className="font-display text-xl leading-none text-terracota tabular-nums">
             {String(rank).padStart(2, "0")}
           </span>
-          <h3 className="font-display text-xl tracking-[-0.01em] text-ink">{place.nombre}</h3>
+          <h3 className="font-display text-xl tracking-[-0.01em] text-ink">
+            <Link href={`/vivir-en-merida/directorio/${place.slug}`} className="transition hover:text-terracota">
+              {place.nombre}
+            </Link>
+          </h3>
         </div>
         <div className="mt-1">
           <ZonaTag zona={zona} />

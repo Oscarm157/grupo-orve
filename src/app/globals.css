@@ -780,3 +780,22 @@ html[data-crm-theme="light"] .crm-logo-navy { display: block; }
     animation: none;
   }
 }
+
+/* Franja de azulejos marinos bajo el hero: marquee horizontal seamless (copias espejadas). */
+@keyframes tile-marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+.tile-marquee-track {
+  animation: tile-marquee 70s linear infinite;
+  will-change: transform;
+}
+@media (prefers-reduced-motion: reduce) {
+  .tile-marquee-track {
+    animation: none;
+  }
+}

@@ -6,6 +6,7 @@ import { Catalogo } from "@/components/chukum/catalogo";
 import { SectionHead } from "@/components/chukum/section-head";
 import { QuizSection } from "@/components/chukum/quiz-section";
 import { Mosaic } from "@/components/chukum/mosaic";
+import { TileBand } from "@/components/chukum/tile-band";
 import { CaptureForm } from "@/components/chukum/capture-form";
 import { tiposLabel, type Development } from "@/lib/developments";
 import { getDevelopmentsForHome } from "@/lib/queries";
@@ -117,6 +118,9 @@ export default async function ChukumHome() {
           </div>
         </div>
       </section>
+
+      {/* Franja de azulejos marinos (marquee) */}
+      <TileBand />
 
       {/* 2 — Abanico de opciones (animación de scroll) */}
       <section className="bg-canvas px-5 py-12 md:px-10 md:py-16">

@@ -45,6 +45,17 @@ export function SiteFooter() {
               </Link>
             </div>
           </div>
+          <div>
+            <p className="text-xs uppercase tracking-[0.18em] text-ink-2">Más</p>
+            <div className="mt-3 flex flex-col gap-2 text-sm">
+              <Link href="/vivir-en-merida/directorio" className="transition hover:text-terracota">
+                Directorio
+              </Link>
+              <Link href="/inicio" className="transition hover:text-terracota">
+                Chukum
+              </Link>
+            </div>
+          </div>
         </div>
 
         <div className="mt-12 flex flex-col gap-3 border-t border-hairline pt-6 text-xs text-ink-2 md:flex-row md:items-center md:justify-between">

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { MessageCircle, ArrowRight, ShieldCheck, FileCheck2, Droplets } from "lucide-react";
 import { Reveal } from "@/components/reveal";
 import { ChukumNav } from "@/components/chukum/nav";
@@ -182,6 +183,22 @@ export default async function ChukumHome() {
             <Stat value="1er lugar" label="Estado más seguro de México" />
             <Stat value="30 min" label="De Mérida a la playa de Progreso" />
           </div>
+          <Reveal>
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
+              <Link
+                href="/vivir-en-merida"
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-cenote px-6 py-3 text-sm font-medium text-canvas transition hover:bg-cenote-deep"
+              >
+                Explorar la guía Vivir en Yucatán <ArrowRight className="h-4 w-4" />
+              </Link>
+              <Link
+                href="/vivir-en-merida/directorio"
+                className="inline-flex items-center justify-center gap-2 rounded-full border border-hairline px-6 py-3 text-sm font-medium text-ink transition hover:border-cenote hover:text-cenote"
+              >
+                Ver el directorio de Mérida
+              </Link>
+            </div>
+          </Reveal>
         </div>
       </section>
 
@@ -225,6 +242,8 @@ export default async function ChukumHome() {
               <a href="#desarrollos" className="transition hover:text-crema">Desarrollos</a>
               <a href="#por-que" className="transition hover:text-crema">Por qué Yucatán</a>
               <a href="#contacto" className="transition hover:text-crema">Contacto</a>
+              <Link href="/vivir-en-merida" className="transition hover:text-crema">Vivir en Yucatán</Link>
+              <Link href="/vivir-en-merida/directorio" className="transition hover:text-crema">Directorio</Link>
             </nav>
           </div>
           <p className="mt-8 text-xs leading-relaxed text-crema/50">

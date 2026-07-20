@@ -75,7 +75,7 @@ export function Mosaic({ heroSrc, heroAlt }: { heroSrc: string; heroAlt: string 
   const heroScale = useTransform(scrollYProgress, [0.05, 0.5], [1.22, 0.84], { clamp: true });
 
   return (
-    <section ref={ref} className="bg-canvas px-5 pt-2 pb-10 md:px-10 md:pt-4 md:pb-12">
+    <section ref={ref} className="overflow-x-clip bg-canvas px-5 pt-2 pb-10 md:px-10 md:pt-4 md:pb-12">
       <div className="mx-auto max-w-[1400px]">
         {/* Desktop: composición en abanico, alineada */}
         <div className="relative hidden h-[82vh] min-h-[560px] md:block">

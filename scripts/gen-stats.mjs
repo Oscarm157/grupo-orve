@@ -40,17 +40,19 @@ async function save(name, url) {
 }
 
 const STYLE =
-  "Photorealistic documentary photography, natural light, gentle warm artisanal color grade with cream and soft cenote-green tones, subtle film grain, editorial, high detail. No text, no logos, no watermark, no people looking at camera.";
+  "Photorealistic documentary photography, natural light, subtle film grain, editorial, high detail. Modern present-day Mexico, contemporary everyday cars only, no vintage or classic cars. No text, no logos, no watermark, no people looking at camera.";
 
+// Cada una una escena DISTINTA (no cuatro calles): clima=calle soleada, población=plaza
+// del centro con gente, seguridad=barrio residencial de casas, playa=playa abierta.
 const jobs = [
   ["clima.jpg",
-    `Sun-drenched colonial street in central Mérida, Yucatán at midday: pastel facades, tropical plants and palms, warm bright tropical light, clear sky. ${STYLE}`],
+    `A sunny colonial street in central Mérida, Yucatán at midday: warm cheerful tropical light, pastel facades, palms and bougainvillea, bright blue sky, pleasant warm summer feel (not harsh or oppressive). ${STYLE}`],
   ["poblacion.jpg",
-    `Paseo de Montejo avenue in Mérida, Yucatán: wide tree-lined boulevard with colonial mansions, some people walking, gentle city life, sense of a mid-size city. ${STYLE}`],
+    `The Plaza Grande main square in the historic center of Mérida, Yucatán: the twin-towered cathedral and colonial arcades, families and tourists strolling, benches, trees, lively city-center life. Wide establishing view of a busy plaza. ${STYLE}`],
   ["seguridad.jpg",
-    `Quiet calm colonial residential street in Mérida, Yucatán in the late afternoon golden light: colorful low houses, empty peaceful sidewalk, serene safe neighborhood. ${STYLE}`],
+    `A calm, well-kept residential neighborhood in Mérida, Yucatán: modern single-family homes with tidy front gardens and low walls, a quiet clean street, a family walking a dog, safe peaceful suburban feel, soft afternoon light. ${STYLE}`],
   ["playa.jpg",
-    `Progreso beach on the Yucatán gulf coast: calm shallow turquoise water, pale sand, the long malecón and pier, soft warm daylight, a few palms. ${STYLE}`],
+    `An open beach on the Yucatán gulf coast near Progreso: wide pale sand, calm turquoise shallow water, gentle waves, a few coconut palms, people relaxing and swimming, bright warm daylight. Beach-forward composition (no pier). ${STYLE}`],
 ];
 
 // Cuenta con rate limit bajo (6/min, burst 1): una a la vez con espacio entre llamadas.

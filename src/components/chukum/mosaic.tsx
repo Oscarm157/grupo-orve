@@ -18,7 +18,7 @@ interface MosaicPhoto {
 // esquinas y giradas ~12° hacia afuera (izquierda a la izquierda, derecha a la derecha).
 const PHOTOS: MosaicPhoto[] = [
   {
-    src: "/hero/ccm-foodtrucks.webp",
+    src: "/hero/merida-foodtrucks.webp",
     alt: "Zona comercial de un desarrollo en el norte de Mérida",
     label: "Mérida",
     restClassName: "top-[0%] left-[0%] w-[21vw] min-w-[180px] aspect-[4/3]",
@@ -27,7 +27,7 @@ const PHOTOS: MosaicPhoto[] = [
     delay: 0.05,
   },
   {
-    src: "/hero/xook-spa-xenotikal.webp",
+    src: "/hero/selva-casa-club.webp",
     alt: "Casa club de un desarrollo en la selva de Yucatán",
     label: "Selva",
     restClassName: "bottom-[0%] left-[0%] w-[21vw] min-w-[180px] aspect-[4/3]",
@@ -45,7 +45,7 @@ const PHOTOS: MosaicPhoto[] = [
     delay: 0.27,
   },
   {
-    src: "/hero/ukana-pdc-gym.webp",
+    src: "/hero/caribe-gym.webp",
     alt: "Amenidad de un desarrollo de departamentos en el Caribe",
     label: "Caribe",
     restClassName: "bottom-[0%] right-[0%] w-[21vw] min-w-[180px] aspect-[4/3]",

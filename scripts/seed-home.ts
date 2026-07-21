@@ -11,11 +11,11 @@ const sql = neon(process.env.DATABASE_URL!);
 
 // Nombres internos (permitidos en la base; nunca salen en publicidad). Fuente: CLAUDE.md.
 const NAMES: Record<string, string> = {
-  xook: "Xo'ok",
-  "ciudad-central-merida": "Ciudad Central Mérida",
-  "ciudad-central-progreso": "Ciudad Central Progreso",
-  "ukana-playa-del-carmen": "Ukana",
-  "tulum-ha": "Tulum Ha",
+  "selva-maya": "Xo'ok",
+  "norte-de-merida": "Ciudad Central Mérida",
+  "progreso-frente-al-mar": "Ciudad Central Progreso",
+  "playa-del-carmen": "Ukana",
+  tulum: "Tulum Ha",
 };
 
 const BASE = new Date("2026-01-01T00:00:00Z").getTime();

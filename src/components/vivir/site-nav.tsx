@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 const links = [
   { href: "/vivir-en-merida/zonas/merida-norte", label: "Zonas" },
   { href: "/vivir-en-merida/directorio", label: "Directorio" },
-  { href: "/vivir-en-merida/desarrollos/ciudad-central-merida", label: "Desarrollos" },
+  { href: "/vivir-en-merida/desarrollos/norte-de-merida", label: "Desarrollos" },
   { href: "/vivir-en-merida#contacto", label: "Contacto" },
   { href: "/inicio", label: "Chukum" },
 ];

@@ -22,10 +22,10 @@ export function SiteFooter() {
             <p className="text-xs uppercase tracking-[0.18em] text-ink-2">Desarrollos</p>
             <div className="mt-3 flex flex-col gap-2 text-sm">
               <Link
-                href="/vivir-en-merida/desarrollos/ciudad-central-merida"
+                href="/vivir-en-merida/desarrollos/norte-de-merida"
                 className="transition hover:text-terracota"
               >
-                Ciudad Central Mérida
+                En el norte de Mérida
               </Link>
             </div>
           </div>

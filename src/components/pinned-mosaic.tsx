@@ -37,7 +37,7 @@ const PHOTOS: MosaicPhoto[] = [
     rotateTo: 3,
   },
   {
-    src: "/hero/xook-spa-xenotikal.webp",
+    src: "/hero/selva-casa-club.webp",
     alt: "Casa club Xenotikal, desarrollo Xo'ok",
     restClassName: "top-[10%] right-[5%] w-[23vw] min-w-[200px] aspect-[16/11]",
     from: { x: 320, y: -80 },

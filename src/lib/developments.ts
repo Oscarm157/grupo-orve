@@ -26,6 +26,9 @@ export type Development = {
   blurb: string; // descripción factual, sin adornos
   // Specs reales solo cuando existen (Xo'ok es el único con montos publicados).
   specs?: { label: string; value: string }[];
+  // Ejemplo/demo: desarrollo ya vendido o entregado, sin inventario real. Se muestra con tag
+  // "Ejemplo" y sin página de detalle. No confundir con los activos en venta.
+  demo?: boolean;
 };
 
 export const ZONA_LABEL: Record<Zona, string> = {
@@ -43,7 +46,7 @@ export const TIPO_LABEL: Record<Tipo, string> = {
 
 export const DEVELOPMENTS: Development[] = [
   {
-    slug: "xook",
+    slug: "selva-maya",
     heading: "En la selva de Yucatán",
     place: "Yucatán, selva maya",
     ciudad: "Selva maya",
@@ -51,7 +54,7 @@ export const DEVELOPMENTS: Development[] = [
     tipos: ["terreno", "casa"],
     usos: ["invertir", "vivir"],
     etapa: "preventa",
-    image: "/hero/xook-spa-xenotikal.webp",
+    image: "/hero/selva-casa-club.webp",
     alt: "Casa club y alberca de un desarrollo residencial en la selva de Yucatán",
     blurb:
       "Desarrollo residencial en la selva, con siete etapas, casa club y amenidades entre cenotes y naturaleza.",
@@ -62,7 +65,7 @@ export const DEVELOPMENTS: Development[] = [
     ],
   },
   {
-    slug: "ciudad-central-merida",
+    slug: "norte-de-merida",
     heading: "En el norte de Mérida",
     place: "Mérida, Yucatán",
     ciudad: "Mérida",
@@ -70,13 +73,13 @@ export const DEVELOPMENTS: Development[] = [
     tipos: ["terreno", "casa"],
     usos: ["invertir", "vivir"],
     etapa: "entrega_inmediata",
-    image: "/hero/ccm-casa-club.webp",
+    image: "/hero/merida-casa-club.webp",
     alt: "Casa club y alberca de una comunidad planeada en Mérida",
     blurb:
       "Comunidad planeada en Mérida con casa club, áreas verdes y zona comercial. Miles de unidades ya entregadas.",
   },
   {
-    slug: "ciudad-central-progreso",
+    slug: "progreso-frente-al-mar",
     heading: "Frente al mar en Progreso",
     place: "Progreso, Yucatán, frente al mar",
     ciudad: "Progreso",
@@ -90,7 +93,7 @@ export const DEVELOPMENTS: Development[] = [
       "Comunidad planeada frente al mar en la costa de Yucatán, con club de playa y amplias áreas comunes.",
   },
   {
-    slug: "ukana-playa-del-carmen",
+    slug: "playa-del-carmen",
     heading: "Frente al mar en Playa del Carmen",
     place: "Playa del Carmen, Quintana Roo",
     ciudad: "Playa del Carmen",
@@ -98,13 +101,14 @@ export const DEVELOPMENTS: Development[] = [
     tipos: ["departamento"],
     usos: ["invertir", "vivir"],
     etapa: "entrega_inmediata",
-    image: "/hero/ukana-pdc-alberca.webp",
+    image: "/hero/caribe-alberca.webp",
     alt: "Alberca de un desarrollo de departamentos entregado en Playa del Carmen",
     blurb:
       "Departamentos en un desarrollo vertical ya entregado, con alberca y gimnasio, cerca de la playa.",
+    demo: true,
   },
   {
-    slug: "tulum-ha",
+    slug: "tulum",
     heading: "En Tulum, entre selva y playa",
     place: "Tulum, Quintana Roo",
     ciudad: "Tulum",
@@ -112,10 +116,11 @@ export const DEVELOPMENTS: Development[] = [
     tipos: ["departamento"],
     usos: ["invertir"],
     etapa: "en_construccion",
-    image: "/hero/tulum-ha-avance.webp",
+    image: "/hero/tulum-avance.webp",
     alt: "Avance de obra de un desarrollo de departamentos en Tulum",
     blurb:
       "Departamentos en un desarrollo vertical en construcción, entre selva y playa.",
+    demo: true,
   },
 ];
 

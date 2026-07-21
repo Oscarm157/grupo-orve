@@ -41,7 +41,7 @@ const NORTE_STATS = [
 export default async function HomePage() {
   const [zonas, dev] = await Promise.all([
     getZonasPublicadas(),
-    getDevelopmentBySlug("ciudad-central-merida"),
+    getDevelopmentBySlug("norte-de-merida"),
   ]);
   const devHero = dev ? (await getDevelopmentImages(dev.id))[0] : undefined;
   const leadZona = zonas[0];
@@ -218,7 +218,7 @@ export default async function HomePage() {
                 </Reveal>
                 <Reveal>
                   <h2 className="font-display text-4xl font-light leading-[1.05] tracking-[-0.02em] md:text-5xl">
-                    {dev.name}
+                    {dev.heading ?? dev.city}
                   </h2>
                 </Reveal>
                 <Reveal>
@@ -248,8 +248,8 @@ export default async function HomePage() {
               </div>
               <div className="relative min-h-[360px] md:min-h-full">
                 <Image
-                  src={devHero?.url ?? "/desarrollos/ciudad-central-merida/masterplan.jpg"}
-                  alt={devHero?.alt ?? dev.name}
+                  src={devHero?.url ?? "/desarrollos/norte-de-merida/masterplan.jpg"}
+                  alt={devHero?.alt ?? dev.heading ?? ""}
                   fill
                   sizes="(max-width: 768px) 100vw, 55vw"
                   className="object-cover"

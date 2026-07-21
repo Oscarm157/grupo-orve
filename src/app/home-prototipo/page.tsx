@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import { SiteNav } from "@/components/site-nav";
 import { SiteFooter } from "@/components/footer";
@@ -6,6 +7,9 @@ import { PinnedMosaic } from "@/components/pinned-mosaic";
 import { StackedReveal, type StackSlide } from "@/components/stacked-reveal";
 import { ValuePropsCarousel } from "@/components/value-props-carousel";
 import { DevelopmentsCarousel } from "@/components/developments-carousel";
+
+// Prototipo interno, no enlazado. Fuera del índice para no exponer nombres comerciales.
+export const metadata: Metadata = { robots: { index: false, follow: false } };
 
 const VALUE_CARDS = [
   {
@@ -37,7 +41,7 @@ const XOOK_STACK: StackSlide[] = [
     body: "En lo profundo de la selva maya, una antigua cultura creía en puertas sagradas que conectaban este mundo con el inframundo: los cenotes, fuentes de vida y de renovación.",
   },
   {
-    src: "/hero/xook-spa-xenotikal.webp",
+    src: "/hero/selva-casa-club.webp",
     alt: "Casa club Xenotikal en Xo'ok, Yucatán",
     eyebrow: "Xenotikal",
     title: "Un santuario moderno",
@@ -62,31 +66,31 @@ const DEVELOPMENTS = [
   {
     name: "Xo'ok",
     place: "Yucatán · selva maya",
-    image: "/hero/xook-spa-xenotikal.webp",
+    image: "/hero/selva-casa-club.webp",
     alt: "Casa club Xenotikal, desarrollo Xo'ok",
   },
   {
     name: "Ciudad Central Mérida",
     place: "Mérida, Yucatán",
-    image: "/hero/ccm-casa-club.webp",
+    image: "/hero/merida-casa-club.webp",
     alt: "Casa club y alberca, Ciudad Central Mérida",
   },
   {
     name: "Ciudad Central Progreso",
     place: "Progreso, Yucatán · frente al mar",
-    image: "/hero/ccp-pabellon.webp",
+    image: "/hero/progreso-pabellon.webp",
     alt: "Acceso del desarrollo Ciudad Central Progreso",
   },
   {
     name: "Ukana Playa del Carmen",
     place: "Playa del Carmen, Quintana Roo",
-    image: "/hero/ukana-pdc-alberca.webp",
+    image: "/hero/caribe-alberca.webp",
     alt: "Alberca entregada, Ukana Playa del Carmen",
   },
   {
     name: "Tulum Ha",
     place: "Tulum, Quintana Roo · en construcción",
-    image: "/hero/tulum-ha-avance.webp",
+    image: "/hero/tulum-avance.webp",
     alt: "Avance de obra real, Tulum Ha",
   },
 ] as const;

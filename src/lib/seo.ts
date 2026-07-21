@@ -43,7 +43,8 @@ export function realEstateListingJsonLd(
   return {
     "@context": "https://schema.org",
     "@type": "RealEstateListing",
-    name: dev.name,
+    // Sin nombre comercial: la identidad pública es el heading por ubicación.
+    name: dev.heading ?? dev.city ?? "Desarrollo en Yucatán",
     description: dev.descriptionEs ?? undefined,
     url: `${BRAND.url}/vivir-en-merida/desarrollos/${dev.slug}`,
     image: images.map((img) => `${BRAND.url}${img.url}`),

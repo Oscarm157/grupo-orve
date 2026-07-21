@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { MessageCircle, ArrowRight, X } from "lucide-react";
 import { SectionHead } from "@/components/chukum/section-head";
@@ -93,16 +94,24 @@ export function Catalogo({ developments }: { developments: Development[] }) {
 }
 
 // Card de desarrollo, formato image-led uniforme, SIN nombre de proyecto: foto + tipo +
-// etapa + ubicación (heading). Alterna el lado de la imagen por índice.
+// etapa + ubicación (heading). Alterna el lado de la imagen por índice. Los `demo` (vendidos/
+// entregados) llevan tag "Ejemplo" y no enlazan a detalle: son referencia, no inventario.
 function DevCard({ d, flip }: { d: Development; flip: boolean }) {
   const waMsg = `Hola, me interesa una propiedad ${d.heading.toLowerCase()}. ¿Me pasas disponibilidad y precios?`;
+  const detalleHref = `/vivir-en-merida/desarrollos/${d.slug}`;
   return (
     <article className="chukum-grain flex flex-col overflow-hidden rounded-3xl border-2 border-[var(--chukum)] bg-surface md:min-h-[340px] md:flex-row">
       <div className={`relative h-60 md:h-auto md:w-1/2 ${flip ? "md:order-2" : ""}`}>
         <Image src={d.image} alt={d.alt} fill className="object-cover" sizes="(max-width:768px) 100vw, 50vw" />
-        <span className="absolute left-3 top-3 rounded-full bg-canvas/90 px-3 py-1 text-xs text-ink">
-          {STATUS_LABEL[d.etapa]}
-        </span>
+        {d.demo ? (
+          <span className="absolute left-3 top-3 rounded-full bg-amber-500/95 px-3 py-1 text-xs font-medium text-white">
+            Ejemplo
+          </span>
+        ) : (
+          <span className="absolute left-3 top-3 rounded-full bg-canvas/90 px-3 py-1 text-xs text-ink">
+            {STATUS_LABEL[d.etapa]}
+          </span>
+        )}
       </div>
       <div className="flex flex-col justify-center p-7 md:w-1/2 md:p-10">
         <p className="text-xs uppercase tracking-[0.16em] text-cenote">{tiposLabel(d.tipos)}</p>
@@ -118,22 +127,26 @@ function DevCard({ d, flip }: { d: Development; flip: boolean }) {
             ))}
           </dl>
         )}
-        <div className="mt-6 flex flex-wrap gap-3">
-          <a
-            href="#contacto"
-            className="inline-flex items-center gap-2 rounded-full bg-cenote px-5 py-2.5 text-sm font-medium text-canvas transition hover:bg-cenote-deep"
-          >
-            Solicitar informes <ArrowRight className="h-4 w-4" />
-          </a>
-          <a
-            href={waLink(waMsg)}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-full border border-ink/20 px-5 py-2.5 text-sm text-ink transition hover:border-cenote hover:text-cenote"
-          >
-            <MessageCircle className="h-4 w-4" /> WhatsApp
-          </a>
-        </div>
+        {d.demo ? (
+          <p className="mt-6 text-sm text-ink-2">Proyecto ya entregado. Se muestra como ejemplo de lo que se comercializa.</p>
+        ) : (
+          <div className="mt-6 flex flex-wrap gap-3">
+            <Link
+              href={detalleHref}
+              className="inline-flex items-center gap-2 rounded-full bg-cenote px-5 py-2.5 text-sm font-medium text-canvas transition hover:bg-cenote-deep"
+            >
+              Ver desarrollo <ArrowRight className="h-4 w-4" />
+            </Link>
+            <a
+              href={waLink(waMsg)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-full border border-ink/20 px-5 py-2.5 text-sm text-ink transition hover:border-cenote hover:text-cenote"
+            >
+              <MessageCircle className="h-4 w-4" /> WhatsApp
+            </a>
+          </div>
+        )}
       </div>
     </article>
   );

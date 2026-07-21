@@ -29,7 +29,7 @@ const GUIA_LINKS = [
   },
   {
     n: "03",
-    href: "/vivir-en-merida/desarrollos/ciudad-central-merida",
+    href: "/vivir-en-merida/desarrollos/norte-de-merida",
     label: "Desarrollos en la guía",
     hint: "Fichas con amenidades y avance de obra",
   },

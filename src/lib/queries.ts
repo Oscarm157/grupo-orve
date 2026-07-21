@@ -8,13 +8,19 @@ import {
   type DevelopmentImage,
   type Zona,
 } from "@/lib/schema";
-import type {
-  Development as HomeDevelopment,
-  Zona as MacroZona,
-  Tipo,
-  Uso,
-  Etapa,
+import {
+  DEVELOPMENTS,
+  type Development as HomeDevelopment,
+  type Zona as MacroZona,
+  type Tipo,
+  type Uso,
+  type Etapa,
 } from "@/lib/developments";
+
+// Desarrollos marcados como ejemplo/demo (vendidos/entregados, sin inventario real). El flag
+// vive en la fuente curada `developments.ts`; se cruza por slug para no depender de una columna
+// en la DB. Se muestran con tag "Ejemplo" y sin página de detalle.
+const DEMO_SLUGS = new Set(DEVELOPMENTS.filter((d) => d.demo).map((d) => d.slug));
 
 // Capa de datos del sitio público. Todo se lee de Neon en build (SSG) vía
 // generateStaticParams / render de servidor. Gate anti thin-content: solo
@@ -123,6 +129,7 @@ export async function getDevelopmentsForHome(): Promise<HomeDevelopment[]> {
       alt: hero?.alt ?? r.heading ?? "",
       blurb: r.descriptionEs ?? "",
       specs: r.highlightSpecs ?? undefined,
+      demo: DEMO_SLUGS.has(r.slug),
     };
   });
 }

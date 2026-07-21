@@ -215,8 +215,8 @@ function DevCard({
     >
       <div className="relative aspect-[16/10] overflow-hidden">
         <Image
-          src={image?.url ?? "/desarrollos/ciudad-central-merida/masterplan.jpg"}
-          alt={image?.alt ?? dev.name}
+          src={image?.url ?? "/desarrollos/norte-de-merida/masterplan.jpg"}
+          alt={image?.alt ?? dev.heading ?? ""}
           fill
           sizes="(max-width: 768px) 100vw, 50vw"
           className="object-cover transition-transform duration-700 group-hover:scale-105"
@@ -231,7 +231,7 @@ function DevCard({
         <p className="font-mono text-xs uppercase tracking-[0.16em] text-ink-2">
           Desarrollo 0{index + 1}
         </p>
-        <h3 className="mt-2 font-display text-2xl tracking-[-0.01em]">{dev.name}</h3>
+        <h3 className="mt-2 font-display text-2xl tracking-[-0.01em]">{dev.heading ?? dev.city}</h3>
         <div className="mt-4 flex flex-wrap gap-2">
           {dev.propertyTypes?.map((t) => (
             <span

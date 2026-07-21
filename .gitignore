@@ -56,3 +56,7 @@ next-env.d.ts
 .stat-cand/
 .fb-*.log
 .stat-cand-*.log
+.ambient-cand/
+.db-check.mjs
+.gen-jazz.mjs
+.db-rename.mjs

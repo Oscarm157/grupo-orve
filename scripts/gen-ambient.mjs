@@ -9,13 +9,15 @@ if (!TOKEN) { console.error("Falta REPLICATE_API_TOKEN"); process.exit(1); }
 const OUTDIR = path.resolve(".ambient-cand");
 await fs.mkdir(OUTDIR, { recursive: true });
 
-const MODEL = "stackadoc/stable-audio-open-1.0";
+// Gotcha Replicate: /v1/models/{owner}/{name}/predictions no sirve para stable-audio.
+// Usar /v1/predictions con el hash de versión (de GET /v1/models/... -> latest_version.id).
+const VERSION = "9aff84a639f96d0f7e6081cdea002d15133d0043727f849c40abdd166b7c75a8";
 
 async function run(input) {
-  const res = await fetch(`https://api.replicate.com/v1/models/${MODEL}/predictions`, {
+  const res = await fetch(`https://api.replicate.com/v1/predictions`, {
     method: "POST",
     headers: { Authorization: `Bearer ${TOKEN}`, "Content-Type": "application/json", Prefer: "wait" },
-    body: JSON.stringify({ input }),
+    body: JSON.stringify({ version: VERSION, input }),
   });
   let data = await res.json();
   let tries = 0;
@@ -40,10 +42,10 @@ async function save(name, url) {
 
 const jobs = [
   ["waves.wav",
-    "Gentle constant ocean waves lapping on a calm tropical beach, soft even and steady, distant and mellow, relaxing spa ambience, no strong crashes, seamless background loop, natural field recording",
+    "Very gentle calm ocean, soft steady water gently lapping at the shore, smooth and mellow, distant and even, no crashing waves, no strong breaks, relaxing spa water ambience, seamless background loop, natural field recording",
   ],
   ["jazz.wav",
-    "Very soft slow mellow lounge jazz, quiet warm piano with brushed drums and light upright bass, calm and dreamy, low volume background music, no vocals, relaxing cafe by the sea",
+    "Upbeat warm bossa nova lounge jazz, light cheerful and pleasant, gentle nylon acoustic guitar and soft piano with brushed drums and upright bass, relaxed medium groove, major key, sunny seaside cafe, feel-good and easy, instrumental, no vocals, seamless background loop",
   ],
 ];
 

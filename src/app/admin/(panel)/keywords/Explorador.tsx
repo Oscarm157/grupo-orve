@@ -1,11 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ArrowDown, ArrowUp, Copy, Check } from "lucide-react";
 import type { IdeaFila } from "@/lib/keywords-data";
 import { AgregarAGrupo } from "./AgregarAGrupo";
 import { Calculadora } from "./Calculadora";
 import { claveIdea, useKeywords, type Columna, type Orden } from "./KeywordsContext";
+import { Plegable } from "@/components/crm/Plegable";
 
 /**
  * Explora las keywords del filtro activo: orden por cualquier columna, búsqueda,
@@ -15,6 +16,8 @@ import { claveIdea, useKeywords, type Columna, type Orden } from "./KeywordsCont
 
 const MERCADOS: Record<string, string> = { nacional_es: "Nacional", extranjero_en: "Extranjero" };
 const COMPETENCIA: Record<string, string> = { LOW: "Baja", MEDIUM: "Media", HIGH: "Alta" };
+
+const PAGINA = 60; // filas visibles antes de "mostrar más": 600 de golpe era scroll sin fin
 
 const num = (n: number, d = 0) =>
   n.toLocaleString("es-MX", { minimumFractionDigits: d, maximumFractionDigits: d });
@@ -39,6 +42,7 @@ export function Explorador({
     limpiarSeleccion,
   } = useKeywords();
   const [copiado, setCopiado] = useState(false);
+  const [mostrar, setMostrar] = useState(PAGINA);
 
   // Las cifras del panel salen de la selección; sin selección, de lo que está a la vista.
   const base = seleccion.length ? seleccion : visibles;
@@ -51,6 +55,11 @@ export function Explorador({
     : 0;
 
   const todasElegidas = visibles.length > 0 && visibles.every((k) => elegidas.has(claveIdea(k)));
+  // Al cambiar filtros/orden vuelve al principio de la lista.
+  useEffect(() => {
+    setMostrar(PAGINA);
+  }, [filtros, orden, visibles.length]);
+  const enPantalla = visibles.slice(0, mostrar);
 
   function ordenarPor(col: Columna) {
     setOrden(
@@ -158,14 +167,15 @@ export function Explorador({
         </div>
       )}
 
+      <Plegable id="kw-tabla" titulo="Keywords" contador={`${num(visibles.length)} de ${num(total)}`}>
       {visibles.length === 0 ? (
-        <div className="crm-card mb-6 p-10 text-center">
+        <div className="crm-card p-10 text-center">
           <p className="text-[14px] text-[var(--crm-ink-soft)]">
             Ninguna keyword pasa estos filtros.
           </p>
         </div>
       ) : (
-        <div className="crm-card mb-6 overflow-x-auto">
+        <div className="crm-card overflow-x-auto">
           <table className="crm-table">
             <thead className="crm-thead">
               <tr>
@@ -197,7 +207,7 @@ export function Explorador({
               </tr>
             </thead>
             <tbody>
-              {visibles.map((k) => {
+              {enPantalla.map((k) => {
                 const elegida = elegidas.has(claveIdea(k));
                 return (
                   <tr
@@ -245,18 +255,30 @@ export function Explorador({
               })}
             </tbody>
           </table>
+          {mostrar < visibles.length && (
+            <button
+              type="button"
+              onClick={() => setMostrar((m) => m + PAGINA)}
+              className="w-full border-t border-[var(--crm-line)] py-2.5 text-[13px] font-medium text-[var(--crm-accent-strong)] transition-colors hover:bg-[var(--crm-surface-2)]"
+            >
+              Mostrar {num(Math.min(PAGINA, visibles.length - mostrar))} más ({num(visibles.length - mostrar)} restantes)
+            </button>
+          )}
         </div>
       )}
+      </Plegable>
 
-      <Calculadora
-        cpcSugerido={cpcBase}
-        volumen={volumenBase}
-        origen={
-          seleccion.length
-            ? `${num(seleccion.length)} keywords seleccionadas`
-            : `${num(visibles.length)} keywords a la vista`
-        }
-      />
+      <Plegable id="kw-calc" titulo="Calculadora de presupuesto">
+        <Calculadora
+          cpcSugerido={cpcBase}
+          volumen={volumenBase}
+          origen={
+            seleccion.length
+              ? `${num(seleccion.length)} keywords seleccionadas`
+              : `${num(visibles.length)} keywords a la vista`
+          }
+        />
+      </Plegable>
     </>
   );
 }

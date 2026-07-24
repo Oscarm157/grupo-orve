@@ -8,12 +8,24 @@ import type { ReactNode } from "react";
 
 /** Formato dentro de una línea: negrita, cursiva, código y enlaces. */
 function conFormato(texto: string): ReactNode[] {
-  const partes = texto.split(/(\*\*[^*]+\*\*|\*[^*\n]+\*|`[^`]+`|\[[^\]]+\]\([^)]+\))/g);
+  const partes = texto.split(
+    /(\{\{[^}]+\}\}|\*\*[^*]+\*\*|\*[^*\n]+\*|`[^`]+`|\[[^\]]+\]\([^)]+\))/g,
+  );
   return partes.map((p, i) => {
+    if (p.startsWith("{{") && p.endsWith("}}")) {
+      return (
+        <span
+          key={i}
+          className="mx-0.5 inline-block rounded bg-[var(--crm-accent-soft,rgba(16,185,129,0.12))] px-1.5 py-px text-[12.5px] font-medium text-[var(--crm-accent-strong)]"
+        >
+          {p.slice(2, -2)}
+        </span>
+      );
+    }
     if (p.startsWith("**") && p.endsWith("**")) {
       return (
         <strong key={i} className="font-semibold text-[var(--crm-ink)]">
-          {p.slice(2, -2)}
+          {conFormato(p.slice(2, -2))}
         </strong>
       );
     }
@@ -44,7 +56,7 @@ function conFormato(texto: string): ReactNode[] {
     if (p.startsWith("*") && p.endsWith("*") && p.length > 2) {
       return (
         <em key={i} className="italic">
-          {p.slice(1, -1)}
+          {conFormato(p.slice(1, -1))}
         </em>
       );
     }

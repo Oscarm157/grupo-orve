@@ -501,15 +501,7 @@ export function Asistente() {
                 {t.texto && <Markdown texto={t.texto} />}
                 {t.tarjetas.map((c, j) =>
                   c.tipo === "accion" ? (
-                    <div
-                      key={j}
-                      className="flex items-start gap-2.5 rounded-[var(--crm-r-md)] border-l-2 border-[var(--crm-accent)] bg-[var(--crm-surface-2)] px-3 py-2.5"
-                    >
-                      <IconoAccion nombre={c.herramienta} />
-                      <span className="text-[12.5px] leading-snug text-[var(--crm-ink)]">
-                        {c.texto}
-                      </span>
-                    </div>
+                    <TarjetaAccion key={j} herramienta={c.herramienta} texto={c.texto} />
                   ) : (
                     <div
                       key={j}
@@ -618,15 +610,29 @@ export function Asistente() {
   );
 }
 
-/** Cada acción con su icono: se distingue de un vistazo qué tocó el asistente. */
-function IconoAccion({ nombre }: { nombre: string }) {
-  const clase = "size-3.5 shrink-0 text-[var(--crm-accent-strong)] mt-px";
-  if (nombre === "aplicar_filtros") return <Filter className={clase} />;
-  if (nombre === "ordenar") return <ArrowUpDown className={clase} />;
-  if (nombre === "seleccionar_keywords") return <MousePointerClick className={clase} />;
-  if (nombre === "navegar") return <Compass className={clase} />;
-  if (nombre === "consultar_mercado") return <Database className={clase} />;
-  return <Sparkles className={clase} />;
+/** Cada acción con su icono y etiqueta: se distingue de un vistazo qué tocó el asistente. */
+const ACCIONES: Record<string, { icono: typeof Filter; label: string }> = {
+  aplicar_filtros: { icono: Filter, label: "Filtró" },
+  ordenar: { icono: ArrowUpDown, label: "Ordenó" },
+  seleccionar_keywords: { icono: MousePointerClick, label: "Seleccionó" },
+  navegar: { icono: Compass, label: "Abrió" },
+  consultar_mercado: { icono: Database, label: "Consultó datos" },
+};
+
+function TarjetaAccion({ herramienta, texto }: { herramienta: string; texto: string }) {
+  const a = ACCIONES[herramienta] ?? { icono: Sparkles, label: "Acción" };
+  const Icono = a.icono;
+  return (
+    <div className="flex items-start gap-2.5 rounded-[var(--crm-r-md)] border border-[var(--crm-accent)]/40 bg-[var(--crm-accent-soft,rgba(16,185,129,0.10))] px-3 py-2.5">
+      <span className="mt-px flex size-6 shrink-0 items-center justify-center rounded-full bg-[var(--crm-accent)]">
+        <Icono className="size-3.5 text-white" />
+      </span>
+      <span className="min-w-0 flex-1 text-[12.5px] leading-snug text-[var(--crm-ink)]">
+        <span className="font-semibold text-[var(--crm-accent-strong)]">{a.label}.</span>{" "}
+        {texto}
+      </span>
+    </div>
+  );
 }
 
 /** Qué está viendo ahora mismo, para que los dos miren lo mismo. */

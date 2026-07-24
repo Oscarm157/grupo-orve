@@ -4,6 +4,7 @@ import { getGruposBreve, getIdeas, getPlazas, getResumen } from "@/lib/keywords-
 import type { KwMercado } from "@/lib/schema";
 import { Explorador } from "./Explorador";
 import { KeywordsProvider } from "./KeywordsContext";
+import { Plegable } from "@/components/crm/Plegable";
 
 export const dynamic = "force-dynamic";
 export const metadata = { title: "Keywords", robots: { index: false } };
@@ -115,9 +116,8 @@ export default async function KeywordsPage({
       </KeywordsProvider>
 
       {/* Comparativo de plazas: para decidir dónde entrar, no para el día a día */}
-      <h2 id="plazas" className="crm-h2 mb-3 scroll-mt-20">
-        Las plazas comparadas
-      </h2>
+      <div id="plazas" className="scroll-mt-20">
+      <Plegable id="kw-plazas" titulo="Las plazas comparadas" contador={num(plazas.length)} inicial={false}>
       <div className="crm-card overflow-x-auto">
         <table className="crm-table">
           <thead className="crm-thead">
@@ -181,6 +181,8 @@ export default async function KeywordsPage({
             })}
           </tbody>
         </table>
+      </div>
+      </Plegable>
       </div>
     </div>
   );

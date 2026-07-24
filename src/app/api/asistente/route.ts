@@ -1,5 +1,4 @@
 import Anthropic from "@anthropic-ai/sdk";
-import { checkBotId } from "botid/server";
 import { z } from "zod";
 
 import { getCurrentUser } from "@/lib/session";
@@ -68,14 +67,9 @@ export async function POST(req: Request) {
     return Response.json({ error: "No autorizado." }, { status: 401 });
   }
 
-  // Llamada cara: filtra bots. BotID solo corre desplegado en Vercel; en local
-  // lanza "Must be deployed on Vercel", así que ahí se salta.
-  if (process.env.VERCEL) {
-    const verificacion = await checkBotId();
-    if (verificacion.isBot) {
-      return Response.json({ error: "Bloqueado." }, { status: 403 });
-    }
-  }
+  // Sin BotID a propósito: su script del lado del cliente envolvía el fetch y la
+  // petición no llegaba a salir del navegador. Aquí no hace falta, el endpoint no
+  // es público: exige sesión de admin, que es un filtro más duro que un anti-bot.
 
   if (!process.env.ANTHROPIC_API_KEY) {
     return Response.json({ error: "Falta ANTHROPIC_API_KEY." }, { status: 503 });

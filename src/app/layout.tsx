@@ -25,10 +25,7 @@ export const metadata: Metadata = {
 
 // BotID necesita declarar aquí los endpoints protegidos: sin esto el navegador no
 // firma la llamada y el servidor la trata como sospechosa (403 Bloqueado).
-const PROTEGIDOS = [
-  { path: "/api/asistente", method: "POST" },
-  { path: "/api/expensive", method: "POST" },
-];
+const PROTEGIDOS = [{ path: "/api/expensive", method: "POST" }];
 
 export default function RootLayout({
   children,

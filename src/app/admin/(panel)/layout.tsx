@@ -20,7 +20,7 @@ export default async function PanelLayout({ children }: { children: React.ReactN
   return (
     <SidebarProvider>
       <AppSidebar user={{ name: me.name, role: me.role }} logoutAction={logout} />
-      <SidebarInset>
+      <SidebarInset className="crm-inset">
         <header className="sticky top-0 z-10 flex h-14 shrink-0 items-center gap-2 border-b border-[var(--crm-line)] bg-[var(--crm-bg)]/80 px-4 backdrop-blur">
           <SidebarTrigger className="-ml-1" />
           <Separator orientation="vertical" className="mr-1 h-5" />

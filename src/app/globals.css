@@ -802,3 +802,14 @@ html[data-crm-theme="light"] .crm-logo-navy { display: block; }
     animation: none;
   }
 }
+
+/* Asistente abierto: el panel se recorre para que el sidebar no tape el contenido.
+   En móvil el asistente ocupa toda la pantalla, así que ahí no se recorre nada. */
+.crm-inset {
+  transition: padding-right 0.2s ease;
+}
+@media (min-width: 640px) {
+  html[data-asistente="abierto"] .crm-inset {
+    padding-right: 400px;
+  }
+}

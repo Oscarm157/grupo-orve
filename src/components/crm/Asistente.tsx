@@ -69,8 +69,15 @@ export function Asistente() {
     setMontado(true);
   }, []);
 
+  // Marca el <html> para que el panel se recorra en vez de quedar tapado
+  // (mismo patrón que data-crm-theme).
   useEffect(() => {
-    if (montado) localStorage.setItem(CLAVE_ABIERTO, abierto ? "1" : "0");
+    if (!montado) return;
+    localStorage.setItem(CLAVE_ABIERTO, abierto ? "1" : "0");
+    document.documentElement.dataset.asistente = abierto ? "abierto" : "cerrado";
+    return () => {
+      delete document.documentElement.dataset.asistente;
+    };
   }, [montado, abierto]);
 
   useEffect(() => {

@@ -183,3 +183,39 @@ export const feedbackNotes = pgTable("feedback_notes", {
   status: text("status").$type<FeedbackStatus>().default("open").notNull(),
   createdAt: timestamp("created_at", { withTimezone: true }).defaultNow(),
 });
+
+// ---- Investigación de keywords (Google Keyword Planner por API) ----
+// El motor vive fuera del repo (/root/google-ads-automation): consulta la API, deduplica
+// clusters y escribe aquí. El admin solo lee. Los datos no se publican: el repo es público,
+// la base no.
+export type KwMercado = "nacional_es" | "extranjero_en";
+
+export const kwRuns = pgTable("kw_runs", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  brief: text("brief").notNull(), // nombre del brief que la generó
+  mercado: text("mercado").$type<KwMercado>().notNull(),
+  geo: text("geo").notNull(), // "México" / "Estados Unidos"
+  idioma: text("idioma").notNull(),
+  tipoCambio: numeric("tipo_cambio", { precision: 6, scale: 2 }),
+  total: integer("total").notNull(),
+  corridaEn: timestamp("corrida_en", { withTimezone: true }).defaultNow(),
+});
+
+export const kwIdeas = pgTable("kw_ideas", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  runId: uuid("run_id")
+    .notNull()
+    .references(() => kwRuns.id, { onDelete: "cascade" }),
+  keyword: text("keyword").notNull(),
+  plaza: text("plaza").notNull(),
+  volumen: integer("volumen").notNull(),
+  competencia: text("competencia").notNull(), // LOW | MEDIUM | HIGH
+  indiceCompetencia: integer("indice_competencia"),
+  pujaBajaUsd: numeric("puja_baja_usd", { precision: 8, scale: 2 }),
+  pujaAltaUsd: numeric("puja_alta_usd", { precision: 8, scale: 2 }),
+  variantes: integer("variantes").default(1).notNull(),
+  serie12m: jsonb("serie_12m").$type<number[]>(),
+});
+
+export type KwRun = typeof kwRuns.$inferSelect;
+export type KwIdea = typeof kwIdeas.$inferSelect;

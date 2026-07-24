@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import { ArrowDown, ArrowUp, Copy, Check } from "lucide-react";
 import type { IdeaFila } from "@/lib/keywords-data";
+import { AgregarAGrupo } from "./AgregarAGrupo";
 import { Calculadora } from "./Calculadora";
 
 /**
@@ -23,7 +24,15 @@ const num = (n: number, d = 0) =>
 
 const clave = (k: IdeaFila) => `${k.keyword}·${k.mercado}`;
 
-export function Explorador({ ideas, total }: { ideas: IdeaFila[]; total: number }) {
+export function Explorador({
+  ideas,
+  total,
+  grupos,
+}: {
+  ideas: IdeaFila[];
+  total: number;
+  grupos: Array<{ id: string; nombre: string; plaza: string; tema: string }>;
+}) {
   const [busqueda, setBusqueda] = useState("");
   const [minVolumen, setMinVolumen] = useState(0);
   const [competencias, setCompetencias] = useState<string[]>([]);
@@ -176,6 +185,11 @@ export function Explorador({ ideas, total }: { ideas: IdeaFila[]; total: number 
             CPC ponderado ${cpcBase.toFixed(2)}
           </span>
           <div className="ml-auto flex items-center gap-2">
+            <AgregarAGrupo
+              seleccion={seleccion}
+              grupos={grupos}
+              onListo={() => setElegidas(new Set())}
+            />
             <button type="button" onClick={copiar} className="crm-btn crm-btn-sm crm-btn-secondary">
               {copiado ? <Check className="size-3.5" /> : <Copy className="size-3.5" />}
               {copiado ? "Copiadas" : "Copiar"}

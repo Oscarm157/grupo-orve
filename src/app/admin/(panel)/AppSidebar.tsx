@@ -3,18 +3,19 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Building2, MapPin, UtensilsCrossed, Inbox, MessageSquare, TrendingUp, LogOut, Sun, Moon } from "lucide-react";
+import { Building2, MapPin, UtensilsCrossed, Inbox, MessageSquare, TrendingUp, FolderTree, LogOut, Sun, Moon } from "lucide-react";
 import {
   Sidebar, SidebarHeader, SidebarContent, SidebarFooter, SidebarGroup,
   SidebarGroupLabel, SidebarGroupContent, SidebarMenu, SidebarMenuItem,
   SidebarMenuButton, useSidebar,
 } from "@/components/ui/sidebar";
 
-type Item = { href: string; label: string; icon: typeof Building2 };
+type Item = { href: string; label: string; icon: typeof Building2; exacto?: boolean };
 type Group = { label: string; items: Item[] };
 
-function isActive(pathname: string, href: string) {
-  return pathname === href || pathname.startsWith(href + "/");
+// Keywords y Grupos comparten prefijo: sin `exacto`, estar en /grupos marcaría los dos.
+function isActive(pathname: string, { href, exacto }: Item) {
+  return exacto ? pathname === href : pathname === href || pathname.startsWith(href + "/");
 }
 
 const GROUPS: Group[] = [
@@ -30,7 +31,8 @@ const GROUPS: Group[] = [
     label: "Comercial",
     items: [
       { href: "/admin/leads", label: "Leads", icon: Inbox },
-      { href: "/admin/keywords", label: "Keywords", icon: TrendingUp },
+      { href: "/admin/keywords", label: "Keywords", icon: TrendingUp, exacto: true },
+      { href: "/admin/keywords/grupos", label: "Grupos", icon: FolderTree },
       { href: "/admin/feedback", label: "Comentarios del sitio", icon: MessageSquare },
     ],
   },
@@ -79,12 +81,16 @@ export function AppSidebar({
             <SidebarGroupLabel>{g.label}</SidebarGroupLabel>
             <SidebarGroupContent>
               <SidebarMenu>
-                {g.items.map(({ href, label, icon: Icon }) => (
-                  <SidebarMenuItem key={href}>
-                    <SidebarMenuButton asChild isActive={isActive(pathname, href)} tooltip={label}>
-                      <Link href={href}>
-                        <Icon strokeWidth={1.9} />
-                        <span>{label}</span>
+                {g.items.map((item) => (
+                  <SidebarMenuItem key={item.href}>
+                    <SidebarMenuButton
+                      asChild
+                      isActive={isActive(pathname, item)}
+                      tooltip={item.label}
+                    >
+                      <Link href={item.href}>
+                        <item.icon strokeWidth={1.9} />
+                        <span>{item.label}</span>
                       </Link>
                     </SidebarMenuButton>
                   </SidebarMenuItem>

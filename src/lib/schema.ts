@@ -219,3 +219,37 @@ export const kwIdeas = pgTable("kw_ideas", {
 
 export type KwRun = typeof kwRuns.$inferSelect;
 export type KwIdea = typeof kwIdeas.$inferSelect;
+
+// ---- Grupos de keywords (futuros grupos de anuncios) ----
+// Varios grupos por ciudad, cada uno de un solo tema: es lo que Google Ads espera para que
+// el anuncio hable de lo mismo que la keyword. El snapshot de métricas vive en el item para
+// que el grupo sobreviva a una recorrida nueva del research.
+export type KwTema = "terrenos" | "casas" | "departamentos" | "otro";
+export type KwEstado = "borrador" | "listo" | "lanzado";
+
+export const kwGrupos = pgTable("kw_grupos", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  nombre: text("nombre").notNull(),
+  plaza: text("plaza").notNull(),
+  tema: text("tema").$type<KwTema>().default("otro").notNull(),
+  mercado: text("mercado").$type<KwMercado>().notNull(),
+  estado: text("estado").$type<KwEstado>().default("borrador").notNull(),
+  notas: text("notas"),
+  createdAt: timestamp("created_at", { withTimezone: true }).defaultNow(),
+  updatedAt: timestamp("updated_at", { withTimezone: true }).defaultNow(),
+});
+
+export const kwGrupoItems = pgTable("kw_grupo_items", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  grupoId: uuid("grupo_id")
+    .notNull()
+    .references(() => kwGrupos.id, { onDelete: "cascade" }),
+  keyword: text("keyword").notNull(),
+  volumen: integer("volumen").notNull(),
+  cpc: numeric("cpc", { precision: 8, scale: 2 }),
+  competencia: text("competencia").notNull(),
+  agregadaEn: timestamp("agregada_en", { withTimezone: true }).defaultNow(),
+});
+
+export type KwGrupo = typeof kwGrupos.$inferSelect;
+export type KwGrupoItem = typeof kwGrupoItems.$inferSelect;

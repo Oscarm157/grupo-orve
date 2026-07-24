@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { PageHeader } from "@/components/crm/PageShell";
-import { getIdeas, getPlazas, getResumen } from "@/lib/keywords-data";
+import { getGruposBreve, getIdeas, getPlazas, getResumen } from "@/lib/keywords-data";
 import type { KwMercado } from "@/lib/schema";
 import { Explorador } from "./Explorador";
 
@@ -37,7 +37,7 @@ export default async function KeywordsPage({
   const mercado =
     sp.mercado === "nacional_es" || sp.mercado === "extranjero_en" ? sp.mercado : undefined;
 
-  const [plazas, resumen] = await Promise.all([getPlazas(), getResumen()]);
+  const [plazas, resumen, grupos] = await Promise.all([getPlazas(), getResumen(), getGruposBreve()]);
   const plaza = plazas.find((p) => p.plaza === sp.plaza)?.plaza;
   const ideas = await getIdeas({ plaza, mercado, limite: 600 });
 
@@ -109,7 +109,7 @@ export default async function KeywordsPage({
         ))}
       </div>
 
-      <Explorador ideas={ideas} total={resumen.keywords} />
+      <Explorador ideas={ideas} total={resumen.keywords} grupos={grupos} />
 
       {/* Comparativo de plazas: para decidir dónde entrar, no para el día a día */}
       <h2 id="plazas" className="crm-h2 mb-3 scroll-mt-20">

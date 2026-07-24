@@ -28,3 +28,27 @@ CREATE TABLE IF NOT EXISTS "kw_ideas" (
 
 CREATE INDEX IF NOT EXISTS "kw_ideas_plaza_idx" ON "kw_ideas" ("plaza");
 CREATE INDEX IF NOT EXISTS "kw_ideas_run_idx" ON "kw_ideas" ("run_id");
+
+CREATE TABLE IF NOT EXISTS "kw_grupos" (
+	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+	"nombre" text NOT NULL,
+	"plaza" text NOT NULL,
+	"tema" text DEFAULT 'otro' NOT NULL,
+	"mercado" text NOT NULL,
+	"estado" text DEFAULT 'borrador' NOT NULL,
+	"notas" text,
+	"created_at" timestamp with time zone DEFAULT now(),
+	"updated_at" timestamp with time zone DEFAULT now()
+);
+
+CREATE TABLE IF NOT EXISTS "kw_grupo_items" (
+	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+	"grupo_id" uuid NOT NULL REFERENCES "kw_grupos"("id") ON DELETE CASCADE,
+	"keyword" text NOT NULL,
+	"volumen" integer NOT NULL,
+	"cpc" numeric(8, 2),
+	"competencia" text NOT NULL,
+	"agregada_en" timestamp with time zone DEFAULT now()
+);
+
+CREATE UNIQUE INDEX IF NOT EXISTS "kw_grupo_items_unicos" ON "kw_grupo_items" ("grupo_id", "keyword");

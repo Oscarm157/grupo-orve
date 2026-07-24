@@ -1,6 +1,6 @@
 import { and, desc, eq, gte, ilike, sql, type SQL } from "drizzle-orm";
 import { db } from "./db";
-import { kwIdeas, kwRuns, type KwMercado } from "./schema";
+import { kwGrupoItems, kwGrupos, kwIdeas, kwRuns, type KwMercado } from "./schema";
 
 // Datos del research de Google Keyword Planner. Los genera el motor de
 // /root/google-ads-automation y los carga scripts/import-keywords.mjs; aquí solo se leen.
@@ -129,4 +129,86 @@ export async function getResumen() {
     .orderBy(desc(kwRuns.corridaEn))
     .limit(1);
   return { ...r, corridaEn: ultima?.fecha ?? null };
+}
+
+// ---- Grupos ----
+
+export type GrupoResumen = {
+  id: string;
+  nombre: string;
+  plaza: string;
+  tema: string;
+  mercado: KwMercado;
+  estado: string;
+  keywords: number;
+  volumen: number;
+  cpc: number; // ponderado por volumen: una keyword de 4,000 pesa más que una de 20
+  disputa: number;
+  techoClics: number; // lo máximo que da la demanda del grupo, no lo que paga el presupuesto
+  costoMes: number;
+  actualizado: Date | null;
+};
+
+// De cada búsqueda, cuántas terminan en clic tuyo aunque domines la subasta.
+// Mismo supuesto que la calculadora de la pantalla.
+const CAPTURA_MAXIMA = 0.05;
+
+export async function getGrupos(): Promise<GrupoResumen[]> {
+  const { rows } = await db.execute<{
+    id: string; nombre: string; plaza: string; tema: string; mercado: KwMercado;
+    estado: string; keywords: number; volumen: number; cpc: number; altas: number;
+    actualizado: string | null;
+  }>(sql`
+    SELECT g.id, g.nombre, g.plaza, g.tema, g.mercado, g.estado,
+           count(i.id)::int AS keywords,
+           coalesce(sum(i.volumen), 0)::int AS volumen,
+           coalesce(
+             sum(i.cpc * i.volumen) FILTER (WHERE i.cpc > 0)
+             / nullif(sum(i.volumen) FILTER (WHERE i.cpc > 0), 0), 0
+           )::float AS cpc,
+           count(*) FILTER (WHERE i.competencia = 'HIGH')::int AS altas,
+           g.updated_at AS actualizado
+    FROM kw_grupos g
+    LEFT JOIN kw_grupo_items i ON i.grupo_id = g.id
+    GROUP BY g.id
+  `);
+
+  return rows
+    .map((r) => {
+      const techoClics = r.volumen * CAPTURA_MAXIMA;
+      return {
+        id: r.id, nombre: r.nombre, plaza: r.plaza, tema: r.tema,
+        mercado: r.mercado, estado: r.estado,
+        keywords: r.keywords, volumen: r.volumen, cpc: r.cpc,
+        disputa: r.keywords ? r.altas / r.keywords : 0,
+        techoClics,
+        costoMes: techoClics * r.cpc,
+        actualizado: r.actualizado ? new Date(r.actualizado) : null,
+      };
+    })
+    .sort((a, b) => b.volumen - a.volumen);
+}
+
+export async function getGrupo(id: string) {
+  const [grupo] = await db.select().from(kwGrupos).where(eq(kwGrupos.id, id));
+  if (!grupo) return null;
+  const items = await db
+    .select()
+    .from(kwGrupoItems)
+    .where(eq(kwGrupoItems.grupoId, id))
+    .orderBy(desc(kwGrupoItems.volumen));
+  return { grupo, items };
+}
+
+/** Grupos en la lista corta del explorador, para agregar keywords sin salir de la tabla. */
+export async function getGruposBreve() {
+  return db
+    .select({
+      id: kwGrupos.id,
+      nombre: kwGrupos.nombre,
+      plaza: kwGrupos.plaza,
+      tema: kwGrupos.tema,
+    })
+    .from(kwGrupos)
+    .orderBy(desc(kwGrupos.updatedAt));
 }

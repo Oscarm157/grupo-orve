@@ -9,7 +9,7 @@ import { TOOLS, esToolCliente } from "@/lib/asistente/tools";
 export const runtime = "nodejs";
 export const maxDuration = 60;
 
-const MAX_MENSAJES = 24;
+const MAX_MENSAJES = 12;
 const MAX_CHARS = 6000;
 
 const bodySchema = z.object({
@@ -104,8 +104,10 @@ export async function POST(req: Request) {
         ];
 
         const llamada = anthropic.messages.stream({
-          model: "claude-opus-4-8",
-          max_tokens: 8000,
+          // Sonnet 5: la mitad de costo que Opus y de sobra para ejecutar acciones
+          // y hacer cuentas sobre datos que ya van en el prompt.
+          model: "claude-sonnet-5",
+          max_tokens: 2000,
           // Esfuerzo bajo: casi todo son acciones de pantalla o aritmética sobre datos
           // que ya van en el prompt. Pensar más solo agregaba espera.
           thinking: { type: "adaptive", display: "summarized" },

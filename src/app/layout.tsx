@@ -4,6 +4,7 @@ import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
 import { SmoothScroll } from "@/components/smooth-scroll";
 import { FeedbackWidget } from "@/components/site/FeedbackWidget";
+import { BotIdClient } from "botid/client";
 
 // DM Sans: geométrica, tracking apretado — sustituto real recomendado para F37Bolton
 // (referencia Lightship, ver DESIGN.md) en vez del Geist por default del starter.
@@ -22,6 +23,13 @@ export const metadata: Metadata = {
   description: "Comercialización de desarrollos inmobiliarios en la península de Yucatán.",
 };
 
+// BotID necesita declarar aquí los endpoints protegidos: sin esto el navegador no
+// firma la llamada y el servidor la trata como sospechosa (403 Bloqueado).
+const PROTEGIDOS = [
+  { path: "/api/asistente", method: "POST" },
+  { path: "/api/expensive", method: "POST" },
+];
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -29,6 +37,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es" className={`${dmSans.variable} ${geistMono.variable} h-full antialiased`}>
+      <head>
+        <BotIdClient protect={PROTEGIDOS} />
+      </head>
+      <head>
+        <BotIdClient protect={PROTEGIDOS} />
+      </head>
       <body className="min-h-full flex flex-col font-sans">
         <SmoothScroll />
         {children}

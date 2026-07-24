@@ -2,7 +2,7 @@ import Link from "next/link";
 import { PageHeader } from "@/components/crm/PageShell";
 import { getIdeas, getPlazas, getResumen } from "@/lib/keywords-data";
 import type { KwMercado } from "@/lib/schema";
-import { Calculadora } from "./Calculadora";
+import { Explorador } from "./Explorador";
 
 export const dynamic = "force-dynamic";
 export const metadata = { title: "Keywords", robots: { index: false } };
@@ -11,7 +11,7 @@ const MERCADOS: Record<KwMercado, string> = {
   nacional_es: "Nacional",
   extranjero_en: "Extranjero",
 };
-const COMPETENCIA: Record<string, string> = { LOW: "Baja", MEDIUM: "Media", HIGH: "Alta" };
+const CHIPS = 14; // plazas en el filtro rápido; el resto, en el comparativo de abajo
 
 const num = (n: number, d = 0) =>
   n.toLocaleString("es-MX", { minimumFractionDigits: d, maximumFractionDigits: d });
@@ -21,23 +21,26 @@ const fmtFecha = (d: Date | null) =>
     ? new Intl.DateTimeFormat("es-MX", { day: "2-digit", month: "long", year: "numeric" }).format(d)
     : "—";
 
+const url = (plaza?: string, mercado?: string) => {
+  const p = new URLSearchParams();
+  if (plaza) p.set("plaza", plaza);
+  if (mercado) p.set("mercado", mercado);
+  return `/admin/keywords${p.size ? `?${p}` : ""}`;
+};
+
 export default async function KeywordsPage({
   searchParams,
 }: {
   searchParams: Promise<{ plaza?: string; mercado?: string }>;
 }) {
   const sp = await searchParams;
-  const mercado = sp.mercado === "nacional_es" || sp.mercado === "extranjero_en" ? sp.mercado : undefined;
+  const mercado =
+    sp.mercado === "nacional_es" || sp.mercado === "extranjero_en" ? sp.mercado : undefined;
 
   const [plazas, resumen] = await Promise.all([getPlazas(), getResumen()]);
   const plaza = plazas.find((p) => p.plaza === sp.plaza)?.plaza;
-  const ideas = await getIdeas({ plaza, mercado, limite: 120 });
+  const ideas = await getIdeas({ plaza, mercado, limite: 600 });
 
-  const seleccionada = plazas.find((p) => p.plaza === plaza);
-  // Sin plaza elegida, el CPC de referencia es el promedio de todas, no el de la primera fila.
-  const conCpc = plazas.filter((p) => p.cpc > 0);
-  const cpcSugerido =
-    seleccionada?.cpc ?? (conCpc.length ? conCpc.reduce((a, p) => a + p.cpc, 0) / conCpc.length : 1);
   const escala = Math.max(...plazas.map((p) => p.total), 1);
 
   if (!resumen.keywords) {
@@ -45,9 +48,7 @@ export default async function KeywordsPage({
       <div className="mx-auto max-w-[1200px]">
         <PageHeader eyebrow="Pauta" title="Keywords" />
         <div className="crm-card p-10 text-center">
-          <p className="text-[14px] text-[var(--crm-ink-soft)]">
-            Todavía no hay research cargado.
-          </p>
+          <p className="text-[14px] text-[var(--crm-ink-soft)]">Todavía no hay research cargado.</p>
           <p className="mt-1 text-[13px] text-[var(--crm-ink-faint)]">
             Corre el motor en /root/google-ads-automation y luego{" "}
             <span className="crm-num">node --env-file=.env.local scripts/import-keywords.mjs</span>.
@@ -65,12 +66,56 @@ export default async function KeywordsPage({
         description={`Demanda medida en Google Keyword Planner. ${num(resumen.keywords)} keywords en ${num(resumen.plazas)} plazas, ${num(resumen.volumen)} búsquedas al mes. Última corrida: ${fmtFecha(resumen.corridaEn)}.`}
       />
 
-      <div className="mb-5">
-        <Calculadora cpcSugerido={cpcSugerido} plaza={seleccionada?.plaza ?? "referencia"} />
+      {/* Filtros: ciudad y mercado, sobre la tabla de keywords */}
+      <div className="mb-2.5 flex flex-wrap items-center gap-1.5">
+        <Link
+          href={url(undefined, mercado)}
+          className={`crm-btn crm-btn-sm ${!plaza ? "crm-btn-primary" : "crm-btn-secondary"}`}
+        >
+          Todas
+        </Link>
+        {plazas.slice(0, CHIPS).map((p) => (
+          <Link
+            key={p.plaza}
+            href={url(p.plaza === plaza ? undefined : p.plaza, mercado)}
+            className={`crm-btn crm-btn-sm ${p.plaza === plaza ? "crm-btn-primary" : "crm-btn-secondary"}`}
+          >
+            {p.plaza}
+          </Link>
+        ))}
+        {plaza && !plazas.slice(0, CHIPS).some((p) => p.plaza === plaza) && (
+          <span className="crm-btn crm-btn-sm crm-btn-primary">{plaza}</span>
+        )}
+        <a href="#plazas" className="crm-btn crm-btn-sm crm-btn-ghost">
+          Ver las {num(plazas.length)} plazas
+        </a>
       </div>
 
-      {/* Comparativo de plazas: la vista que responde dónde conviene entrar */}
-      <div className="crm-card mb-5 overflow-hidden">
+      <div className="mb-4 flex flex-wrap items-center gap-1.5">
+        <Link
+          href={url(plaza)}
+          className={`crm-btn crm-btn-sm ${!mercado ? "crm-btn-primary" : "crm-btn-secondary"}`}
+        >
+          Los dos mercados
+        </Link>
+        {(Object.keys(MERCADOS) as KwMercado[]).map((m) => (
+          <Link
+            key={m}
+            href={url(plaza, m)}
+            className={`crm-btn crm-btn-sm ${mercado === m ? "crm-btn-primary" : "crm-btn-secondary"}`}
+          >
+            {MERCADOS[m]}
+          </Link>
+        ))}
+      </div>
+
+      <Explorador ideas={ideas} total={resumen.keywords} />
+
+      {/* Comparativo de plazas: para decidir dónde entrar, no para el día a día */}
+      <h2 id="plazas" className="crm-h2 mb-3 scroll-mt-20">
+        Las plazas comparadas
+      </h2>
+      <div className="crm-card overflow-hidden">
         <table className="crm-table">
           <thead className="crm-thead">
             <tr>
@@ -87,14 +132,10 @@ export default async function KeywordsPage({
             {plazas.map((p) => {
               const activa = p.plaza === plaza;
               return (
-                <tr
-                  key={p.plaza}
-                  className="crm-row border-t border-[var(--crm-line)]"
-                  data-active={activa}
-                >
+                <tr key={p.plaza} className="crm-row border-t border-[var(--crm-line)]">
                   <td className="crm-td">
                     <Link
-                      href={activa ? "/admin/keywords" : `/admin/keywords?plaza=${encodeURIComponent(p.plaza)}`}
+                      href={url(activa ? undefined : p.plaza, mercado)}
                       className={`font-medium transition-colors hover:text-[var(--crm-accent-strong)] ${
                         activa ? "text-[var(--crm-accent-strong)]" : "text-[var(--crm-ink)]"
                       }`}
@@ -138,85 +179,6 @@ export default async function KeywordsPage({
           </tbody>
         </table>
       </div>
-
-      {/* Keywords del filtro activo */}
-      <div className="mb-3 flex flex-wrap items-center gap-2">
-        <Link
-          href={plaza ? `/admin/keywords?plaza=${encodeURIComponent(plaza)}` : "/admin/keywords"}
-          className={`crm-btn crm-btn-sm ${!mercado ? "crm-btn-primary" : "crm-btn-secondary"}`}
-        >
-          Los dos mercados
-        </Link>
-        {(Object.keys(MERCADOS) as KwMercado[]).map((m) => (
-          <Link
-            key={m}
-            href={`/admin/keywords?${new URLSearchParams({ ...(plaza ? { plaza } : {}), mercado: m })}`}
-            className={`crm-btn crm-btn-sm ${mercado === m ? "crm-btn-primary" : "crm-btn-secondary"}`}
-          >
-            {MERCADOS[m]}
-          </Link>
-        ))}
-        {plaza && (
-          <Link href="/admin/keywords" className="crm-btn crm-btn-sm crm-btn-ghost">
-            Quitar filtro: {plaza}
-          </Link>
-        )}
-        <span className="ml-auto text-[12.5px] text-[var(--crm-ink-faint)]">
-          {ideas.length === 120 ? "las 120 más grandes" : `${ideas.length} keywords`}
-        </span>
-      </div>
-
-      {ideas.length === 0 ? (
-        <div className="crm-card p-10 text-center">
-          <p className="text-[14px] text-[var(--crm-ink-soft)]">
-            No hay keywords con este filtro.
-          </p>
-        </div>
-      ) : (
-        <div className="crm-card overflow-hidden">
-          <table className="crm-table">
-            <thead className="crm-thead">
-              <tr>
-                <th className="crm-th">Keyword</th>
-                <th className="crm-th">Plaza</th>
-                <th className="crm-th">Mercado</th>
-                <th className="crm-th text-right">Vol/mes</th>
-                <th className="crm-th text-right">Competencia</th>
-                <th className="crm-th text-right">Puja USD</th>
-              </tr>
-            </thead>
-            <tbody>
-              {ideas.map((k) => (
-                <tr key={`${k.keyword}-${k.mercado}`} className="crm-row border-t border-[var(--crm-line)]">
-                  <td className="crm-td">
-                    <span className="text-[13.5px] text-[var(--crm-ink)]">{k.keyword}</span>
-                    {k.variantes > 1 && (
-                      <span className="ml-2 text-[12px] text-[var(--crm-ink-faint)]">
-                        +{k.variantes - 1} variantes
-                      </span>
-                    )}
-                  </td>
-                  <td className="crm-td text-[13px] text-[var(--crm-ink-soft)]">{k.plaza}</td>
-                  <td className="crm-td text-[13px] text-[var(--crm-ink-mute)]">
-                    {MERCADOS[k.mercado]}
-                  </td>
-                  <td className="crm-td crm-num text-right text-[13.5px] font-medium text-[var(--crm-ink)]">
-                    {num(k.volumen)}
-                  </td>
-                  <td className="crm-td text-right">
-                    <span className="crm-badge">
-                      {COMPETENCIA[k.competencia] ?? k.competencia} · {k.indice}
-                    </span>
-                  </td>
-                  <td className="crm-td crm-num text-right text-[13px] text-[var(--crm-ink-soft)]">
-                    ${k.cpcBaja.toFixed(2)} – ${k.cpc.toFixed(2)}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      )}
     </div>
   );
 }

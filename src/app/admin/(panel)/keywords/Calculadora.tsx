@@ -3,12 +3,26 @@
 import { useEffect, useState } from "react";
 
 /**
- * Traduce presupuesto a leads con el CPC de la plaza que se esté viendo.
+ * Traduce presupuesto a leads con el CPC de lo que se esté mirando: la selección
+ * de keywords si hay una, y si no, todo lo que está a la vista.
  * El escenario se guarda: al volver a la pantalla sigue ahí.
  */
 const CLAVE = "kw-escenario";
 
-export function Calculadora({ cpcSugerido, plaza }: { cpcSugerido: number; plaza: string }) {
+// De cada búsqueda de la plaza, cuántas terminan en clic tuyo aunque domines la subasta.
+// No todas las búsquedas muestran anuncios y no todo el que ve el anuncio hace clic.
+const CAPTURA_MAXIMA = 0.05;
+
+export function Calculadora({
+  cpcSugerido,
+  volumen,
+  origen,
+}: {
+  cpcSugerido: number;
+  volumen: number;
+  /** Qué se está midiendo, para que las cifras digan de dónde salen. */
+  origen: string;
+}) {
   const [e, setE] = useState({
     presupuesto: 500,
     cpc: cpcSugerido || 1,
@@ -37,9 +51,15 @@ export function Calculadora({ cpcSugerido, plaza }: { cpcSugerido: number; plaza
   const setCampo = (campo: keyof typeof e) => (v: number) =>
     setE((prev) => ({ ...prev, [campo]: v }));
 
-  const clics = cpc > 0 ? presupuesto / cpc : 0;
+  // El presupuesto compra clics hasta donde alcance la demanda: no se pueden comprar
+  // más clics de los que la plaza genera, por mucho presupuesto que haya.
+  const techo = volumen * CAPTURA_MAXIMA;
+  const clicsQuePaga = cpc > 0 ? presupuesto / cpc : 0;
+  const clics = Math.min(clicsQuePaga, techo);
+  const topado = clicsQuePaga > techo;
+  const gastoReal = clics * cpc;
   const leads = clics * (conversion / 100);
-  const costoLead = leads > 0 ? presupuesto / leads : 0;
+  const costoLead = leads > 0 ? gastoReal / leads : 0;
 
   const num = (n: number, d = 0) =>
     n.toLocaleString("es-MX", { minimumFractionDigits: d, maximumFractionDigits: d });
@@ -47,13 +67,16 @@ export function Calculadora({ cpcSugerido, plaza }: { cpcSugerido: number; plaza
   return (
     <div className="crm-card p-4 sm:p-5">
       <div className="mb-4 flex flex-wrap items-baseline justify-between gap-2">
-        <h2 className="crm-h2">Cuántos leads salen con este presupuesto</h2>
+        <div>
+          <h2 className="crm-h2">Cuántos leads salen con este presupuesto</h2>
+          <p className="mt-0.5 text-[12.5px] text-[var(--crm-ink-mute)]">Sobre {origen}</p>
+        </div>
         <button
           type="button"
           onClick={() => setCampo("cpc")(cpcSugerido)}
           className="crm-btn crm-btn-sm crm-btn-secondary"
         >
-          {plaza === "referencia" ? "CPC promedio" : `CPC de ${plaza}`}: ${cpcSugerido.toFixed(2)}
+          Usar CPC medido: ${cpcSugerido.toFixed(2)}
         </button>
       </div>
 
@@ -100,14 +123,26 @@ export function Calculadora({ cpcSugerido, plaza }: { cpcSugerido: number; plaza
         <Kpi label="Clics al mes" valor={num(clics)} />
         <Kpi label="Leads al mes" valor={num(leads, 1)} destacado />
         <Kpi label="Costo por lead" valor={`$${num(costoLead, 2)} USD`} />
-        <Kpi label="Costo por lead" valor={`$${num(costoLead * tipoCambio)} MXN`} />
+        <Kpi label="Gasto real al mes" valor={`$${num(gastoReal)} USD`} />
       </div>
 
-      <p className="mt-3 text-[12.5px] leading-relaxed text-[var(--crm-ink-faint)]">
-        Aritmética simple sobre el CPC medido, no un pronóstico de Google. Sirve para dimensionar,
-        no para comprometer presupuesto: el CPC real depende de la calidad del anuncio y de quién
-        más esté pujando ese mes.
-      </p>
+      {topado ? (
+        <p className="mt-3 text-[13px] leading-relaxed text-[var(--crm-ink-soft)]">
+          <b className="font-medium text-[var(--crm-ink)]">
+            Sobra presupuesto: no hay tanta demanda que comprar.
+          </b>{" "}
+          Con ${num(presupuesto)} al mes pagarías {num(clicsQuePaga)} clics, pero {origen} suman{" "}
+          {num(volumen)} búsquedas al mes y de ahí salen unos {num(techo)} clics como techo, aunque
+          aparezcas en todas. El resto del presupuesto no encuentra dónde gastarse: se usan{" "}
+          ${num(gastoReal)} y sobran ${num(presupuesto - gastoReal)}.
+        </p>
+      ) : (
+        <p className="mt-3 text-[12.5px] leading-relaxed text-[var(--crm-ink-faint)]">
+          Techo: {num(techo)} clics al mes sobre {num(volumen)} búsquedas. Aritmética
+          sobre el CPC medido, no un pronóstico de Google: el costo real depende de la calidad del
+          anuncio y de quién más esté pujando ese mes.
+        </p>
+      )}
     </div>
   );
 }
